@@ -6,3 +6,5 @@ ProjectSettings/
 UnityPackageManager/
 
 *.userprefs
+
+Temp/
