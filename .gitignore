@@ -8,3 +8,7 @@ UnityPackageManager/
 *.userprefs
 
 Temp/
+
+HammerMan\.csproj
+
+HammerMan\.sln
