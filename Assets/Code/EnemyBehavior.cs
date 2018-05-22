@@ -12,6 +12,8 @@ public class EnemyBehavior : MonoBehaviour {
 
     Rigidbody2D rb;
 
+    GameControler GC;
+
     bool DirRight = true;
     int falling = 0;
 
@@ -25,10 +27,14 @@ public class EnemyBehavior : MonoBehaviour {
         if (!DirRight) {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
-        
+
+        GC = GameObject.Find("GameManager").GetComponent<GameControler>();
+        if (!GC) {
+            throw new System.Exception("GameManager not found. Enemy");
+        }
+
     }
 	
-	// Update is called once per frame
 	void Update () {
         
         if (falling == 0 && rb.velocity.y < -1.5f ) {
@@ -58,8 +64,11 @@ public class EnemyBehavior : MonoBehaviour {
             case "Hammer":
                 Die();
                 break;
-            case "Finish":
-
+            case "Exit":
+                //deplanisch health
+                //make warning sound
+                Die();
+                break;
             default:
                 break;
         }
@@ -67,7 +76,7 @@ public class EnemyBehavior : MonoBehaviour {
 
     public void Die() {
         //here nice sfx and animation
-        //comunicate to gamemanager your dad
+        GC.ChangeEnemyCount(-1);
         GameObject.Destroy(this.transform.gameObject);
     }
 }
