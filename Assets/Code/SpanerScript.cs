@@ -8,6 +8,8 @@ public class SpanerScript : MonoBehaviour {
     GameObject Creap1;
     [SerializeField]
     float SpawnRate = 10.0f;
+    [SerializeField]
+    float SpawnActiveTime = 100f;
 
     float LastSpawn = 0.0f;
     GameControler GC;
@@ -24,7 +26,7 @@ public class SpanerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (GC.GetTime() > LastSpawn + SpawnRate) {
+		if (GC.GetTime() > LastSpawn + SpawnRate && GC.GetTime() < SpawnActiveTime) {
             Instantiate(Creap1);
             Creap1.transform.position = this.transform.position;
             LastSpawn = GC.GetTime();
