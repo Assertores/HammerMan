@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: b727bb943f089834ea3ea06972c671cd
 folderAsset: yes
 timeCreated: 1526925992
+=======
+guid: 8c2041b264ad92645af574b37fad0bad
+folderAsset: yes
+timeCreated: 1526911119
+>>>>>>> CodeDev
 licenseType: Free
 DefaultImporter:
   externalObjects: {}
