@@ -13,8 +13,7 @@ public class EnemyBehavior : MonoBehaviour {
     Rigidbody2D rb;
 
     bool DirRight = true;
-    bool falling = false;
-    bool startFalling = false;
+    int falling = 0;
 
     void Start () {
         rb = GetComponent<Rigidbody2D>();
@@ -32,24 +31,26 @@ public class EnemyBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         
-        /*if (rb.velocity.y < 0.0f) {
-            falling = true;
-        } else {
-            falling = false;
-            startFalling = true;
+        if (falling == 0 && rb.velocity.y < -1.5f ) {
+            falling = 1;
+        }else if (falling == 1) {
+            falling = 2;
+            bool DirNew = (Random.value > 0.5f);
+            if (DirNew != DirRight) {
+                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+            }
+            DirRight = DirNew;
+        }else if (falling == 2 && rb.velocity.y >= 0.0f) {
+            falling = 0;
         }
-        if (falling && startFalling) {
-            startFalling = false;
-            DirRight = (Random.value > 0.5f);
-        }*/
         RaycastHit2D hit = Physics2D.Raycast(this.transform.position, this.transform.right * rb.velocity.x, TurningDistance, layer);
         
-        if (hit.collider != null && hit.collider.tag == "Level") {
+        if (falling == 0 && hit.collider != null && hit.collider.tag == "Level") {
             DirRight = !DirRight;
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
 
-        rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y+0.1f);
+        rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
 	}
 
     private void OnTriggerEnter2D(Collider2D col) {
