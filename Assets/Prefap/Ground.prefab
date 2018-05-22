@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4992896404581532}
   - component: {fileID: 61138189888137272}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground
   m_TagString: Level
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4574828064213868}
   - component: {fileID: 212874189456218238}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

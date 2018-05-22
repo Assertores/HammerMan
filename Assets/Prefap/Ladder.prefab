@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4982192023450358}
   - component: {fileID: 212923969069743608}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4194614170600104}
   - component: {fileID: 61807891319724336}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ladder
   m_TagString: Ladder
   m_Icon: {fileID: 0}
