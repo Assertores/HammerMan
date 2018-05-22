@@ -4,35 +4,34 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour {
 
+    [SerializeField]
+    float EnemySpeed = 10;
+    [SerializeField]
+    float TurningDistance = 10;
+
     Rigidbody2D rb;
 
     bool DirRight = true;
 
     void Start () {
         rb = GetComponent<Rigidbody2D>();
+        DirRight = (Random.value > 0.5f);
         if (!rb) {
             throw new System.Exception("Rigitbody not found. Enemy");
         }
-        if (DirRight) {
-            rb.velocity = this.transform.right;
-        } else {
-            rb.velocity = -this.transform.right;
+
+        if (!DirRight) {
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (rb.velocity.x <= 0) {
-            if (DirRight) {
-                DirRight = false;
-                rb.velocity = -this.transform.right;
-            } else {
-                DirRight = true;
-                rb.velocity = this.transform.right;
-            }
+        if (Physics2D.Raycast(this.transform.position, this.transform.forward, TurningDistance, 11 << 12)) {
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
-
+        rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
 	}
 
     private void OnTriggerEnter2D(Collider2D col) {
