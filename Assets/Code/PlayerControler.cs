@@ -8,6 +8,12 @@ public class PlayerControler : MonoBehaviour {
 
     [SerializeField]
     float PlayerSpeed = 1.0f;
+    [SerializeField]
+    float HamerSpeed = 2.0f;
+    [SerializeField]
+    GameObject Hammer;
+
+    GameControler GC;
 
     float goHorizontal = 0.0f;
     bool goUp = false;
@@ -19,10 +25,21 @@ public class PlayerControler : MonoBehaviour {
         if (!rb) {
             throw new System.Exception("Rigitbody not found. Player");
         }
+        if (!Hammer) {
+            throw new System.Exception("Hammer not assinght. Player");
+        }
+
+        GC = GameObject.Find("GameManager").GetComponent<GameControler>();
+        if (!GC) {
+            throw new System.Exception("GameManager not found. Spawner");
+        }
     }
     
     void Update () {
         Movement();
+
+        //Hammer.transform.Rotate(transform.forward, Mathf.Sin(GC.GetTime()));
+        Hammer.transform.RotateAround(this.transform.position, transform.forward, HamerSpeed);
 	}
 
     private void FixedUpdate() {
