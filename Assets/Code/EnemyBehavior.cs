@@ -28,7 +28,7 @@ public class EnemyBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (Physics2D.Raycast(this.transform.position, this.transform.forward, TurningDistance, 11 << 12)) {
+        if (Physics2D.Raycast(this.transform.position, this.transform.forward, TurningDistance)) {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
         rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
