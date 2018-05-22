@@ -129,7 +129,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemySpeed: 2
-  TurningDistance: 100
+  TurningDistance: 0.6
+  layer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!212 &212127519759165522
 SpriteRenderer:
   m_ObjectHideFlags: 1

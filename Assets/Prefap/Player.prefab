@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 70331933390291352}
   - component: {fileID: 50658330816677058}
   - component: {fileID: 114551417976500260}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -203,7 +203,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77876120765d0444a30a948325cf369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerSpeed: 80
+  PlayerSpeed: 90
+  HamerSpeed: 5
+  Hammer: {fileID: 1999387717452098}
 --- !u!212 &212207553440241022
 SpriteRenderer:
   m_ObjectHideFlags: 1
