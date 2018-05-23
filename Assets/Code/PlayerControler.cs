@@ -8,25 +8,19 @@ public class PlayerControler : MonoBehaviour {
 
     [SerializeField]
     float PlayerSpeed = 1.0f;
-    [SerializeField]
-    float HamerSpeed = 2.0f;
-    [SerializeField]
-    GameObject Hammer;
 
     GameControler GC;
 
     float goHorizontal = 0.0f;
     bool goUp = false;
     bool isUpPossible = false;
+    bool DirRight = true;
 
 
     private void Start() {
         rb = GetComponent<Rigidbody2D>();
         if (!rb) {
             throw new System.Exception("Rigitbody not found. Player");
-        }
-        if (!Hammer) {
-            throw new System.Exception("Hammer not assinght. Player");
         }
 
         GC = GameObject.Find("GameManager").GetComponent<GameControler>();
@@ -39,7 +33,6 @@ public class PlayerControler : MonoBehaviour {
         Movement();
 
         //Hammer.transform.Rotate(transform.forward, Mathf.Sin(GC.GetTime()));
-        Hammer.transform.RotateAround(this.transform.position, transform.forward, HamerSpeed);
 	}
 
     private void FixedUpdate() {
@@ -59,6 +52,11 @@ public class PlayerControler : MonoBehaviour {
 
     private void Movement() {
         rb.velocity = new Vector2(goHorizontal * PlayerSpeed * Time.deltaTime, rb.velocity.y);
+
+        if((goHorizontal < 0 && DirRight) || (goHorizontal > 0 && !DirRight)) {
+            ChangeDir(!DirRight);
+        }
+
         if(goUp && isUpPossible) {
             rb.velocity = new Vector2(rb.velocity.x, PlayerSpeed * Time.deltaTime);
         }
@@ -74,5 +72,12 @@ public class PlayerControler : MonoBehaviour {
         if (col.transform.gameObject.tag == "Ladder") {
             isUpPossible = false;
         }
+    }
+
+    void ChangeDir(bool right) {
+        if (right != DirRight) {
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+        }
+        DirRight = right;
     }
 }
