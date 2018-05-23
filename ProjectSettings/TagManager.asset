@@ -9,6 +9,7 @@ TagManager:
   - Ladder
   - Hammer
   - Exit
+  - UI
   layers:
   - Default
   - TransparentFX
