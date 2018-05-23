@@ -43,14 +43,22 @@ public class PlayerControler : MonoBehaviour {
     private void InputManager() {
         goHorizontal = Input.GetAxis("Horizontal");
 
-        if (Input.GetButton("Jump")) {
+        if (Input.GetAxis("Vertical") > 0) {
             goUp = true;
         } else {
             goUp = false;
         }
+        if (Input.GetAxis("Vertical") < 0) {
+            GetComponent<CapsuleCollider2D>().enabled = false;
+        } else {
+            GetComponent<CapsuleCollider2D>().enabled = true;
+        }
     }
 
     private void Movement() {
+        if(this.transform.position.y < 0) {
+            this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
+        }
         rb.velocity = new Vector2(goHorizontal * PlayerSpeed * Time.deltaTime, rb.velocity.y);
 
         if((goHorizontal < 0 && DirRight) || (goHorizontal > 0 && !DirRight)) {

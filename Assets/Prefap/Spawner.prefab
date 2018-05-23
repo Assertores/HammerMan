@@ -44,7 +44,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1778355639595186
 GameObject:
   m_ObjectHideFlags: 1
@@ -118,7 +118,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaveBar: {fileID: 114516782951851560}
-  Waves: []
+  Creap1: {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
+  SpawnRate: 1
+  WaveLength: 5
+  GabLength: 2
 --- !u!114 &114391370730204666
 MonoBehaviour:
   m_ObjectHideFlags: 1
