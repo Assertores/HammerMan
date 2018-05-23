@@ -83,6 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Creap1: {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
   SpawnRate: 1
+  SpawnActiveTime: 5
 --- !u!212 &212526604502501446
 SpriteRenderer:
   m_ObjectHideFlags: 1

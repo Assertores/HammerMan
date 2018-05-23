@@ -13,7 +13,7 @@ public class SpanerScript : MonoBehaviour {
 
     float LastSpawn = 0.0f;
     GameControler GC;
-	// Use this for initialization
+
 	void Start () {
 		GC = GameObject.Find("GameManager").GetComponent<GameControler>();
         if (!GC) {
@@ -24,11 +24,11 @@ public class SpanerScript : MonoBehaviour {
         }
     }
 	
-	// Update is called once per frame
 	void Update () {
 		if (GC.GetTime() > LastSpawn + SpawnRate && GC.GetTime() < SpawnActiveTime) {
             Instantiate(Creap1);
             Creap1.transform.position = this.transform.position;
+            GC.ChangeEnemyCount(1);
             LastSpawn = GC.GetTime();
         }
 	}
