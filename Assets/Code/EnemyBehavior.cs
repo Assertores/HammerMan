@@ -7,6 +7,8 @@ public class EnemyBehavior : MonoBehaviour {
     [SerializeField]
     float EnemySpeed = 10;
     [SerializeField]
+    int EnemyDamageOnExit = 1;
+    [SerializeField]
     float TurningDistance = 10;
     public LayerMask layer;
 
@@ -41,11 +43,7 @@ public class EnemyBehavior : MonoBehaviour {
             falling = 1;
         }else if (falling == 1) {
             falling = 2;
-            bool DirNew = (Random.value > 0.5f);
-            if (DirNew != DirRight) {
-                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-            }
-            DirRight = DirNew;
+            ChangeDir(Random.value > 0.5f);
         }else if (falling == 2 && rb.velocity.y >= 0.0f) {
             falling = 0;
         }
@@ -62,21 +60,32 @@ public class EnemyBehavior : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D col) {
         switch (col.transform.gameObject.tag) {
             case "Hammer":
-                Die();
+                DieByHammer();
                 break;
             case "Exit":
-                //deplanisch health
-                //make warning sound
-                Die();
+                DieByExit();
                 break;
             default:
                 break;
         }
     }
 
-    public void Die() {
+    void DieByHammer() {
         //here nice sfx and animation
         GC.ChangeEnemyCount(-1);
         GameObject.Destroy(this.transform.gameObject);
+    }
+
+    void DieByExit() {
+        //here nice sfx and animation
+        GC.ChangeEnemyCount(-1, EnemyDamageOnExit);
+        GameObject.Destroy(this.transform.gameObject);
+    }
+
+    void ChangeDir(bool right) {
+        if (right != DirRight) {
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+        }
+        DirRight = right;
     }
 }

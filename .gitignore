@@ -12,3 +12,7 @@ HammerMan\.csproj
 HammerMan\.sln
 
 \.vs/
+
+obj/
+
+*.csproj
