@@ -23,7 +23,6 @@ public class UIManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	public void UpdateLife (float LifeRatio) {
-        print("Ratio: " + LifeRatio);
         Life.fillAmount = LifeRatio;
 	}
 

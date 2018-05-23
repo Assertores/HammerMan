@@ -35,7 +35,7 @@ public class SpanerScript : MonoBehaviour {
         if (!WaveBar) {
             throw new System.Exception("WaveBar not assigned. Spawner");
         }
-        NextSpawn = GC.GetTime() + SpawnRate;
+        NextSpawn = GC.GetTime();
     }
 	
 	void Update () {
@@ -61,7 +61,7 @@ public class SpanerScript : MonoBehaviour {
         WaveBar.fillAmount = 1 - GC.GetTime() / Waves[Waves.Length - 1].timeStamp;*/
 
         if (GC.GetTime() % (WaveLength + GabLength) <= WaveLength && GC.GetTime() >= NextSpawn) {
-            Instantiate(Creap1);
+            Instantiate(Creap1).transform.position = this.transform.position;
             GC.ChangeEnemyCount(1);
             NextSpawn = GC.GetTime() + SpawnRate;
         }
