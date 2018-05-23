@@ -40,8 +40,6 @@ public class SpanerScript : MonoBehaviour {
 	
 	void Update () {
         SpawnBehavior();
-
-
     }
 
     void SpawnBehavior() {
@@ -65,7 +63,11 @@ public class SpanerScript : MonoBehaviour {
             GC.ChangeEnemyCount(1);
             NextSpawn = GC.GetTime() + SpawnRate;
         }
+    }
 
-
+    private void OnTriggerStay2D(Collider2D col) {
+        if (col.transform.gameObject.tag == "Hammer") {
+            GameObject.Destroy(this.transform.gameObject);
+        }
     }
 }
