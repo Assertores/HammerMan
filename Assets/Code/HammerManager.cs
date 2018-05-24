@@ -7,8 +7,12 @@ public class HammerManager : MonoBehaviour {
     [SerializeField]
     float HammerFrequency;
     [SerializeField]
+    [Range(0.0f, 1.0f)]
+    [Tooltip("Anfang des Hammerschlags als prozentzahl der frequenzzeit")]
     float HammerOnBeginning;
     [SerializeField]
+    [Range(0.0f, 1.0f)]
+    [Tooltip("Ende des Hammerschlags als prozentzahl der frequenzzeit")]
     float HammerOnEnd;
 
     GameControler GC;
@@ -24,6 +28,8 @@ public class HammerManager : MonoBehaviour {
         if (!HammerCol) {
             throw new System.Exception("Hammer Collider not found. Hammer");
         }
+        HammerOnBeginning = HammerFrequency * HammerOnBeginning;
+        HammerOnEnd = HammerFrequency * HammerOnEnd;
     }
 	
 	// Update is called once per frame

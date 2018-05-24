@@ -187,8 +187,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HammerFrequency: 0.5
-  HammerOnBeginning: 0.3
-  HammerOnEnd: 0.5
+  HammerOnBeginning: 0.6
+  HammerOnEnd: 1
 --- !u!212 &212207553440241022
 SpriteRenderer:
   m_ObjectHideFlags: 1
