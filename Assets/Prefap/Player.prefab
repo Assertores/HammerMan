@@ -174,7 +174,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77876120765d0444a30a948325cf369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerSpeed: 600
+  PlayerSpeed: 300
+  PlayerClimbSpeed: 1
 --- !u!114 &114935631411381980
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -187,8 +188,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HammerFrequency: 0.5
-  HammerOnBeginning: 0.3
-  HammerOnEnd: 0.5
+  HammerOnBeginning: 0.6
+  HammerOnEnd: 1
 --- !u!212 &212207553440241022
 SpriteRenderer:
   m_ObjectHideFlags: 1

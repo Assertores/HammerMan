@@ -54,7 +54,7 @@ public class EnemyBehavior : MonoBehaviour {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
 
-        rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
+        rb.velocity = new Vector2((DirRight ? EnemySpeed : -EnemySpeed) * Time.deltaTime, rb.velocity.y);
 	}
 
     private void OnTriggerEnter2D(Collider2D col) {
