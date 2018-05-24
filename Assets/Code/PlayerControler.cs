@@ -8,11 +8,14 @@ public class PlayerControler : MonoBehaviour {
 
     [SerializeField]
     float PlayerSpeed = 1.0f;
+    [SerializeField]
+    float PlayerClimbSpeed = 1.0f;
 
     GameControler GC;
 
     float goHorizontal = 0.0f;
     bool goUp = false;
+    float IPDown = 0.0f;
     bool isUpPossible = false;
     bool DirRight = true;
 
@@ -32,6 +35,10 @@ public class PlayerControler : MonoBehaviour {
     void Update () {
         Movement();
 
+        if(IPDown != 0.0f && GC.GetTime() - IPDown > 0.5) {
+            FallThrough(false);
+            IPDown = 0.0f;
+        }
         //Hammer.transform.Rotate(transform.forward, Mathf.Sin(GC.GetTime()));
 	}
 
@@ -48,11 +55,16 @@ public class PlayerControler : MonoBehaviour {
         } else {
             goUp = false;
         }
-        if (Input.GetAxis("Vertical") < 0) {
-            GetComponent<CapsuleCollider2D>().enabled = false;
-        } else {
-            GetComponent<CapsuleCollider2D>().enabled = true;
-        }
+        if (Input.GetAxis("Vertical") < 0 && IPDown == 0.0f) {
+            FallThrough(true);
+            IPDown = GC.GetTime();
+        }/* else if(Input.GetAxis("Vertical") >= 0) {
+            IPDown = 0.0f;
+        }*/
+    }
+
+    private void FallThrough(bool able) {
+        GetComponent<CapsuleCollider2D>().enabled = !able;
     }
 
     private void Movement() {
@@ -66,7 +78,8 @@ public class PlayerControler : MonoBehaviour {
         }
 
         if(goUp && isUpPossible) {
-            rb.velocity = new Vector2(rb.velocity.x, PlayerSpeed * Time.deltaTime);
+            rb.velocity = new Vector2(/*rb.velocity.x*/ 0, PlayerClimbSpeed * Time.deltaTime);
+            //this.transform.position += new Vector3(this.transform.position.x, PlayerClimbSpeed * Time.deltaTime, this.transform.position.z);
         }
     }
 

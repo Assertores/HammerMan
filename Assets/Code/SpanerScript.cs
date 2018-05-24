@@ -7,6 +7,8 @@ public class SpanerScript : MonoBehaviour {
 
     [SerializeField]
     Image WaveBar;
+    [SerializeField]
+    int Life = 1;
     //[SerializeField]
     //SpanerTimeStamp[] Waves;
     [SerializeField]
@@ -65,8 +67,15 @@ public class SpanerScript : MonoBehaviour {
         }
     }
 
-    private void OnTriggerStay2D(Collider2D col) {
+    private void OnTriggerEnter2D(Collider2D col) {
         if (col.transform.gameObject.tag == "Hammer") {
+            Hit();
+        }
+    }
+
+    private void Hit(int damage = 1) {
+        Life -= damage;
+        if(Life <= 0) {
             GameObject.Destroy(this.transform.gameObject);
         }
     }

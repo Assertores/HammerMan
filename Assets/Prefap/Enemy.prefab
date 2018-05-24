@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 736bb6a4e2e08434ba52af055cbf8d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemySpeed: 2
+  EnemySpeed: 200
   EnemyDamageOnExit: 1
   TurningDistance: 0.6
   layer:

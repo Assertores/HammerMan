@@ -175,6 +175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerSpeed: 300
+  PlayerClimbSpeed: 1
 --- !u!114 &114935631411381980
 MonoBehaviour:
   m_ObjectHideFlags: 1
