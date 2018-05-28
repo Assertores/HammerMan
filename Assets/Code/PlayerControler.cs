@@ -10,6 +10,9 @@ public class PlayerControler : MonoBehaviour {
     float PlayerSpeed = 1.0f;
     [SerializeField]
     float ClimbSpeed = 1.0f;
+    [Header("Debug Informations")]
+    [SerializeField]
+    LayerMask FallLayers;
 
     GameControler GC;
 
@@ -101,8 +104,9 @@ public class PlayerControler : MonoBehaviour {
         if (goDown == 1) {
             GetComponent<CapsuleCollider2D>().isTrigger = true;
             goDown = 2;
+            this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y);
             //print("lets go");
-        } else if (goDown == 2 && !Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), 9)) {
+        } else if (goDown == 2 && !Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers)) {
             //print("thats enuth.");
             GetComponent<CapsuleCollider2D>().isTrigger = false;
             goDown = 3;
