@@ -76,7 +76,7 @@ public class PlayerControler : MonoBehaviour {
             this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
         }
         MoveHorizontal0();
-        MoveClimb0();
+        MoveClimb2();
         MoveFall0();
     }
 
@@ -97,6 +97,12 @@ public class PlayerControler : MonoBehaviour {
     void MoveClimb1() {
         if (goUp && isUpPossible) {
             this.transform.position =new Vector3(this.transform.position.x, this.transform.position.y + ClimbSpeed * Time.deltaTime, this.transform.position.z);
+        }
+    }
+
+    void MoveClimb2() {
+        if (goUp && isUpPossible) {
+            rb.velocity = new Vector2(0, PlayerSpeed);
         }
     }
 
