@@ -15,10 +15,9 @@ public class PlayerControler : MonoBehaviour {
 
     float goHorizontal = 0.0f;
     bool goUp = false;
-    float IPDown = 0.0f;
     bool isUpPossible = false;
     bool DirRight = true;
-    int goDown = 0;
+    public int goDown = 0;
     int GroundInColider = 0;
 
 
@@ -35,7 +34,8 @@ public class PlayerControler : MonoBehaviour {
     }
     
     void Update () {
-        Movement();
+        InputManager();
+        
 
         /*if (GetComponent<CapsuleCollider2D>().isTrigger == true) {
 
@@ -44,7 +44,7 @@ public class PlayerControler : MonoBehaviour {
 	}
 
     private void FixedUpdate() {
-        InputManager();
+        Movement();
     }
 
 
@@ -73,12 +73,12 @@ public class PlayerControler : MonoBehaviour {
             this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
         }
         MoveHorizontal0();
-        MoveClimb1();
+        MoveClimb0();
         MoveFall0();
     }
 
     void MoveHorizontal0() {
-        rb.velocity = new Vector2(goHorizontal * PlayerSpeed * Time.deltaTime, rb.velocity.y);
+        rb.velocity = new Vector2(goHorizontal * PlayerSpeed, rb.velocity.y);
 
         if ((goHorizontal < 0 && DirRight) || (goHorizontal > 0 && !DirRight)) {
             ChangeDir(!DirRight);
@@ -87,7 +87,7 @@ public class PlayerControler : MonoBehaviour {
     
     void MoveClimb0() {
         if (goUp && isUpPossible) {
-            rb.velocity = new Vector2(rb.velocity.x, PlayerSpeed * Time.deltaTime);
+            rb.velocity = new Vector2(rb.velocity.x, PlayerSpeed);
         }
     }
 
@@ -102,7 +102,7 @@ public class PlayerControler : MonoBehaviour {
             GetComponent<CapsuleCollider2D>().isTrigger = true;
             goDown = 2;
             //print("lets go");
-        } else if (goDown == 2 && !Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>())) {
+        } else if (goDown == 2 && !Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), 9)) {
             //print("thats enuth.");
             GetComponent<CapsuleCollider2D>().isTrigger = false;
             goDown = 3;
