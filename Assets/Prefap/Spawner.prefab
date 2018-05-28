@@ -147,8 +147,8 @@ MonoBehaviour:
   Life: 3
   Creap1: {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
   SpawnRate: 1
-  WaveLength: 5
-  GabLength: 2
+  WaveLength: 4
+  GabLength: 20
 --- !u!114 &114391370730204666
 MonoBehaviour:
   m_ObjectHideFlags: 1
