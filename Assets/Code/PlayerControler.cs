@@ -8,6 +8,8 @@ public class PlayerControler : MonoBehaviour {
 
     [SerializeField]
     float PlayerSpeed = 1.0f;
+    [SerializeField]
+    float ClimbSpeed = 1.0f;
 
     GameControler GC;
 
@@ -15,6 +17,8 @@ public class PlayerControler : MonoBehaviour {
     bool goUp = false;
     bool isUpPossible = false;
     bool DirRight = true;
+    int goDown = 0;
+    int GroundInColider = 0;
 
 
     private void Start() {
@@ -32,6 +36,9 @@ public class PlayerControler : MonoBehaviour {
     void Update () {
         Movement();
 
+        /*if (GetComponent<CapsuleCollider2D>().isTrigger == true) {
+
+        }*/
         //Hammer.transform.Rotate(transform.forward, Mathf.Sin(GC.GetTime()));
 	}
 
@@ -48,25 +55,58 @@ public class PlayerControler : MonoBehaviour {
         } else {
             goUp = false;
         }
-        if (Input.GetAxis("Vertical") < 0) {
-            GetComponent<CapsuleCollider2D>().enabled = false;
-        } else {
-            GetComponent<CapsuleCollider2D>().enabled = true;
+        if (Input.GetAxis("Vertical") < 0 && goDown == 0) {
+            goDown = 1;
+            //GetComponent<CapsuleCollider2D>().isTrigger = true;
+        }else if(Input.GetAxis("Vertical") >= 0 && goDown == 3) {
+            goDown = 0;
         }
     }
 
     private void Movement() {
-        if(this.transform.position.y < 0) {
+        if (this.transform.position.y < 0) {
             this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
         }
+        MoveHorizontal0();
+        MoveClimb1();
+        MoveFall0();
+    }
+
+    void MoveHorizontal0() {
         rb.velocity = new Vector2(goHorizontal * PlayerSpeed * Time.deltaTime, rb.velocity.y);
 
-        if((goHorizontal < 0 && DirRight) || (goHorizontal > 0 && !DirRight)) {
+        if ((goHorizontal < 0 && DirRight) || (goHorizontal > 0 && !DirRight)) {
             ChangeDir(!DirRight);
         }
-
-        if(goUp && isUpPossible) {
+    }
+    
+    void MoveClimb0() {
+        if (goUp && isUpPossible) {
             rb.velocity = new Vector2(rb.velocity.x, PlayerSpeed * Time.deltaTime);
+        }
+    }
+
+    void MoveClimb1() {
+        if (goUp && isUpPossible) {
+            this.transform.position =new Vector3(this.transform.position.x, this.transform.position.y + ClimbSpeed * Time.deltaTime, this.transform.position.z);
+        }
+    }
+
+    void MoveFall0() {
+        if (goDown == 1) {
+            GetComponent<CapsuleCollider2D>().isTrigger = true;
+            goDown = 2;
+            //print("lets go");
+        } else if (goDown == 2 && !Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>())) {
+            //print("thats enuth.");
+            GetComponent<CapsuleCollider2D>().isTrigger = false;
+            goDown = 3;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D col) {
+        if (col.transform.gameObject.tag == "Level") {
+            GroundInColider++;
         }
     }
 
@@ -79,6 +119,8 @@ public class PlayerControler : MonoBehaviour {
     void OnTriggerExit2D(Collider2D col) {
         if (col.transform.gameObject.tag == "Ladder") {
             isUpPossible = false;
+        }else if (col.transform.gameObject.tag == "Level") {
+            GroundInColider--;
         }
     }
 
