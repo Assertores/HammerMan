@@ -9,15 +9,19 @@ public class PlayerControler : MonoBehaviour {
     [SerializeField]
     float PlayerSpeed = 1.0f;
     [SerializeField]
-    float PlayerClimbSpeed = 1.0f;
+    float ClimbSpeed = 1.0f;
+    [Header("Debug Informations")]
+    [SerializeField]
+    LayerMask FallLayers;
 
     GameControler GC;
 
     float goHorizontal = 0.0f;
     bool goUp = false;
-    float IPDown = 0.0f;
     bool isUpPossible = false;
     bool DirRight = true;
+    public int goDown = 0;
+    int GroundInColider = 0;
 
 
     private void Start() {
@@ -33,17 +37,17 @@ public class PlayerControler : MonoBehaviour {
     }
     
     void Update () {
-        Movement();
+        InputManager();
+        
 
-        if(IPDown != 0.0f && GC.GetTime() - IPDown > 0.5) {
-            FallThrough(false);
-            IPDown = 0.0f;
-        }
+        /*if (GetComponent<CapsuleCollider2D>().isTrigger == true) {
+
+        }*/
         //Hammer.transform.Rotate(transform.forward, Mathf.Sin(GC.GetTime()));
 	}
 
     private void FixedUpdate() {
-        InputManager();
+        Movement();
     }
 
 
@@ -55,12 +59,12 @@ public class PlayerControler : MonoBehaviour {
         } else {
             goUp = false;
         }
-        if (Input.GetAxis("Vertical") < 0 && IPDown == 0.0f) {
-            FallThrough(true);
-            IPDown = GC.GetTime();
-        }/* else if(Input.GetAxis("Vertical") >= 0) {
-            IPDown = 0.0f;
-        }*/
+        if (Input.GetAxis("Vertical") < 0 && goDown == 0) {
+            goDown = 1;
+            //GetComponent<CapsuleCollider2D>().isTrigger = true;
+        }else if(Input.GetAxis("Vertical") >= 0 && goDown == 3) {
+            goDown = 0;
+        }
     }
 
     private void FallThrough(bool able) {
@@ -68,18 +72,50 @@ public class PlayerControler : MonoBehaviour {
     }
 
     private void Movement() {
-        if(this.transform.position.y < 0) {
+        if (this.transform.position.y < 0) {
             this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
         }
-        rb.velocity = new Vector2(goHorizontal * PlayerSpeed * Time.deltaTime, rb.velocity.y);
+        MoveHorizontal0();
+        MoveClimb0();
+        MoveFall0();
+    }
 
-        if((goHorizontal < 0 && DirRight) || (goHorizontal > 0 && !DirRight)) {
+    void MoveHorizontal0() {
+        rb.velocity = new Vector2(goHorizontal * PlayerSpeed, rb.velocity.y);
+
+        if ((goHorizontal < 0 && DirRight) || (goHorizontal > 0 && !DirRight)) {
             ChangeDir(!DirRight);
         }
+    }
+    
+    void MoveClimb0() {
+        if (goUp && isUpPossible) {
+            rb.velocity = new Vector2(rb.velocity.x, PlayerSpeed);
+        }
+    }
 
-        if(goUp && isUpPossible) {
-            rb.velocity = new Vector2(/*rb.velocity.x*/ 0, PlayerClimbSpeed * Time.deltaTime);
-            //this.transform.position += new Vector3(this.transform.position.x, PlayerClimbSpeed * Time.deltaTime, this.transform.position.z);
+    void MoveClimb1() {
+        if (goUp && isUpPossible) {
+            this.transform.position =new Vector3(this.transform.position.x, this.transform.position.y + ClimbSpeed * Time.deltaTime, this.transform.position.z);
+        }
+    }
+
+    void MoveFall0() {
+        if (goDown == 1) {
+            GetComponent<CapsuleCollider2D>().isTrigger = true;
+            goDown = 2;
+            this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y);
+            //print("lets go");
+        } else if (goDown == 2 && !Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers)) {
+            //print("thats enuth.");
+            GetComponent<CapsuleCollider2D>().isTrigger = false;
+            goDown = 3;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D col) {
+        if (col.transform.gameObject.tag == "Level") {
+            GroundInColider++;
         }
     }
 
@@ -92,6 +128,8 @@ public class PlayerControler : MonoBehaviour {
     void OnTriggerExit2D(Collider2D col) {
         if (col.transform.gameObject.tag == "Ladder") {
             isUpPossible = false;
+        }else if (col.transform.gameObject.tag == "Level") {
+            GroundInColider--;
         }
     }
 
