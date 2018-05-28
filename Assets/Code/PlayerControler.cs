@@ -37,6 +37,9 @@ public class PlayerControler : MonoBehaviour {
     }
     
     void Update () {
+        if (this.transform.position.y < 0) {
+            this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
+        }
         InputManager();
         
 
@@ -62,9 +65,10 @@ public class PlayerControler : MonoBehaviour {
         if (Input.GetAxis("Vertical") < 0 && goDown == 0) {
             goDown = 1;
             //GetComponent<CapsuleCollider2D>().isTrigger = true;
-        }else if(Input.GetAxis("Vertical") >= 0 && goDown == 3) {
+        }else if(Input.GetAxis("Vertical") >= -0.5 && goDown == 3) {
             goDown = 0;
         }
+        print(Input.GetAxis("Vertical"));
     }
 
     private void FallThrough(bool able) {
@@ -72,9 +76,7 @@ public class PlayerControler : MonoBehaviour {
     }
 
     private void Movement() {
-        if (this.transform.position.y < 0) {
-            this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
-        }
+        
         MoveHorizontal0();
         MoveClimb2();
         MoveFall0();

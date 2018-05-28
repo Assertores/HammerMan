@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameControler : MonoBehaviour {
 
     float LevelTimeStart = 0.0f;
     int EnemyCount = 0;
+    int SpawnerCount = 0;
     [SerializeField]
     int MaxLevelLife = 10;
     int CurentLevelLife;
@@ -13,6 +15,12 @@ public class GameControler : MonoBehaviour {
     UIManager UIM;
 
     void Start() {
+        StartLvl();
+    }
+
+    public void StartLvl() {
+        SceneManager.LoadScene("Scene 01");
+
         LevelTimeStart = Time.time;
         CurentLevelLife = MaxLevelLife;
 
@@ -21,7 +29,14 @@ public class GameControler : MonoBehaviour {
         } catch (System.Exception) {
             throw new System.Exception("UI Entity not found or UIManager not found as Component. GameControler");
         }
-        
+    }
+
+    public void GameOver() {
+        SceneManager.LoadScene("GameOver");
+    }
+
+    public void StartMainMenu() {
+        SceneManager.LoadScene("MainMenu");
     }
 
     public float GetTime() {
@@ -38,7 +53,8 @@ public class GameControler : MonoBehaviour {
         UIM.UpdateEnemyCount(EnemyCount);
     }
 
-    void GameOver() {
-        //Make GameOver Stuff
+    public void ChangeSpawnerCount(int count) {
+        SpawnerCount += count;
+
     }
 }
