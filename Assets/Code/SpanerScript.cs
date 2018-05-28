@@ -7,6 +7,8 @@ public class SpanerScript : MonoBehaviour {
 
     [SerializeField]
     Image WaveBar;
+    [SerializeField]
+    int Life = 1;
     //[SerializeField]
     //SpanerTimeStamp[] Waves;
     [SerializeField]
@@ -40,8 +42,6 @@ public class SpanerScript : MonoBehaviour {
 	
 	void Update () {
         SpawnBehavior();
-
-
     }
 
     void SpawnBehavior() {
@@ -65,7 +65,18 @@ public class SpanerScript : MonoBehaviour {
             GC.ChangeEnemyCount(1);
             NextSpawn = GC.GetTime() + SpawnRate;
         }
+    }
 
+    private void OnTriggerEnter2D(Collider2D col) {
+        if (col.transform.gameObject.tag == "Hammer") {
+            Hit();
+        }
+    }
 
+    private void Hit(int damage = 1) {
+        Life -= damage;
+        if(Life <= 0) {
+            GameObject.Destroy(this.transform.gameObject);
+        }
     }
 }

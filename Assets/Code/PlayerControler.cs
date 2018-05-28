@@ -15,6 +15,7 @@ public class PlayerControler : MonoBehaviour {
 
     float goHorizontal = 0.0f;
     bool goUp = false;
+    float IPDown = 0.0f;
     bool isUpPossible = false;
     bool DirRight = true;
     int goDown = 0;
@@ -61,6 +62,10 @@ public class PlayerControler : MonoBehaviour {
         }else if(Input.GetAxis("Vertical") >= 0 && goDown == 3) {
             goDown = 0;
         }
+    }
+
+    private void FallThrough(bool able) {
+        GetComponent<CapsuleCollider2D>().enabled = !able;
     }
 
     private void Movement() {
