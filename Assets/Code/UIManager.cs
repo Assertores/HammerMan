@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        GameControler.GC.UIInit(this);
         if (!Life) {
             throw new System.Exception("Life Image not assinght. UI");
         }

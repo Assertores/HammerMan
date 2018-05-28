@@ -24,20 +24,20 @@ public class SpanerScript : MonoBehaviour {
     //int NextSpawnIndex = 0;
     //float LastSpawn = 0.0f;
     float NextSpawn;
-    GameControler GC;
+    //GameControler GC;
 
 	void Start () {
-		GC = GameObject.Find("GameManager").GetComponent<GameControler>();
+        /*GC = GameObject.FindWithTag("GameController").GetComponent<GameControler>();
         if (!GC) {
             throw new System.Exception("GameManager not found. Spawner");
-        }
+        }*/
         /*if (Waves.Length == 0) {
             throw new System.Exception("no Creaps assigned. Spawner");
         }*/
         if (!WaveBar) {
             throw new System.Exception("WaveBar not assigned. Spawner");
         }
-        NextSpawn = GC.GetTime();
+        NextSpawn = GameControler.GetTime();
     }
 	
 	void Update () {
@@ -60,10 +60,11 @@ public class SpanerScript : MonoBehaviour {
         }
         WaveBar.fillAmount = 1 - GC.GetTime() / Waves[Waves.Length - 1].timeStamp;*/
 
-        if (GC.GetTime() % (WaveLength + GabLength) <= WaveLength && GC.GetTime() >= NextSpawn) {
+        if (GameControler.GetTime() % (WaveLength + GabLength) <= WaveLength && GameControler.GetTime() >= NextSpawn) {
             Instantiate(Creap1).transform.position = this.transform.position;
-            GC.ChangeEnemyCount(1);
-            NextSpawn = GC.GetTime() + SpawnRate;
+            print("i spawnt something");
+            GameControler.ChangeEnemyCount(1);
+            NextSpawn = GameControler.GetTime() + SpawnRate;
         }
     }
 

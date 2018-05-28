@@ -30,10 +30,10 @@ public class PlayerControler : MonoBehaviour {
             throw new System.Exception("Rigitbody not found. Player");
         }
 
-        GC = GameObject.Find("GameManager").GetComponent<GameControler>();
+        /*GC = GameObject.FindWithTag("GameController").GetComponent<GameControler>();
         if (!GC) {
             throw new System.Exception("GameManager not found. Spawner");
-        }
+        }*/
     }
     
     void Update () {
@@ -68,7 +68,7 @@ public class PlayerControler : MonoBehaviour {
         }else if(Input.GetAxis("Vertical") >= -0.5 && goDown == 3) {
             goDown = 0;
         }
-        print(Input.GetAxis("Vertical"));
+        //print(Input.GetAxis("Vertical"));
     }
 
     private void FallThrough(bool able) {

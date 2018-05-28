@@ -30,10 +30,10 @@ public class EnemyBehavior : MonoBehaviour {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
 
-        GC = GameObject.Find("GameManager").GetComponent<GameControler>();
+        /*GC = GameObject.FindWithTag("GameController").GetComponent<GameControler>();
         if (!GC) {
             throw new System.Exception("GameManager not found. Enemy");
-        }
+        }*/
 
     }
 	
@@ -80,13 +80,14 @@ public class EnemyBehavior : MonoBehaviour {
 
     void DieByHammer() {
         //here nice sfx and animation
-        GC.ChangeEnemyCount(-1);
+        GameControler.ChangeEnemyCount(-1);
         GameObject.Destroy(this.transform.gameObject);
     }
 
     void DieByExit() {
         //here nice sfx and animation
-        GC.ChangeEnemyCount(-1, EnemyDamageOnExit);
+        print("i died");
+        GameControler.ChangeEnemyCount(-1, EnemyDamageOnExit);
         GameObject.Destroy(this.transform.gameObject);
     }
 
