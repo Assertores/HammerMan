@@ -49,7 +49,7 @@ public class EnemyBehavior : MonoBehaviour {
         }
         RaycastHit2D hit = Physics2D.Raycast(this.transform.position, this.transform.right * rb.velocity.x, TurningDistance, layer);
         
-        if (falling == 0 && hit.collider != null && hit.collider.tag == "Level") {
+        if (falling == 0 && hit.collider != null && hit.collider.tag == StringCollection.LEVEL) {
             DirRight = !DirRight;
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
@@ -67,10 +67,10 @@ public class EnemyBehavior : MonoBehaviour {
 
         private void OnTriggerEnter2D(Collider2D col) {
         switch (col.transform.gameObject.tag) {
-            case "Hammer":
+            case StringCollection.HAMMER:
                 DieByHammer();
                 break;
-            case "Exit":
+            case StringCollection.EXIT:
                 DieByExit();
                 break;
             default:

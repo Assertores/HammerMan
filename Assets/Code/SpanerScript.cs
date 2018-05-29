@@ -8,7 +8,8 @@ public class SpanerScript : MonoBehaviour {
     [SerializeField]
     Image WaveBar;
     [SerializeField]
-    int Life = 1;
+    int MaxLife = 1;
+    int CurrentLife;
     //[SerializeField]
     //SpanerTimeStamp[] Waves;
     [SerializeField]
@@ -37,7 +38,9 @@ public class SpanerScript : MonoBehaviour {
         if (!WaveBar) {
             throw new System.Exception("WaveBar not assigned. Spawner");
         }
+        CurrentLife = MaxLife;
         NextSpawn = GameControler.GetTime();
+        GameControler.ChangeEnemyCount(100);
     }
 	
 	void Update () {
@@ -66,17 +69,19 @@ public class SpanerScript : MonoBehaviour {
             GameControler.ChangeEnemyCount(1);
             NextSpawn = GameControler.GetTime() + SpawnRate;
         }
+        WaveBar.fillAmount = CurrentLife / (float)MaxLife;
     }
 
     private void OnTriggerEnter2D(Collider2D col) {
-        if (col.transform.gameObject.tag == "Hammer") {
+        if (col.transform.gameObject.tag == StringCollection.HAMMER) {
             Hit();
         }
     }
 
     private void Hit(int damage = 1) {
-        Life -= damage;
-        if(Life <= 0) {
+        CurrentLife -= damage;
+        if(CurrentLife <= 0) {
+            GameControler.ChangeEnemyCount(-100);
             GameObject.Destroy(this.transform.gameObject);
         }
     }

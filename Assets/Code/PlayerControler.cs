@@ -17,11 +17,12 @@ public class PlayerControler : MonoBehaviour {
     GameControler GC;
 
     float goHorizontal = 0.0f;
+    float LastVericalAxis = 0.0f;
+    float VericalAxis = 0.0f;
     bool goUp = false;
     bool isUpPossible = false;
     bool DirRight = true;
     public int goDown = 0;
-    int GroundInColider = 0;
 
 
     private void Start() {
@@ -55,19 +56,21 @@ public class PlayerControler : MonoBehaviour {
 
 
     private void InputManager() {
-        goHorizontal = Input.GetAxis("Horizontal");
+        goHorizontal = Input.GetAxis(StringCollection.HORIZONTAL);
+        VericalAxis = Input.GetAxis(StringCollection.VERTICAL);
 
-        if (Input.GetAxis("Vertical") > 0) {
+        if (VericalAxis > 0) {
             goUp = true;
         } else {
             goUp = false;
         }
-        if (Input.GetAxis("Vertical") < 0 && goDown == 0) {
+        if ((VericalAxis < 0 && VericalAxis < LastVericalAxis) && goDown == 0) {
             goDown = 1;
             //GetComponent<CapsuleCollider2D>().isTrigger = true;
-        }else if(Input.GetAxis("Vertical") >= -0.5 && goDown == 3) {
+        }else if(VericalAxis > LastVericalAxis && goDown == 3) {
             goDown = 0;
         }
+        LastVericalAxis = VericalAxis;
         //print(Input.GetAxis("Vertical"));
     }
 
@@ -121,23 +124,15 @@ public class PlayerControler : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter2D(Collider2D col) {
-        if (col.transform.gameObject.tag == "Level") {
-            GroundInColider++;
-        }
-    }
-
     void OnTriggerStay2D(Collider2D col) {
-        if (col.transform.gameObject.tag == "Ladder") {
+        if (col.transform.gameObject.tag == StringCollection.LADDER) {
             isUpPossible = true;
         }
     }
 
     void OnTriggerExit2D(Collider2D col) {
-        if (col.transform.gameObject.tag == "Ladder") {
+        if (col.transform.gameObject.tag == StringCollection.LADDER) {
             isUpPossible = false;
-        }else if (col.transform.gameObject.tag == "Level") {
-            GroundInColider--;
         }
     }
 

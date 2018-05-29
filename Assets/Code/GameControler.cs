@@ -7,7 +7,6 @@ public class GameControler : MonoBehaviour {
 
     float LevelTimeStart = 0.0f;
     int EnemyCount = 0;
-    int SpawnerCount = 0;
     [SerializeField]
     int MaxLevelLife = 10;
     private int CurentLevelLife = 0;
@@ -21,6 +20,7 @@ public class GameControler : MonoBehaviour {
             GC = this;
             DontDestroyOnLoad(this);
         } else {
+            print(gameObject.name+" <- nummer 2");
             Destroy(this.gameObject);
         }
         //StartMainMenu();
@@ -28,11 +28,11 @@ public class GameControler : MonoBehaviour {
 
     public void StartLvl() {
         
-        SceneManager.LoadScene("Scene 01", LoadSceneMode.Single);
+        SceneManager.LoadScene(StringCollection.SCENE01, LoadSceneMode.Single);
 
-        LevelTimeStart = Time.time;
-        CurentLevelLife = MaxLevelLife;
-        print("init: " + CurentLevelLife + " ID: " + this.gameObject.GetInstanceID());
+        GC.LevelTimeStart = Time.time;
+        GC.CurentLevelLife = GC.MaxLevelLife;
+        print("init: " + GC.CurentLevelLife + " ID: " + GC.gameObject.GetInstanceID());
 
         /*try {
             UIM = GameObject.FindGameObjectWithTag("UI").GetComponent<UIManager>();
@@ -46,11 +46,11 @@ public class GameControler : MonoBehaviour {
     }
 
     public void GameOver() {
-        SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
+        SceneManager.LoadScene(StringCollection.GAMEOVER, LoadSceneMode.Single);
     }
 
     public void StartMainMenu() {
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        SceneManager.LoadScene(StringCollection.MAINMENU, LoadSceneMode.Single);
     }
 
     public static float GetTime() {
@@ -66,11 +66,10 @@ public class GameControler : MonoBehaviour {
             print("its all over:" + GC.CurentLevelLife);
             GC.GameOver();
         }
+        if (GC.EnemyCount <= 0) {
+            print("you Won");
+            GC.StartMainMenu();
+        }
         GC.UIM.UpdateEnemyCount(GC.EnemyCount);
-    }
-
-    public void ChangeSpawnerCount(int count) {
-        SpawnerCount += count;
-
     }
 }
