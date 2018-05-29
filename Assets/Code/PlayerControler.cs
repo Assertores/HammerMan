@@ -155,6 +155,7 @@ public class PlayerControler : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D col) {
         if (col.transform.gameObject.tag == StringCollection.LADDER) {
+            rb.velocity = new Vector2(rb.velocity.x, 0);
             isUpPossible = false;
         }
     }
