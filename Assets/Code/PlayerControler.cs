@@ -17,12 +17,14 @@ public class PlayerControler : MonoBehaviour {
     GameControler GC;
 
     float goHorizontal = 0.0f;
-    float LastVericalAxis = 0.0f;
-    float VericalAxis = 0.0f;
+    float LastVerticalAxis = 0.0f;
+    float VerticalAxis = 0.0f;
     bool goUp = false;
     bool isUpPossible = false;
     bool DirRight = true;
     public int goDown = 0;
+    bool DownKeyIsPressed = false;
+    bool PlayerIsInGround = false;
     float LadderX = 0.0f;
 
 
@@ -34,8 +36,9 @@ public class PlayerControler : MonoBehaviour {
     }
     
     void Update () {
-        if (this.transform.position.y < -0.5) {
-            this.transform.position = new Vector3(this.transform.position.x, -0.1f, this.transform.position.z);
+        if (this.transform.position.y < -0.1) {
+            this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
+            goDown = 0;
         }
         InputManager();
 	}
@@ -47,23 +50,36 @@ public class PlayerControler : MonoBehaviour {
 
     private void InputManager() {
         goHorizontal = Input.GetAxis(StringCollection.HORIZONTAL);
-        VericalAxis = Input.GetAxis(StringCollection.VERTICAL);
+        VerticalAxis = Input.GetAxis(StringCollection.VERTICAL);
 
         if (Input.GetButtonUp(StringCollection.CANCEL)) {
             GameControler.GC.FreezeGame();
         }
 
-        if (VericalAxis > 0) {
+        if (VerticalAxis > 0) {
             goUp = true;
         } else {
             goUp = false;
         }
-        if ((VericalAxis < 0 && VericalAxis < LastVericalAxis) && goDown == 0) {
+        InputFall1();
+        LastVerticalAxis = VerticalAxis;
+    }
+
+    private void InputFall0() {
+        if ((VerticalAxis < 0 && VerticalAxis < LastVerticalAxis) && goDown == 0) {
             goDown = 1;
-        }else if(VericalAxis > LastVericalAxis && goDown == 3) {
+        } else if (VerticalAxis > LastVerticalAxis && goDown == 3) {
             goDown = 0;
         }
-        LastVericalAxis = VericalAxis;
+    }
+
+    private void InputFall1() {
+        if(VerticalAxis < 0 && VerticalAxis < LastVerticalAxis && !DownKeyIsPressed) {
+            DownKeyIsPressed = true;
+            goDown++;
+        }else if (VerticalAxis > LastVerticalAxis && DownKeyIsPressed) {
+            DownKeyIsPressed = false;
+        }
     }
 
     private void FallThrough(bool able) {
@@ -76,7 +92,7 @@ public class PlayerControler : MonoBehaviour {
         } else {
             MoveHorizontal0();
         }
-        MoveFall0();
+        MoveFall1();
     }
 
     void MoveHorizontal0() {
@@ -112,6 +128,21 @@ public class PlayerControler : MonoBehaviour {
         } else if (goDown == 2 && !Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers)) {
             GetComponent<CapsuleCollider2D>().isTrigger = false;
             goDown = 3;
+        }
+    }
+
+    void MoveFall1() {
+        if (Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && !PlayerIsInGround) {
+            PlayerIsInGround = true;
+        }else if(!Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && PlayerIsInGround) {
+            PlayerIsInGround = false;
+            goDown--;
+        }
+        if (goDown <= 0) {
+            goDown = 0;
+            GetComponent<CapsuleCollider2D>().isTrigger = false;
+        } else {
+            GetComponent<CapsuleCollider2D>().isTrigger = true;
         }
     }
 
