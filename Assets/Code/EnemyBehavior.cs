@@ -30,10 +30,10 @@ public class EnemyBehavior : MonoBehaviour {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
 
-        GC = GameObject.Find("GameManager").GetComponent<GameControler>();
+        /*GC = GameObject.FindWithTag("GameController").GetComponent<GameControler>();
         if (!GC) {
             throw new System.Exception("GameManager not found. Enemy");
-        }
+        }*/
 
     }
 	
@@ -49,20 +49,28 @@ public class EnemyBehavior : MonoBehaviour {
         }
         RaycastHit2D hit = Physics2D.Raycast(this.transform.position, this.transform.right * rb.velocity.x, TurningDistance, layer);
         
-        if (falling == 0 && hit.collider != null && hit.collider.tag == "Level") {
+        if (falling == 0 && hit.collider != null && hit.collider.tag == StringCollection.LEVEL) {
             DirRight = !DirRight;
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
-
-        rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
+        
 	}
 
-    private void OnTriggerEnter2D(Collider2D col) {
+    private void FixedUpdate() {
+        if (rb.velocity.x <= 0.1f && rb.velocity.x >= -0.1f && rb.velocity.y >= 0.0f) {
+            //print("i'm stuck ;(");
+            rb.velocity = new Vector2(DirRight ? -EnemySpeed : EnemySpeed, rb.velocity.y);
+        } else {
+            rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
+        }
+    }
+
+        private void OnTriggerEnter2D(Collider2D col) {
         switch (col.transform.gameObject.tag) {
-            case "Hammer":
+            case StringCollection.HAMMER:
                 DieByHammer();
                 break;
-            case "Exit":
+            case StringCollection.EXIT:
                 DieByExit();
                 break;
             default:
@@ -72,13 +80,14 @@ public class EnemyBehavior : MonoBehaviour {
 
     void DieByHammer() {
         //here nice sfx and animation
-        GC.ChangeEnemyCount(-1);
+        GameControler.ChangeEnemyCount(-1);
         GameObject.Destroy(this.transform.gameObject);
     }
 
     void DieByExit() {
         //here nice sfx and animation
-        GC.ChangeEnemyCount(-1, EnemyDamageOnExit);
+        print("i died");
+        GameControler.ChangeEnemyCount(-1, EnemyDamageOnExit);
         GameObject.Destroy(this.transform.gameObject);
     }
 

@@ -8,13 +8,21 @@ public class PlayerControler : MonoBehaviour {
 
     [SerializeField]
     float PlayerSpeed = 1.0f;
+    [SerializeField]
+    float ClimbSpeed = 1.0f;
+    [Header("Debug Informations")]
+    [SerializeField]
+    LayerMask FallLayers;
 
     GameControler GC;
 
     float goHorizontal = 0.0f;
+    float LastVericalAxis = 0.0f;
+    float VericalAxis = 0.0f;
     bool goUp = false;
     bool isUpPossible = false;
     bool DirRight = true;
+    public int goDown = 0;
 
 
     private void Start() {
@@ -23,61 +31,111 @@ public class PlayerControler : MonoBehaviour {
             throw new System.Exception("Rigitbody not found. Player");
         }
 
-        GC = GameObject.Find("GameManager").GetComponent<GameControler>();
+        /*GC = GameObject.FindWithTag("GameController").GetComponent<GameControler>();
         if (!GC) {
             throw new System.Exception("GameManager not found. Spawner");
-        }
+        }*/
     }
     
     void Update () {
-        Movement();
+        if (this.transform.position.y < 0) {
+            this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
+        }
+        InputManager();
+        
 
+        /*if (GetComponent<CapsuleCollider2D>().isTrigger == true) {
+
+        }*/
         //Hammer.transform.Rotate(transform.forward, Mathf.Sin(GC.GetTime()));
 	}
 
     private void FixedUpdate() {
-        InputManager();
+        Movement();
     }
 
 
     private void InputManager() {
-        goHorizontal = Input.GetAxis("Horizontal");
+        goHorizontal = Input.GetAxis(StringCollection.HORIZONTAL);
+        VericalAxis = Input.GetAxis(StringCollection.VERTICAL);
 
-        if (Input.GetAxis("Vertical") > 0) {
+        if (Input.GetButtonUp(StringCollection.CANCEL)) {
+            GameControler.GC.FreezeGame();
+        }
+
+        if (VericalAxis > 0) {
             goUp = true;
         } else {
             goUp = false;
         }
-        if (Input.GetAxis("Vertical") < 0) {
-            GetComponent<CapsuleCollider2D>().enabled = false;
-        } else {
-            GetComponent<CapsuleCollider2D>().enabled = true;
+        if ((VericalAxis < 0 && VericalAxis < LastVericalAxis) && goDown == 0) {
+            goDown = 1;
+            //GetComponent<CapsuleCollider2D>().isTrigger = true;
+        }else if(VericalAxis > LastVericalAxis && goDown == 3) {
+            goDown = 0;
         }
+        LastVericalAxis = VericalAxis;
+        //print(Input.GetAxis("Vertical"));
+    }
+
+    private void FallThrough(bool able) {
+        GetComponent<CapsuleCollider2D>().enabled = !able;
     }
 
     private void Movement() {
-        if(this.transform.position.y < 0) {
-            this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
-        }
-        rb.velocity = new Vector2(goHorizontal * PlayerSpeed * Time.deltaTime, rb.velocity.y);
+        
+        MoveHorizontal0();
+        MoveClimb2();
+        MoveFall0();
+    }
 
-        if((goHorizontal < 0 && DirRight) || (goHorizontal > 0 && !DirRight)) {
+    void MoveHorizontal0() {
+        rb.velocity = new Vector2(goHorizontal * PlayerSpeed, rb.velocity.y);
+
+        if ((goHorizontal < 0 && DirRight) || (goHorizontal > 0 && !DirRight)) {
             ChangeDir(!DirRight);
         }
+    }
+    
+    void MoveClimb0() {
+        if (goUp && isUpPossible) {
+            rb.velocity = new Vector2(rb.velocity.x, PlayerSpeed);
+        }
+    }
 
-        if(goUp && isUpPossible) {
-            rb.velocity = new Vector2(rb.velocity.x, PlayerSpeed * Time.deltaTime);
+    void MoveClimb1() {
+        if (goUp && isUpPossible) {
+            this.transform.position =new Vector3(this.transform.position.x, this.transform.position.y + ClimbSpeed, this.transform.position.z);
+        }
+    }
+
+    void MoveClimb2() {
+        if (goUp && isUpPossible) {
+            rb.velocity = new Vector2(0, PlayerSpeed);
+        }
+    }
+
+    void MoveFall0() {
+        if (goDown == 1) {
+            GetComponent<CapsuleCollider2D>().isTrigger = true;
+            goDown = 2;
+            this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y);
+            //print("lets go");
+        } else if (goDown == 2 && !Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers)) {
+            //print("thats enuth.");
+            GetComponent<CapsuleCollider2D>().isTrigger = false;
+            goDown = 3;
         }
     }
 
     void OnTriggerStay2D(Collider2D col) {
-        if (col.transform.gameObject.tag == "Ladder") {
+        if (col.transform.gameObject.tag == StringCollection.LADDER) {
             isUpPossible = true;
         }
     }
 
     void OnTriggerExit2D(Collider2D col) {
-        if (col.transform.gameObject.tag == "Ladder") {
+        if (col.transform.gameObject.tag == StringCollection.LADDER) {
             isUpPossible = false;
         }
     }
