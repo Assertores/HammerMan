@@ -52,3 +52,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxLevelLife: 3
+  Gray: {fileID: 1484594583126912, guid: 9b1cfd7a0c7e5f348815a31bcad19a67, type: 2}

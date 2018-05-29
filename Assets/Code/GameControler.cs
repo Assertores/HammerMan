@@ -10,6 +10,8 @@ public class GameControler : MonoBehaviour {
     [SerializeField]
     int MaxLevelLife = 10;
     private int CurentLevelLife = 0;
+    [SerializeField]
+    bool StartingInLevel = false;
 
     UIManager UIM;
 
@@ -24,6 +26,15 @@ public class GameControler : MonoBehaviour {
             Destroy(this.gameObject);
         }
         //StartMainMenu();
+    }
+
+    void Start() {
+        if (!StartingInLevel) {
+            StartMainMenu();
+        } else {
+            GC.LevelTimeStart = Time.time;
+            GC.CurentLevelLife = GC.MaxLevelLife;
+        }
     }
 
     public void StartLvl() {
@@ -71,5 +82,13 @@ public class GameControler : MonoBehaviour {
             GC.StartMainMenu();
         }
         GC.UIM.UpdateEnemyCount(GC.EnemyCount);
+    }
+
+    public void FreezeGame() {
+        if (Time.timeScale != 0) {
+            Time.timeScale = 0;
+        } else {
+            Time.timeScale = 1;
+        }
     }
 }

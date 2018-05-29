@@ -59,6 +59,10 @@ public class PlayerControler : MonoBehaviour {
         goHorizontal = Input.GetAxis(StringCollection.HORIZONTAL);
         VericalAxis = Input.GetAxis(StringCollection.VERTICAL);
 
+        if (Input.GetButtonUp(StringCollection.CANCEL)) {
+            GameControler.GC.FreezeGame();
+        }
+
         if (VericalAxis > 0) {
             goUp = true;
         } else {
@@ -101,7 +105,7 @@ public class PlayerControler : MonoBehaviour {
 
     void MoveClimb1() {
         if (goUp && isUpPossible) {
-            this.transform.position =new Vector3(this.transform.position.x, this.transform.position.y + ClimbSpeed * Time.deltaTime, this.transform.position.z);
+            this.transform.position =new Vector3(this.transform.position.x, this.transform.position.y + ClimbSpeed, this.transform.position.z);
         }
     }
 

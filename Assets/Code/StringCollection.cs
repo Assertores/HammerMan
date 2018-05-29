@@ -6,9 +6,10 @@ public class StringCollection {
     public const string GAMEMANAGER = "GameManager";
     public const string GAMECONTROLLER = "GameController";
 
-    //PLAYER 1
+    //Input
     public const string VERTICAL = "Vertical";
     public const string HORIZONTAL = "Horizontal";
+    public const string CANCEL = "Cancel";
     //TAGS
     public const string PLAYER = "Player";
     public const string ENEMY = "Enemy";
