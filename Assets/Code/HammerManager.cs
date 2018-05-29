@@ -15,15 +15,9 @@ public class HammerManager : MonoBehaviour {
     [Tooltip("Ende des Hammerschlags als prozentzahl der frequenzzeit")]
     float HammerOnEnd;
 
-    //GameControler GC;
     BoxCollider2D HammerCol;
-
-    // Use this for initialization
+    
     void Start () {
-        /*GC = GameObject.FindWithTag("GameController").GetComponent<GameControler>();
-        if (!GC) {
-            throw new System.Exception("GameManager not found. Hammer");
-        }*/
         HammerCol = GetComponent<BoxCollider2D>();
         if (!HammerCol) {
             throw new System.Exception("Hammer Collider not found. Hammer");
@@ -32,7 +26,6 @@ public class HammerManager : MonoBehaviour {
         HammerOnEnd = HammerFrequency * HammerOnEnd;
     }
 	
-	// Update is called once per frame
 	void Update () {
         float time = GameControler.GetTime() % HammerFrequency;
         if (time > HammerOnBeginning && time < HammerOnEnd) {

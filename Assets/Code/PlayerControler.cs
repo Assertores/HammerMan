@@ -17,12 +17,15 @@ public class PlayerControler : MonoBehaviour {
     GameControler GC;
 
     float goHorizontal = 0.0f;
-    float LastVericalAxis = 0.0f;
-    float VericalAxis = 0.0f;
+    float LastVerticalAxis = 0.0f;
+    float VerticalAxis = 0.0f;
     bool goUp = false;
     bool isUpPossible = false;
     bool DirRight = true;
     public int goDown = 0;
+    bool DownKeyIsPressed = false;
+    bool PlayerIsInGround = false;
+    float LadderX = 0.0f;
 
 
     private void Start() {
@@ -30,24 +33,14 @@ public class PlayerControler : MonoBehaviour {
         if (!rb) {
             throw new System.Exception("Rigitbody not found. Player");
         }
-
-        /*GC = GameObject.FindWithTag("GameController").GetComponent<GameControler>();
-        if (!GC) {
-            throw new System.Exception("GameManager not found. Spawner");
-        }*/
     }
     
     void Update () {
-        if (this.transform.position.y < 0) {
+        if (this.transform.position.y < -0.1) {
             this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
+            goDown = 0;
         }
         InputManager();
-        
-
-        /*if (GetComponent<CapsuleCollider2D>().isTrigger == true) {
-
-        }*/
-        //Hammer.transform.Rotate(transform.forward, Mathf.Sin(GC.GetTime()));
 	}
 
     private void FixedUpdate() {
@@ -57,25 +50,36 @@ public class PlayerControler : MonoBehaviour {
 
     private void InputManager() {
         goHorizontal = Input.GetAxis(StringCollection.HORIZONTAL);
-        VericalAxis = Input.GetAxis(StringCollection.VERTICAL);
+        VerticalAxis = Input.GetAxis(StringCollection.VERTICAL);
 
         if (Input.GetButtonUp(StringCollection.CANCEL)) {
             GameControler.GC.FreezeGame();
         }
 
-        if (VericalAxis > 0) {
+        if (VerticalAxis > 0) {
             goUp = true;
         } else {
             goUp = false;
         }
-        if ((VericalAxis < 0 && VericalAxis < LastVericalAxis) && goDown == 0) {
+        InputFall1();
+        LastVerticalAxis = VerticalAxis;
+    }
+
+    private void InputFall0() {
+        if ((VerticalAxis < 0 && VerticalAxis < LastVerticalAxis) && goDown == 0) {
             goDown = 1;
-            //GetComponent<CapsuleCollider2D>().isTrigger = true;
-        }else if(VericalAxis > LastVericalAxis && goDown == 3) {
+        } else if (VerticalAxis > LastVerticalAxis && goDown == 3) {
             goDown = 0;
         }
-        LastVericalAxis = VericalAxis;
-        //print(Input.GetAxis("Vertical"));
+    }
+
+    private void InputFall1() {
+        if(VerticalAxis < 0 && VerticalAxis < LastVerticalAxis && !DownKeyIsPressed) {
+            DownKeyIsPressed = true;
+            goDown++;
+        }else if (VerticalAxis > LastVerticalAxis && DownKeyIsPressed) {
+            DownKeyIsPressed = false;
+        }
     }
 
     private void FallThrough(bool able) {
@@ -83,10 +87,12 @@ public class PlayerControler : MonoBehaviour {
     }
 
     private void Movement() {
-        
-        MoveHorizontal0();
-        MoveClimb2();
-        MoveFall0();
+        if (goUp && isUpPossible) {
+            MoveClimb3();
+        } else {
+            MoveHorizontal0();
+        }
+        MoveFall1();
     }
 
     void MoveHorizontal0() {
@@ -98,21 +104,20 @@ public class PlayerControler : MonoBehaviour {
     }
     
     void MoveClimb0() {
-        if (goUp && isUpPossible) {
-            rb.velocity = new Vector2(rb.velocity.x, PlayerSpeed);
-        }
+        rb.velocity = new Vector2(rb.velocity.x, PlayerSpeed);
     }
 
     void MoveClimb1() {
-        if (goUp && isUpPossible) {
-            this.transform.position =new Vector3(this.transform.position.x, this.transform.position.y + ClimbSpeed, this.transform.position.z);
-        }
+        this.transform.position =new Vector3(this.transform.position.x, this.transform.position.y + ClimbSpeed, this.transform.position.z);
     }
 
     void MoveClimb2() {
-        if (goUp && isUpPossible) {
-            rb.velocity = new Vector2(0, PlayerSpeed);
-        }
+        rb.velocity = new Vector2(0, PlayerSpeed);
+    }
+
+    void MoveClimb3() {
+        this.transform.position = new Vector2(LadderX, this.transform.position.y);
+        rb.velocity = new Vector2(0, PlayerSpeed);
     }
 
     void MoveFall0() {
@@ -120,16 +125,30 @@ public class PlayerControler : MonoBehaviour {
             GetComponent<CapsuleCollider2D>().isTrigger = true;
             goDown = 2;
             this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y);
-            //print("lets go");
         } else if (goDown == 2 && !Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers)) {
-            //print("thats enuth.");
             GetComponent<CapsuleCollider2D>().isTrigger = false;
             goDown = 3;
         }
     }
 
+    void MoveFall1() {
+        if (Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && !PlayerIsInGround) {
+            PlayerIsInGround = true;
+        }else if(!Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && PlayerIsInGround) {
+            PlayerIsInGround = false;
+            goDown--;
+        }
+        if (goDown <= 0) {
+            goDown = 0;
+            GetComponent<CapsuleCollider2D>().isTrigger = false;
+        } else {
+            GetComponent<CapsuleCollider2D>().isTrigger = true;
+        }
+    }
+
     void OnTriggerStay2D(Collider2D col) {
         if (col.transform.gameObject.tag == StringCollection.LADDER) {
+            LadderX = col.transform.position.x;
             isUpPossible = true;
         }
     }
