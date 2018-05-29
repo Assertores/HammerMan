@@ -17,11 +17,12 @@ public class PlayerControler : MonoBehaviour {
     GameControler GC;
 
     float goHorizontal = 0.0f;
+    float LastVericalAxis = 0.0f;
+    float VericalAxis = 0.0f;
     bool goUp = false;
     bool isUpPossible = false;
     bool DirRight = true;
     public int goDown = 0;
-    int GroundInColider = 0;
 
 
     private void Start() {
@@ -30,13 +31,16 @@ public class PlayerControler : MonoBehaviour {
             throw new System.Exception("Rigitbody not found. Player");
         }
 
-        GC = GameObject.Find("GameManager").GetComponent<GameControler>();
+        /*GC = GameObject.FindWithTag("GameController").GetComponent<GameControler>();
         if (!GC) {
             throw new System.Exception("GameManager not found. Spawner");
-        }
+        }*/
     }
     
     void Update () {
+        if (this.transform.position.y < 0) {
+            this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
+        }
         InputManager();
         
 
@@ -52,19 +56,26 @@ public class PlayerControler : MonoBehaviour {
 
 
     private void InputManager() {
-        goHorizontal = Input.GetAxis("Horizontal");
+        goHorizontal = Input.GetAxis(StringCollection.HORIZONTAL);
+        VericalAxis = Input.GetAxis(StringCollection.VERTICAL);
 
-        if (Input.GetAxis("Vertical") > 0) {
+        if (Input.GetButtonUp(StringCollection.CANCEL)) {
+            GameControler.GC.FreezeGame();
+        }
+
+        if (VericalAxis > 0) {
             goUp = true;
         } else {
             goUp = false;
         }
-        if (Input.GetAxis("Vertical") < 0 && goDown == 0) {
+        if ((VericalAxis < 0 && VericalAxis < LastVericalAxis) && goDown == 0) {
             goDown = 1;
             //GetComponent<CapsuleCollider2D>().isTrigger = true;
-        }else if(Input.GetAxis("Vertical") >= 0 && goDown == 3) {
+        }else if(VericalAxis > LastVericalAxis && goDown == 3) {
             goDown = 0;
         }
+        LastVericalAxis = VericalAxis;
+        //print(Input.GetAxis("Vertical"));
     }
 
     private void FallThrough(bool able) {
@@ -72,9 +83,7 @@ public class PlayerControler : MonoBehaviour {
     }
 
     private void Movement() {
-        if (this.transform.position.y < 0) {
-            this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
-        }
+        
         MoveHorizontal0();
         MoveClimb2();
         MoveFall0();
@@ -96,7 +105,7 @@ public class PlayerControler : MonoBehaviour {
 
     void MoveClimb1() {
         if (goUp && isUpPossible) {
-            this.transform.position =new Vector3(this.transform.position.x, this.transform.position.y + ClimbSpeed * Time.deltaTime, this.transform.position.z);
+            this.transform.position =new Vector3(this.transform.position.x, this.transform.position.y + ClimbSpeed, this.transform.position.z);
         }
     }
 
@@ -119,23 +128,15 @@ public class PlayerControler : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter2D(Collider2D col) {
-        if (col.transform.gameObject.tag == "Level") {
-            GroundInColider++;
-        }
-    }
-
     void OnTriggerStay2D(Collider2D col) {
-        if (col.transform.gameObject.tag == "Ladder") {
+        if (col.transform.gameObject.tag == StringCollection.LADDER) {
             isUpPossible = true;
         }
     }
 
     void OnTriggerExit2D(Collider2D col) {
-        if (col.transform.gameObject.tag == "Ladder") {
+        if (col.transform.gameObject.tag == StringCollection.LADDER) {
             isUpPossible = false;
-        }else if (col.transform.gameObject.tag == "Level") {
-            GroundInColider--;
         }
     }
 

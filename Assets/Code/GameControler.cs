@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameControler : MonoBehaviour {
 
@@ -8,37 +9,86 @@ public class GameControler : MonoBehaviour {
     int EnemyCount = 0;
     [SerializeField]
     int MaxLevelLife = 10;
-    int CurentLevelLife;
+    private int CurentLevelLife = 0;
+    [SerializeField]
+    bool StartingInLevel = false;
 
     UIManager UIM;
 
-    void Start() {
-        LevelTimeStart = Time.time;
-        CurentLevelLife = MaxLevelLife;
+    public static GameControler GC = null;
 
-        try {
+    void Awake() {
+        if (GC == null) {
+            GC = this;
+            DontDestroyOnLoad(this);
+        } else {
+            print(gameObject.name+" <- nummer 2");
+            Destroy(this.gameObject);
+        }
+        //StartMainMenu();
+    }
+
+    void Start() {
+        if (!StartingInLevel) {
+            StartMainMenu();
+        } else {
+            GC.LevelTimeStart = Time.time;
+            GC.CurentLevelLife = GC.MaxLevelLife;
+        }
+    }
+
+    public void StartLvl() {
+        
+        SceneManager.LoadScene(StringCollection.SCENE01, LoadSceneMode.Single);
+
+        GC.LevelTimeStart = Time.time;
+        GC.CurentLevelLife = GC.MaxLevelLife;
+        print("init: " + GC.CurentLevelLife + " ID: " + GC.gameObject.GetInstanceID());
+
+        /*try {
             UIM = GameObject.FindGameObjectWithTag("UI").GetComponent<UIManager>();
         } catch (System.Exception) {
             throw new System.Exception("UI Entity not found or UIManager not found as Component. GameControler");
+        }*/
+    }
+
+    public void UIInit(UIManager temp) {
+        UIM = temp;
+    }
+
+    public void GameOver() {
+        SceneManager.LoadScene(StringCollection.GAMEOVER, LoadSceneMode.Single);
+    }
+
+    public void StartMainMenu() {
+        SceneManager.LoadScene(StringCollection.MAINMENU, LoadSceneMode.Single);
+    }
+
+    public static float GetTime() {
+        return Time.time - GC.LevelTimeStart;
+    }
+
+    public static void ChangeEnemyCount(int count, int loseLife = 0) {
+        print("change: " + GC.CurentLevelLife + " ID: " + GC.gameObject.GetInstanceID());
+        GC.EnemyCount += count;
+        GC.CurentLevelLife -= loseLife;
+        GC.UIM.UpdateLife(GC.CurentLevelLife / (float)GC.MaxLevelLife);
+        if (GC.CurentLevelLife <= 0) {
+            print("its all over:" + GC.CurentLevelLife);
+            GC.GameOver();
         }
-        
-    }
-
-    public float GetTime() {
-        return Time.time - LevelTimeStart;
-    }
-
-    public void ChangeEnemyCount(int count, int loseLife = 0) {
-        EnemyCount += count;
-        CurentLevelLife -= loseLife;
-        UIM.UpdateLife(CurentLevelLife / (float)MaxLevelLife);
-        if (CurentLevelLife <= 0) {
-            GameOver();
+        if (GC.EnemyCount <= 0) {
+            print("you Won");
+            GC.StartMainMenu();
         }
-        UIM.UpdateEnemyCount(EnemyCount);
+        GC.UIM.UpdateEnemyCount(GC.EnemyCount);
     }
 
-    void GameOver() {
-        //Make GameOver Stuff
+    public void FreezeGame() {
+        if (Time.timeScale != 0) {
+            Time.timeScale = 0;
+        } else {
+            Time.timeScale = 1;
+        }
     }
 }

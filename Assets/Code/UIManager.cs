@@ -10,6 +10,10 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     Text Enemy;
 
+    void Awake() {
+        GameControler.GC.UIInit(this);
+    }
+
     // Use this for initialization
     void Start () {
         if (!Life) {
