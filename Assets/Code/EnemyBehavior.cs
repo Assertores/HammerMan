@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyBehavior : MonoBehaviour {
 
     [SerializeField]
+    GameObject EnemyDieParticle;
+    [SerializeField]
     float EnemySpeed = 10;
     [SerializeField]
     int EnemyDamageOnExit = 1;
@@ -72,6 +74,9 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     void DieByHammer() {
+        print("i died by hammer");
+        GameObject temp = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
+        temp.GetComponent<ParticleSystem>().Play();
         GameControler.ChangeEnemyCount(-1);
         GameObject.Destroy(this.transform.gameObject);
     }

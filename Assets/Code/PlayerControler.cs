@@ -10,6 +10,9 @@ public class PlayerControler : MonoBehaviour {
     float PlayerSpeed = 1.0f;
     [SerializeField]
     float ClimbSpeed = 1.0f;
+    [SerializeField]
+    float FallThroughBoost = 1.0f;
+
     [Header("Debug Informations")]
     [SerializeField]
     LayerMask FallLayers;
@@ -77,6 +80,7 @@ public class PlayerControler : MonoBehaviour {
         if(VerticalAxis < 0 && VerticalAxis < LastVerticalAxis && !DownKeyIsPressed) {
             DownKeyIsPressed = true;
             goDown++;
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - FallThroughBoost);
         }else if (VerticalAxis > LastVerticalAxis && DownKeyIsPressed) {
             DownKeyIsPressed = false;
         }

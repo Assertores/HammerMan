@@ -197,6 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerSpeed: 8
   ClimbSpeed: 5
+  FallThroughBoost: 10
   FallLayers:
     serializedVersion: 2
     m_Bits: 512
