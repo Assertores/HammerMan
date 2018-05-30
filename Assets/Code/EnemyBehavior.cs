@@ -29,12 +29,6 @@ public class EnemyBehavior : MonoBehaviour {
         if (!DirRight) {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
-
-        /*GC = GameObject.FindWithTag("GameController").GetComponent<GameControler>();
-        if (!GC) {
-            throw new System.Exception("GameManager not found. Enemy");
-        }*/
-
     }
 	
 	void Update () {
@@ -58,7 +52,6 @@ public class EnemyBehavior : MonoBehaviour {
 
     private void FixedUpdate() {
         if (rb.velocity.x <= 0.1f && rb.velocity.x >= -0.1f && rb.velocity.y >= 0.0f) {
-            //print("i'm stuck ;(");
             rb.velocity = new Vector2(DirRight ? -EnemySpeed : EnemySpeed, rb.velocity.y);
         } else {
             rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
@@ -79,14 +72,11 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     void DieByHammer() {
-        //here nice sfx and animation
         GameControler.ChangeEnemyCount(-1);
         GameObject.Destroy(this.transform.gameObject);
     }
 
     void DieByExit() {
-        //here nice sfx and animation
-        print("i died");
         GameControler.ChangeEnemyCount(-1, EnemyDamageOnExit);
         GameObject.Destroy(this.transform.gameObject);
     }
