@@ -195,8 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a77876120765d0444a30a948325cf369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerSpeed: 8
-  ClimbSpeed: 5
+  PlayerSpeed: 12
+  ClimbSpeed: 8
   FallThroughBoost: 10
   FallLayers:
     serializedVersion: 2
