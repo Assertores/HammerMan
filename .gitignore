@@ -1,8 +1,6 @@
 
 Library/
 
-ProjectSettings/
-
 UnityPackageManager/
 
 *.userprefs
@@ -12,3 +10,9 @@ Temp/
 HammerMan\.csproj
 
 HammerMan\.sln
+
+\.vs/
+
+obj/
+
+*.csproj
