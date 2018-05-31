@@ -85,6 +85,7 @@ public class GameControler : MonoBehaviour {
 
     public static void EndOfIntro() {
         print("now your alound to move");
+        GameObject.FindGameObjectWithTag(StringCollection.PLAYER).GetComponent<PlayerControler>().SetPlayerControl(true);
     }
 
 }
