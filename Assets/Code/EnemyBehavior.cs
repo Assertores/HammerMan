@@ -74,7 +74,6 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     void DieByHammer() {
-        print("i died by hammer");
         GameObject temp = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
         temp.GetComponent<ParticleSystem>().Play();
         GameControler.ChangeEnemyCount(-1);
