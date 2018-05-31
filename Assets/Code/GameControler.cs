@@ -78,4 +78,14 @@ public class GameControler : MonoBehaviour {
             Time.timeScale = 1;
         }
     }
+
+    public static void PlayerAnimation() {
+        print("dam dam dam dam .... Player");
+    }
+
+    public static void EndOfIntro() {
+        print("now your alound to move");
+        GameObject.FindGameObjectWithTag(StringCollection.PLAYER).GetComponent<PlayerControler>().SetPlayerControl(true);
+    }
+
 }

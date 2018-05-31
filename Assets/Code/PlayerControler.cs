@@ -28,7 +28,8 @@ public class PlayerControler : MonoBehaviour {
     public int goDown = 0;
     bool DownKeyIsPressed = false;
     bool PlayerIsInGround = false;
-    float LadderX = 0.0f;
+    Vector2 Ladder;
+    bool InControle = false;
 
 
     private void Start() {
@@ -47,7 +48,9 @@ public class PlayerControler : MonoBehaviour {
 	}
 
     private void FixedUpdate() {
-        Movement();
+        if (InControle) {
+            Movement();
+        }
     }
 
 
@@ -120,7 +123,7 @@ public class PlayerControler : MonoBehaviour {
     }
 
     void MoveClimb3() {
-        this.transform.position = new Vector2(LadderX, this.transform.position.y);
+        this.transform.position = new Vector2(Ladder.x, this.transform.position.y);
         rb.velocity = new Vector2(0, PlayerSpeed);
     }
 
@@ -152,14 +155,17 @@ public class PlayerControler : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D col) {
         if (col.transform.gameObject.tag == StringCollection.LADDER) {
-            LadderX = col.transform.position.x;
+            Ladder = col.transform.position;
             isUpPossible = true;
         }
     }
 
     void OnTriggerExit2D(Collider2D col) {
         if (col.transform.gameObject.tag == StringCollection.LADDER) {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+            if (goUp) {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                this.transform.position = new Vector2(this.transform.position.x, Ladder.y + 4.1f);
+            }
             isUpPossible = false;
         }
     }
@@ -169,5 +175,9 @@ public class PlayerControler : MonoBehaviour {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
         DirRight = right;
+    }
+
+    public void SetPlayerControl(bool controle) {
+        InControle = controle;
     }
 }
