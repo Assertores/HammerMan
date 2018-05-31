@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyDieParticle: {fileID: 1146176289402804, guid: a2b6bf90712fd9048b588eced2d76d74,
     type: 2}
+  DeathSound: {fileID: 1336974089992272, guid: 61ec46cd56d311d498263dbfa62e9b04, type: 2}
   EnemySpeed: 2.8
   EnemyDamageOnExit: 1
   TurningDistance: 0.6

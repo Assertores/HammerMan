@@ -7,6 +7,8 @@ public class EnemyBehavior : MonoBehaviour {
     [SerializeField]
     GameObject EnemyDieParticle;
     [SerializeField]
+    GameObject DeathSound;
+    [SerializeField]
     float EnemySpeed = 10;
     [SerializeField]
     int EnemyDamageOnExit = 1;
@@ -75,7 +77,7 @@ public class EnemyBehavior : MonoBehaviour {
 
     void DieByHammer() {
         Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
-        //temp.GetComponent<ParticleSystem>().Play();
+        Instantiate(DeathSound);
         GameControler.ChangeEnemyCount(-1);
         GameObject.Destroy(this.transform.gameObject);
     }
