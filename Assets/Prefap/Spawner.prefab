@@ -148,9 +148,9 @@ MonoBehaviour:
   Creap1: {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
   SpawnRate: 2
   WaveLength: 5
-  GapLength: 5
-  Factor: 5
-  MaximumGapLength: 20
+  GapLength: 7
+  Factor: 2
+  MaximumGapLength: 11
   UseFunction: 1
 --- !u!114 &114391370730204666
 MonoBehaviour:
