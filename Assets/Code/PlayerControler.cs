@@ -29,6 +29,7 @@ public class PlayerControler : MonoBehaviour {
     bool DownKeyIsPressed = false;
     bool PlayerIsInGround = false;
     Vector2 Ladder;
+    bool InControle = false;
 
 
     private void Start() {
@@ -47,7 +48,9 @@ public class PlayerControler : MonoBehaviour {
 	}
 
     private void FixedUpdate() {
-        Movement();
+        if (InControle) {
+            Movement();
+        }
     }
 
 
@@ -172,5 +175,9 @@ public class PlayerControler : MonoBehaviour {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
         DirRight = right;
+    }
+
+    public void SetPlayerControl(bool controle) {
+        InControle = controle;
     }
 }
