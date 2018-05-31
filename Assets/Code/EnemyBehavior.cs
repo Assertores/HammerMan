@@ -74,8 +74,8 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     void DieByHammer() {
-        GameObject temp = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
-        temp.GetComponent<ParticleSystem>().Play();
+        Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
+        //temp.GetComponent<ParticleSystem>().Play();
         GameControler.ChangeEnemyCount(-1);
         GameObject.Destroy(this.transform.gameObject);
     }
