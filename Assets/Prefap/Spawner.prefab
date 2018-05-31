@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaveBar: {fileID: 114516782951851560}
-  MaxLife: 3
+  MaxLife: 10
   Creap1: {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
   SpawnRate: 2
   WaveLength: 5
