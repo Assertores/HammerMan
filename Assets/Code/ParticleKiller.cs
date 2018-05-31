@@ -8,7 +8,9 @@ public class ParticleKiller : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         time = GameControler.GetTime();
-	}
+        GetComponent<ParticleSystem>().Play();
+
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate () {

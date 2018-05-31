@@ -80,11 +80,10 @@ public class GameControler : MonoBehaviour {
     }
 
     public static void PlayerAnimation() {
-        print("dam dam dam dam .... Player");
+        print("dam dam dam dam .... Player"); //----- ----- Print ----- -----
     }
 
     public static void EndOfIntro() {
-        print("now your alound to move");
         GameObject.FindGameObjectWithTag(StringCollection.PLAYER).GetComponent<PlayerControler>().SetPlayerControl(true);
     }
 

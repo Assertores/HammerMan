@@ -31,7 +31,6 @@ public class CameraFronScene : MonoBehaviour {
         if(CameraPath.Length > 0) {
             if (index < CameraPath.Length - 1) {
                 if (GameControler.GetTime() - time > CameraPath[index].Stay) {
-                    //print("index: " + index + " Time: " + (GameControler.GetTime() - time - CameraPath[index].Stay));
                     cam.orthographicSize = Mathf.Lerp(CameraPath[index].Zoom, CameraPath[index + 1].Zoom, (GameControler.GetTime() - time - CameraPath[index].Stay) / CameraPath[index].Duration);
                     Vector2 temp = Vector2.Lerp(CameraPath[index].Position.transform.position, CameraPath[index + 1].Position.transform.position, 1 / (1 + Mathf.Pow(CameraPath[index].Sharpness, -(((GameControler.GetTime() - time - CameraPath[index].Stay) / CameraPath[index].Duration) - 0.5f) * 20)));
                     transform.position = new Vector3(temp.x, temp.y, -10);

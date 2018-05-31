@@ -64,8 +64,9 @@ public class PlayerControler : MonoBehaviour {
 
         if (VerticalAxis > 0) {
             goUp = true;
-        } else {
+        } else if(goUp) {
             goUp = false;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
         }
         InputFall1();
         LastVerticalAxis = VerticalAxis;
@@ -103,7 +104,13 @@ public class PlayerControler : MonoBehaviour {
     }
 
     void MoveHorizontal0() {
-        rb.velocity = new Vector2(goHorizontal * PlayerSpeed, rb.velocity.y);
+        int tempHorizontal = 0;
+        if(goHorizontal < 0) {
+            tempHorizontal = -1;
+        }else if (goHorizontal > 0) {
+            tempHorizontal = 1;
+        }
+        rb.velocity = new Vector2(tempHorizontal * PlayerSpeed, rb.velocity.y);
 
         if ((goHorizontal < 0 && DirRight) || (goHorizontal > 0 && !DirRight)) {
             ChangeDir(!DirRight);
