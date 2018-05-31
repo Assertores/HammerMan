@@ -7,6 +7,8 @@ public class EnemyBehavior : MonoBehaviour {
     [SerializeField]
     GameObject EnemyDieParticle;
     [SerializeField]
+    GameObject[] DeathSound;
+    [SerializeField]
     float EnemySpeed = 10;
     [SerializeField]
     int EnemyDamageOnExit = 1;
@@ -15,8 +17,6 @@ public class EnemyBehavior : MonoBehaviour {
     public LayerMask layer;
 
     Rigidbody2D rb;
-
-    GameControler GC;
 
     bool DirRight = true;
     int falling = 0;
@@ -74,9 +74,8 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     void DieByHammer() {
-        print("i died by hammer");
-        GameObject temp = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
-        temp.GetComponent<ParticleSystem>().Play();
+        Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
+        Instantiate(DeathSound[Random.Range(0, DeathSound.Length)]);
         GameControler.ChangeEnemyCount(-1);
         GameObject.Destroy(this.transform.gameObject);
     }

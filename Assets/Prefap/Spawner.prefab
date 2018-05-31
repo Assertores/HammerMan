@@ -144,11 +144,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaveBar: {fileID: 114516782951851560}
-  MaxLife: 3
+  MaxLife: 10
   Creap1: {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
-  SpawnRate: 1
+  SpawnRate: 2
   WaveLength: 5
-  GabLength: 15
+  GapLength: 7
+  Factor: 2
+  MaximumGapLength: 11
+  UseFunction: 1
+  SpawnHitParticle: {fileID: 1781884187228386, guid: c4ef661beeb58314bbc89f56c961b771,
+    type: 2}
 --- !u!114 &114391370730204666
 MonoBehaviour:
   m_ObjectHideFlags: 1

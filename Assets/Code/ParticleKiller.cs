@@ -8,7 +8,17 @@ public class ParticleKiller : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         time = GameControler.GetTime();
-	}
+        ParticleSystem temp = GetComponent<ParticleSystem>();
+        if (temp) {
+            temp.Play();
+            return;
+        }
+        AudioSource audio = GetComponent<AudioSource>();
+        if (audio) {
+            audio.Play();
+        }
+
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate () {

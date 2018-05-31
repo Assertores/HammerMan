@@ -25,7 +25,10 @@ public class SpanerScript : MonoBehaviour {
     [SerializeField]
     [Tooltip("0 = no change, 1 = liniar growth, 2 = growing growth, 3 = stagnating growth")]
     int UseFunction;
-    
+
+    [SerializeField]
+    GameObject SpawnHitParticle;
+
     float NextSpawn;
     int WaveCount = 0;
 
@@ -96,6 +99,7 @@ public class SpanerScript : MonoBehaviour {
     }
 
     private void Hit(int damage = 1) {
+        Instantiate(SpawnHitParticle, this.transform.position, this.transform.rotation);
         CurrentLife -= damage;
         if(CurrentLife <= 0) {
             GameControler.ChangeEnemyCount(-100);

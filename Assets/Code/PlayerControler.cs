@@ -28,7 +28,8 @@ public class PlayerControler : MonoBehaviour {
     public int goDown = 0;
     bool DownKeyIsPressed = false;
     bool PlayerIsInGround = false;
-    float LadderX = 0.0f;
+    Vector2 Ladder;
+    bool InControle = false;
 
 
     private void Start() {
@@ -47,13 +48,18 @@ public class PlayerControler : MonoBehaviour {
 	}
 
     private void FixedUpdate() {
-        Movement();
+        if (InControle) {
+            Movement();
+        }
     }
 
 
     private void InputManager() {
         goHorizontal = Input.GetAxis(StringCollection.HORIZONTAL);
         VerticalAxis = Input.GetAxis(StringCollection.VERTICAL);
+        if (goHorizontal == 0) {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
 
         if (Input.GetButtonUp(StringCollection.CANCEL)) {
             GameControler.GC.FreezeGame();
@@ -61,8 +67,9 @@ public class PlayerControler : MonoBehaviour {
 
         if (VerticalAxis > 0) {
             goUp = true;
-        } else {
+        } else if(goUp) {
             goUp = false;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
         }
         InputFall1();
         LastVerticalAxis = VerticalAxis;
@@ -100,7 +107,13 @@ public class PlayerControler : MonoBehaviour {
     }
 
     void MoveHorizontal0() {
-        rb.velocity = new Vector2(goHorizontal * PlayerSpeed, rb.velocity.y);
+        int tempHorizontal = 0;
+        if(goHorizontal < 0) {
+            tempHorizontal = -1;
+        }else if (goHorizontal > 0) {
+            tempHorizontal = 1;
+        }
+        rb.velocity = new Vector2(tempHorizontal * PlayerSpeed, rb.velocity.y);
 
         if ((goHorizontal < 0 && DirRight) || (goHorizontal > 0 && !DirRight)) {
             ChangeDir(!DirRight);
@@ -120,7 +133,7 @@ public class PlayerControler : MonoBehaviour {
     }
 
     void MoveClimb3() {
-        this.transform.position = new Vector2(LadderX, this.transform.position.y);
+        this.transform.position = new Vector2(Ladder.x, this.transform.position.y);
         rb.velocity = new Vector2(0, PlayerSpeed);
     }
 
@@ -152,14 +165,17 @@ public class PlayerControler : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D col) {
         if (col.transform.gameObject.tag == StringCollection.LADDER) {
-            LadderX = col.transform.position.x;
+            Ladder = col.transform.position;
             isUpPossible = true;
         }
     }
 
     void OnTriggerExit2D(Collider2D col) {
         if (col.transform.gameObject.tag == StringCollection.LADDER) {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+            if (goUp) {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                this.transform.position = new Vector2(this.transform.position.x, Ladder.y + 4.1f);
+            }
             isUpPossible = false;
         }
     }
@@ -169,5 +185,9 @@ public class PlayerControler : MonoBehaviour {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
         DirRight = right;
+    }
+
+    public void SetPlayerControl(bool controle) {
+        InControle = controle;
     }
 }
