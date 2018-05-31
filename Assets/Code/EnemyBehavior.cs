@@ -18,8 +18,6 @@ public class EnemyBehavior : MonoBehaviour {
 
     Rigidbody2D rb;
 
-    GameControler GC;
-
     bool DirRight = true;
     int falling = 0;
 
