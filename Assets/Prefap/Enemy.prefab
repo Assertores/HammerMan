@@ -130,6 +130,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyDieParticle: {fileID: 1146176289402804, guid: a2b6bf90712fd9048b588eced2d76d74,
     type: 2}
+  DeathSound:
+  - {fileID: 1336974089992272, guid: 61ec46cd56d311d498263dbfa62e9b04, type: 2}
+  - {fileID: 1336974089992272, guid: 66070a73175416545adb33771eff35de, type: 2}
+  - {fileID: 1336974089992272, guid: dfb2f456246cf014ebd3cf5cb64f65ef, type: 2}
   EnemySpeed: 2.8
   EnemyDamageOnExit: 1
   TurningDistance: 0.6
@@ -171,7 +175,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 0a8416d92bba01d4d9ecfe26b7032a15, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 03954d93c8a94db4f82fa85e2ed6c426, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

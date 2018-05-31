@@ -8,7 +8,15 @@ public class ParticleKiller : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         time = GameControler.GetTime();
-        GetComponent<ParticleSystem>().Play();
+        ParticleSystem temp = GetComponent<ParticleSystem>();
+        if (temp) {
+            temp.Play();
+            return;
+        }
+        AudioSource audio = GetComponent<AudioSource>();
+        if (audio) {
+            audio.Play();
+        }
 
     }
 	

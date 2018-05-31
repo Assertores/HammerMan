@@ -84,7 +84,9 @@ public class GameControler : MonoBehaviour {
     }
 
     public static void EndOfIntro() {
-        GameObject.FindGameObjectWithTag(StringCollection.PLAYER).GetComponent<PlayerControler>().SetPlayerControl(true);
+        GameObject temp = GameObject.FindGameObjectWithTag(StringCollection.PLAYER);
+        if (temp) {
+            temp.GetComponent<PlayerControler>().SetPlayerControl(true);
+        }
     }
-
 }

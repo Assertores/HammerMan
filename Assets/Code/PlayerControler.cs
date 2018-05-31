@@ -57,6 +57,9 @@ public class PlayerControler : MonoBehaviour {
     private void InputManager() {
         goHorizontal = Input.GetAxis(StringCollection.HORIZONTAL);
         VerticalAxis = Input.GetAxis(StringCollection.VERTICAL);
+        if (goHorizontal == 0) {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
 
         if (Input.GetButtonUp(StringCollection.CANCEL)) {
             GameControler.GC.FreezeGame();
