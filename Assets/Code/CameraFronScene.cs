@@ -21,6 +21,8 @@ public class CameraFronScene : MonoBehaviour {
             cam = this.gameObject.GetComponent<Camera>();
             cam.orthographicSize = CameraPath[0].Zoom;
             this.transform.position = new Vector3(CameraPath[0].Position.transform.position.x, CameraPath[0].Position.transform.position.y, -10);
+        } else {
+            GameControler.EndOfIntro();
         }
     }
 	
