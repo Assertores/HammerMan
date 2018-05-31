@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 82217296280575312}
   - component: {fileID: 114303929001973584}
   m_Layer: 0
-  m_Name: EnemyKillAudio
+  m_Name: EnemyKillAudio 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +50,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 1e82a398661e3254b84959586e0f36a0, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
