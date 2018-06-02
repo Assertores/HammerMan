@@ -11,7 +11,10 @@ public class UIManager : MonoBehaviour {
     Text Enemy;
 
     void Awake() {
-        GameControler.GC.UIInit(this);
+        GameManager.RegistUI(this);
+    }
+    private void OnDestroy() {
+        GameManager.RegistUI(this);
     }
 
     // Use this for initialization
