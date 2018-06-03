@@ -7,7 +7,7 @@ public class ParticleKiller : MonoBehaviour {
     float time = 0.0f;
 	// Use this for initialization
 	void Start () {
-        time = GameControler.GetTime();
+        time = GameManager.GetTime();
         ParticleSystem temp = GetComponent<ParticleSystem>();
         if (temp) {
             temp.Play();
@@ -16,13 +16,14 @@ public class ParticleKiller : MonoBehaviour {
         AudioSource audio = GetComponent<AudioSource>();
         if (audio) {
             audio.Play();
+            return;
         }
 
     }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if (GameControler.GetTime() - time > 2.0f) {
+		if (GameManager.GetTime() - time > 2.0f) {
             GameObject.Destroy(this.transform.gameObject);
         }
 	}
