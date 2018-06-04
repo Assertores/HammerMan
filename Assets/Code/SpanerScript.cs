@@ -37,8 +37,9 @@ public class SpanerScript : MonoBehaviour {
             throw new System.Exception("WaveBar not assigned. Spawner");
         }
         CurrentLife = MaxLife;
-        NextSpawn = GameControler.GetTime();
-        GameControler.ChangeEnemyCount(100);
+        NextSpawn = GameManager.GetTime();
+        WaveBar.fillAmount = 1;
+        GameManager.ChangeEnemyCount(100);
     }
 	
 	void Update () {
@@ -51,17 +52,16 @@ public class SpanerScript : MonoBehaviour {
     }
 
     void SpawnBehavior0() {
-        if (GameControler.GetTime() % (WaveLength + GapLength) <= WaveLength && GameControler.GetTime() >= NextSpawn) {
+        if (GameManager.GetTime() % (WaveLength + GapLength) <= WaveLength && GameManager.GetTime() >= NextSpawn) {
             Instantiate(Creap1).transform.position = this.transform.position;
-            GameControler.ChangeEnemyCount(1);
-            NextSpawn = GameControler.GetTime() + SpawnRate;
+            GameManager.ChangeEnemyCount(1);
+            NextSpawn = GameManager.GetTime() + SpawnRate;
         }
-        WaveBar.fillAmount = CurrentLife / (float)MaxLife;
     }
 
     void SpawnBehavior1() {
         SpawnBehavior0();
-        if (GameControler.GetTime() % (WaveLength + GapLength) > WaveLength && GameControler.GetTime() > WaveCount * (WaveLength + GapLength) && GapLength < MaximumGapLength) {
+        if (GameManager.GetTime() % (WaveLength + GapLength) > WaveLength && GameManager.GetTime() > WaveCount * (WaveLength + GapLength) && GapLength < MaximumGapLength) {
             WaveCount++;
             GapLength += Factor;
         }
@@ -72,7 +72,7 @@ public class SpanerScript : MonoBehaviour {
 
     void SpawnBehavior2() {
         SpawnBehavior0();
-        if (GameControler.GetTime() % (WaveLength + GapLength) > WaveLength && GameControler.GetTime() > WaveCount * (WaveLength + GapLength) && GapLength < MaximumGapLength) {
+        if (GameManager.GetTime() % (WaveLength + GapLength) > WaveLength && GameManager.GetTime() > WaveCount * (WaveLength + GapLength) && GapLength < MaximumGapLength) {
             WaveCount++;
             GapLength += Factor * WaveCount;
         }
@@ -83,7 +83,7 @@ public class SpanerScript : MonoBehaviour {
 
     void SpawnBehavior3() {
         SpawnBehavior0();
-        if (GameControler.GetTime() % (WaveLength + GapLength) > WaveLength && GameControler.GetTime() > WaveCount * (WaveLength + GapLength) && GapLength < MaximumGapLength) {
+        if (GameManager.GetTime() % (WaveLength + GapLength) > WaveLength && GameManager.GetTime() > WaveCount * (WaveLength + GapLength) && GapLength < MaximumGapLength) {
             WaveCount++;
             GapLength += Factor * 1/(float)WaveCount;
         }
@@ -101,8 +101,9 @@ public class SpanerScript : MonoBehaviour {
     private void Hit(int damage = 1) {
         Instantiate(SpawnHitParticle, this.transform.position, this.transform.rotation);
         CurrentLife -= damage;
-        if(CurrentLife <= 0) {
-            GameControler.ChangeEnemyCount(-100);
+        WaveBar.fillAmount = CurrentLife / (float)MaxLife;
+        if (CurrentLife <= 0) {
+            GameManager.ChangeEnemyCount(-100);
             GameObject.Destroy(this.transform.gameObject);
         }
     }
