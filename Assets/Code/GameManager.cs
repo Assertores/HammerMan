@@ -20,12 +20,14 @@ public class GameManager : MonoBehaviour {
     public static GameManager GM = null;
 
     void Awake() {
+        //print("GameManager awake bevor: " + GM.name);// ----- ----- LOG ----- -----
         if (GM == null) {
             GM = this;
             DontDestroyOnLoad(this);
         } else {
             Destroy(this.gameObject);
         }
+        print("GameManager awake after: " + GM.name);// ----- ----- LOG ----- -----
     }
 
     //===== ===== Starting of ===== =====
@@ -63,12 +65,11 @@ public class GameManager : MonoBehaviour {
     public static void StartLevel(int level) {
         GM.LevelTimeAtStart = Time.time;
         GM.EnemyCount = 0;
-        if (GM.StartingInLevel) {
-            return;
-        }
-        switch (level) {
-            case 1: SceneManager.LoadScene(StringCollection.SCENE01, LoadSceneMode.Single); break;
-            default: print("Level not found"); break;// ----- ----- LOG ----- -----
+        if (!GM.StartingInLevel) {
+            switch (level) {
+                case 1: SceneManager.LoadScene(StringCollection.SCENE01, LoadSceneMode.Single); break;
+                default: print("Level not found"); break;// ----- ----- LOG ----- -----
+            }
         }
         GM.Scene = level + 2;
     }
@@ -94,6 +95,8 @@ public class GameManager : MonoBehaviour {
 
     PlayerMovment PM = null;
     public static void RegistPlayer(PlayerMovment handle) {
+        print("GameManager got: " + handle);// ----- ----- LOG ----- -----
+        print("GameManager is: " + GM.name);// ----- ----- LOG ----- -----
         if (GM.PM == handle)
             GM.PM = null;
         else
@@ -142,7 +145,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public static bool PlayerAnimation() {
-        if(GM.PM = null) {
+        if(GM.PM == null) {
             print("no Player available");// ----- ----- LOG ----- -----
             return false;
         }
@@ -151,7 +154,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public static bool EndOfIntro() {
-        if(GM.PM = null) {
+        if(GM.PM == null) {
             print("no Player available");// ----- ----- LOG ----- -----
             return false;
         }
