@@ -27,7 +27,7 @@ public class HammerManager : MonoBehaviour {
     }
 	
 	void Update () {
-        float time = GameControler.GetTime() % HammerFrequency;
+        float time = GameManager.GetTime() % HammerFrequency;
         if (time > HammerOnBeginning && time < HammerOnEnd) {
             HammerCol.enabled = true;
         } else if (HammerCol.enabled == true) {

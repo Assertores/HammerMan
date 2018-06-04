@@ -7,7 +7,7 @@ public class EnemyBehavior : MonoBehaviour {
     [SerializeField]
     GameObject EnemyDieParticle;
     [SerializeField]
-    GameObject[] DeathSound;
+    AudioClip[] DeathSound;
     [SerializeField]
     float EnemySpeed = 10;
     [SerializeField]
@@ -59,8 +59,8 @@ public class EnemyBehavior : MonoBehaviour {
             rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
         }
     }
-
-        private void OnTriggerEnter2D(Collider2D col) {
+    
+    private void OnTriggerEnter2D(Collider2D col) {
         switch (col.transform.gameObject.tag) {
             case StringCollection.HAMMER:
                 DieByHammer();
@@ -74,14 +74,15 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     void DieByHammer() {
-        Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
-        Instantiate(DeathSound[Random.Range(0, DeathSound.Length)]);
-        GameControler.ChangeEnemyCount(-1);
+        GameObject Die = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
+        int temp = Random.Range(0, DeathSound.Length);
+        Die.GetComponent<AudioSource>().clip = DeathSound[temp];
+        GameManager.ChangeEnemyCount(-1);
         GameObject.Destroy(this.transform.gameObject);
     }
 
     void DieByExit() {
-        GameControler.ChangeEnemyCount(-1, EnemyDamageOnExit);
+        GameManager.ChangeEnemyCount(-1, EnemyDamageOnExit);
         GameObject.Destroy(this.transform.gameObject);
     }
 

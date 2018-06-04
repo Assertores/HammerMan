@@ -10,8 +10,8 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     Text Enemy;
 
-    void Awake() {
-        GameControler.GC.UIInit(this);
+    private void OnDestroy() {
+        GameManager.RegistUI(this);
     }
 
     // Use this for initialization
@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour {
         if (!Enemy) {
             throw new System.Exception("Enemy text not assinght. UI");
         }
+        GameManager.RegistUI(this);
         Life.fillAmount = 1.0f;
 	}
 	

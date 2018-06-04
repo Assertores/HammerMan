@@ -131,9 +131,10 @@ MonoBehaviour:
   EnemyDieParticle: {fileID: 1146176289402804, guid: a2b6bf90712fd9048b588eced2d76d74,
     type: 2}
   DeathSound:
-  - {fileID: 1336974089992272, guid: 61ec46cd56d311d498263dbfa62e9b04, type: 2}
-  - {fileID: 1336974089992272, guid: 66070a73175416545adb33771eff35de, type: 2}
-  - {fileID: 1336974089992272, guid: dfb2f456246cf014ebd3cf5cb64f65ef, type: 2}
+  - {fileID: 8300000, guid: c5cc2acc9df3256498d77568d376a6c5, type: 3}
+  - {fileID: 8300000, guid: 32dcdd99df94d284aa0a3d537ed6c615, type: 3}
+  - {fileID: 8300000, guid: 1e82a398661e3254b84959586e0f36a0, type: 3}
+  - {fileID: 8300000, guid: 14b0c18c3fee008428ba9cec60968cdb, type: 3}
   EnemySpeed: 2.8
   EnemyDamageOnExit: 1
   TurningDistance: 0.6
