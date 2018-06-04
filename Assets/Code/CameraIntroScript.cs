@@ -8,6 +8,8 @@ public class CameraIntroScript : MonoBehaviour {
     public CameraPathAnchor[] CameraPath;
     [SerializeField]
     int PlayerAnimation = 0;
+    [SerializeField]
+    bool Intro = false;
 
     int index = 0;
     float time = 0;
@@ -16,6 +18,9 @@ public class CameraIntroScript : MonoBehaviour {
     Camera cam;
 
     void Start() {
+        if (!Intro) {
+            index = CameraPath.Length;
+        }
         if (CameraPath.Length > 0) {
             time = GameManager.GetTime();
             cam = this.gameObject.GetComponent<Camera>();
