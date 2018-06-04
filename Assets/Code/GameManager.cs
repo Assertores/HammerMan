@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour {
     PlayerMovment PM = null;
     public static void RegistPlayer(PlayerMovment handle) {
         print("GameManager got: " + handle);// ----- ----- LOG ----- -----
-        print("GameManager is: " + GM.name);// ----- ----- LOG ----- -----
+        //print("GameManager is: " + GM.name);// ----- ----- LOG ----- -----
         if (GM.PM == handle)
             GM.PM = null;
         else

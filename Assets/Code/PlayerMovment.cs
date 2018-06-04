@@ -12,6 +12,8 @@ public class PlayerMovment : MonoBehaviour {
     float FallThroughBoost = 1.0f;
     [SerializeField]
     LayerMask FallLayers;
+    [SerializeField]
+    Animator State;
 
     Rigidbody2D rb;
     bool isUpPossible = false;
@@ -34,14 +36,23 @@ public class PlayerMovment : MonoBehaviour {
     }
 	
 	void Update () {
+        if (this.transform.position.y < -0.1) {
+            this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
+            InputControler.SetDown(0);
+        }
+    }
+
+    void FixedUpdate() {
         if (InControle) {
-            if (this.transform.position.y < -0.1) {
-                this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
-                InputControler.SetDown(0);
-            }
-            if (InputControler.Up && isUpPossible) {
-                this.transform.position = new Vector2(Ladder.x, this.transform.position.y);
-                rb.velocity = new Vector2(0, ClimbSpeed);
+            if (isUpPossible && this.transform.position.y > Ladder.y + 1) {
+                if (InputControler.Up) {
+                    print("klimp");// ----- ----- LOG ----- -----
+                    this.transform.position = new Vector2(Ladder.x, this.transform.position.y);
+                    rb.velocity = new Vector2(0, ClimbSpeed);
+                } else {
+                    print("dont klimp annymore");// ----- ----- LOG ----- -----
+                    rb.velocity = new Vector2(0, 0);
+                }
             } else {
                 rb.velocity = new Vector2(InputControler.Horizontal * PlayerSpeed, rb.velocity.y);
 
@@ -64,19 +75,25 @@ public class PlayerMovment : MonoBehaviour {
         }
     }
 
-    void OnTriggerStay2D(Collider2D col) {
+    void OnTriggerEnter2D(Collider2D col) {
         if (col.transform.gameObject.tag == StringCollection.LADDER) {
+            print("i'm on ladder");// ----- ----- LOG ----- -----
             Ladder = col.transform.position;
             isUpPossible = true;
+            rb.gravityScale = 0;
+            //rb.bodyType = RigidbodyType2D.Kinematic;
         }
     }
 
     void OnTriggerExit2D(Collider2D col) {
         if (col.transform.gameObject.tag == StringCollection.LADDER) {
             if (InputControler.Vertical < 0) {
-                rb.velocity = new Vector2(rb.velocity.x, 0);
-                this.transform.position = new Vector2(this.transform.position.x, Ladder.y + 4.1f);
+                print("no ladder anymore");// ----- ----- LOG ----- -----
+                rb.velocity = new Vector2(rb.velocity.x, 0.1f);
+                this.transform.position = new Vector2(this.transform.position.x, Ladder.y + 4.0f);
+                //rb.bodyType = RigidbodyType2D.Dynamic;
             }
+            rb.gravityScale = 5;
             isUpPossible = false;
         }
     }
