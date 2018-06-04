@@ -7,7 +7,7 @@ public class LevelInfos : MonoBehaviour {
     [SerializeField]
     int LevelLife;
 
-    void Awake () {
+    void Start () {
         GameManager.RegistLvlInfos(this);
 	}
     private void OnDestroy() {

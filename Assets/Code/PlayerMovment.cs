@@ -20,9 +20,6 @@ public class PlayerMovment : MonoBehaviour {
     bool InControle = false;
     bool PlayerIsInGround = false;
 
-    private void Awake() {
-        GameManager.RegistPlayer(this);
-    }
     private void OnDestroy() {
         GameManager.RegistPlayer(this);
     }
@@ -32,33 +29,38 @@ public class PlayerMovment : MonoBehaviour {
         if (!rb) {
             throw new System.Exception("Rigitbody not found. Player");
         }
+        print("i'm here. Player: " + this);// ----- ----- LOG ----- -----
+        GameManager.RegistPlayer(this);
     }
 	
 	void Update () {
-        if (this.transform.position.y < -0.1) {
-            this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
-            InputControler.SetDown(0);
-        }
-        if (InputControler.Up && isUpPossible) {
-            this.transform.position = new Vector2(Ladder.x, this.transform.position.y);
-            rb.velocity = new Vector2(0, ClimbSpeed);
-        } else {
-            rb.velocity = new Vector2(InputControler.Horizontal * PlayerSpeed, rb.velocity.y);
-
-            if ((InputControler.Horizontal < 0 && DirRight) || (InputControler.Horizontal > 0 && !DirRight)) {
-                ChangeDir(!DirRight);
+        if (InControle) {
+            if (this.transform.position.y < -0.1) {
+                this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
+                InputControler.SetDown(0);
             }
-        }
-        if (Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && !PlayerIsInGround) {
-            PlayerIsInGround = true;
-        } else if (!Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && PlayerIsInGround) {
-            PlayerIsInGround = false;
-            InputControler.ChangeDown(-1);
-        }
-        if (InputControler.DownCount <= 0) {
-            GetComponent<CapsuleCollider2D>().isTrigger = false;
-        } else {
-            GetComponent<CapsuleCollider2D>().isTrigger = true;
+            if (InputControler.Up && isUpPossible) {
+                this.transform.position = new Vector2(Ladder.x, this.transform.position.y);
+                rb.velocity = new Vector2(0, ClimbSpeed);
+            } else {
+                rb.velocity = new Vector2(InputControler.Horizontal * PlayerSpeed, rb.velocity.y);
+
+                if ((InputControler.Horizontal < 0 && DirRight) || (InputControler.Horizontal > 0 && !DirRight)) {
+                    ChangeDir(!DirRight);
+                }
+            }
+            if (Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && !PlayerIsInGround) {
+                PlayerIsInGround = true;
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - FallThroughBoost);
+            } else if (!Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && PlayerIsInGround) {
+                PlayerIsInGround = false;
+                InputControler.ChangeDown(-1);
+            }
+            if (InputControler.DownCount <= 0) {
+                GetComponent<CapsuleCollider2D>().isTrigger = false;
+            } else {
+                GetComponent<CapsuleCollider2D>().isTrigger = true;
+            }
         }
     }
 
