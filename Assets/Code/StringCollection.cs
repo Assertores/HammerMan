@@ -10,6 +10,7 @@ public class StringCollection {
     public const string VERTICAL = "Vertical";
     public const string HORIZONTAL = "Horizontal";
     public const string CANCEL = "Cancel";
+    public const string JUMP = "Jump";
     //TAGS
     public const string PLAYER = "Player";
     public const string ENEMY = "Enemy";

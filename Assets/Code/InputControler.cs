@@ -11,6 +11,7 @@ public class InputControler : MonoBehaviour {
     public static int DownCount { get; private set; }
     bool Down = false;
     public static int ExitCount { get; private set; }
+    public static bool Jump { get; private set; }
 
     private void Awake() {
         Horizontal = 0.0f;
@@ -18,6 +19,7 @@ public class InputControler : MonoBehaviour {
         Up = false;
         DownCount = 0;
         ExitCount = 0;
+        Jump = false;
     }
 
     void Update () {
@@ -40,6 +42,13 @@ public class InputControler : MonoBehaviour {
                 Down = false;
         }
         LastVertical = Vertical;
+
+        if (Input.GetAxis(StringCollection.JUMP) > 0) {
+            if(!Jump)
+                Jump = true;
+        }else if (Jump) {
+            Jump = false;
+        }
 	}
 
     public static void ChangeDown(int i) {
