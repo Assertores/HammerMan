@@ -47,7 +47,7 @@ public class EnemyBehavior : MonoBehaviour {
     void Update() {
 
         //DistToGround = Physics2D.Raycast(this.transform.position, -this.transform.up, 1000, FallLayers).distance;
-        print(State);// ----- ----- LOG ----- -----
+        LogSystem.LogOnConsole(State.ToString());// ----- ----- LOG ----- -----
         switch (State) {
         case EnemyState.Moving:
             /*if (DistToGround > 0.5f)//triggert zu früh
