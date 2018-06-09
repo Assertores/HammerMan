@@ -66,7 +66,7 @@ public class PlayerMovment : MonoBehaviour {
                         ChangeState(PlayerState.Falling);
                     else if (InputControler.Vertical > 0 && isUpPossible)
                         ChangeState(PlayerState.Climbing);
-                    else if (false) //if jump taste gedrückt
+                    else if (InputControler.Jump)
                         ChangeState(PlayerState.Jumping);
                     else if (InputControler.Horizontal == 0)
                         ChangeState(PlayerState.Idle);
@@ -99,34 +99,6 @@ public class PlayerMovment : MonoBehaviour {
 
     void FixedUpdate() {
         if (InControle) {
-            /*if (isUpPossible && this.transform.position.y > Ladder.y + 1) {
-                if (InputControler.Up) {
-                    print("klimp");// ----- ----- LOG ----- -----
-                    this.transform.position = new Vector2(Ladder.x, this.transform.position.y);
-                    rb.velocity = new Vector2(0, ClimbSpeed);
-                } else {
-                    print("dont klimp annymore");// ----- ----- LOG ----- -----
-                    rb.velocity = new Vector2(0, 0);
-                }
-            } else {
-                rb.velocity = new Vector2(InputControler.Horizontal * PlayerSpeed, rb.velocity.y);
-
-                if ((InputControler.Horizontal < 0 && DirRight) || (InputControler.Horizontal > 0 && !DirRight)) {
-                    ChangeDir(!DirRight);
-                }
-            }
-            if (Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && !PlayerIsInGround) {
-                PlayerIsInGround = true;
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - FallThroughBoost);
-            } else if (!Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && PlayerIsInGround) {
-                PlayerIsInGround = false;
-                InputControler.ChangeDown(-1);
-            }
-            if (InputControler.DownCount <= 0) {
-                GetComponent<CapsuleCollider2D>().isTrigger = false;
-            } else {
-                GetComponent<CapsuleCollider2D>().isTrigger = true;
-            }*/
 
             if (Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && !PlayerIsInGround) {
                 PlayerIsInGround = true;
@@ -201,7 +173,7 @@ public class PlayerMovment : MonoBehaviour {
                 this.transform.position = new Vector3(Ladder.x, this.transform.position.y, this.transform.position.z);
                 break;
             case PlayerState.Jumping:
-                rb.AddForce(new Vector2(0, JumpStrength));
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + JumpStrength);
                 break;
             case PlayerState.Falling:
                 GetComponent<CapsuleCollider2D>().isTrigger = true;
