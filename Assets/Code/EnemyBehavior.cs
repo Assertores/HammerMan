@@ -65,9 +65,10 @@ public class EnemyBehavior : MonoBehaviour {
     private void FixedUpdate() {
         switch (State) {
         case EnemyState.Moving:
-            RaycastHit2D hit = Physics2D.Raycast(this.transform.position, this.transform.right * rb.velocity.x, TurningDistance, layer);
+            RaycastHit2D hit = Physics2D.Raycast(new Vector3(this.transform.position.x + (DirRight ? 0.6f: -0.6f), this.transform.position.y, this.transform.position.z),
+                                                this.transform.right * rb.velocity.x, TurningDistance - 0.6f, layer);
 
-            if (hit.collider != null && hit.collider.tag == StringCollection.LEVEL) {
+            if (hit.collider != null) {
                 ChangeDir(!DirRight);
             }
             if (rb.velocity.x <= 0.1f && rb.velocity.x >= -0.1f) {
