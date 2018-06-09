@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerState
-{
+public enum PlayerState {
     Idle,
     Moving,
     Climbing,
@@ -12,8 +11,7 @@ public enum PlayerState
     Landing
 }
 
-public class PlayerMovment : MonoBehaviour
-{
+public class PlayerMovment : MonoBehaviour {
 
     [SerializeField]
     float PlayerSpeed = 1.0f;
