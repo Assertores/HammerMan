@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerState
-{
+public enum PlayerState {
     Idle,
     Moving,
     Climbing,
@@ -12,8 +11,7 @@ public enum PlayerState
     Landing
 }
 
-public class PlayerMovment : MonoBehaviour
-{
+public class PlayerMovment : MonoBehaviour {
 
     [SerializeField]
     float PlayerSpeed = 1.0f;
@@ -56,7 +54,7 @@ public class PlayerMovment : MonoBehaviour
         }
 
         oldGravityScale = rb.gravityScale;
-        print("i'm here. Player: " + this);// ----- ----- LOG ----- -----
+        LogSystem.LogOnConsole("i'm here. Player: " + this);// ----- ----- LOG ----- -----
         GameManager.RegistPlayer(this);
     }
 
@@ -181,7 +179,7 @@ public class PlayerMovment : MonoBehaviour
             Hammer.SetHammer(true);
             break;
         case PlayerState.Climbing:
-            print("i'm klimping");// ----- ----- LOG ----- -----
+            LogSystem.LogOnConsole("i'm klimping");// ----- ----- LOG ----- -----
             rb.gravityScale = 0;
             this.transform.position = new Vector3(Ladder.x, this.transform.position.y, this.transform.position.z);
             break;
@@ -193,7 +191,7 @@ public class PlayerMovment : MonoBehaviour
             rb.AddForce(new Vector2(0, -FallThroughBoost));
             break;
         case PlayerState.Landing:
-            print("i'm landing");// ----- ----- LOG ----- -----
+            LogSystem.LogOnConsole("i'm landing");// ----- ----- LOG ----- -----
             rb.gravityScale = 0;
             rb.velocity = new Vector2(0, 0);
             break;
@@ -206,7 +204,7 @@ public class PlayerMovment : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col) {
         if (col.transform.gameObject.tag == StringCollection.LADDER) {
-            print("i'm on ladder");// ----- ----- LOG ----- -----
+            LogSystem.LogOnConsole("i'm on ladder");// ----- ----- LOG ----- -----
             Ladder = col.transform.position;
             isUpPossible = true;
             //rb.bodyType = RigidbodyType2D.Kinematic;
@@ -216,7 +214,7 @@ public class PlayerMovment : MonoBehaviour
     void OnTriggerExit2D(Collider2D col) {
         if (col.transform.gameObject.tag == StringCollection.LADDER) {
             if (InputControler.Vertical < 0) {
-                print("no ladder anymore");// ----- ----- LOG ----- -----
+                LogSystem.LogOnConsole("no ladder anymore");// ----- ----- LOG ----- -----
                 rb.velocity = new Vector2(rb.velocity.x, 0.1f);
                 //this.transform.position = new Vector2(this.transform.position.x, Ladder.y + 4.0f);
                 //rb.bodyType = RigidbodyType2D.Dynamic;
