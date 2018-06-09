@@ -6,6 +6,8 @@ public class LevelInfos : MonoBehaviour {
 
     [SerializeField]
     int LevelLife;
+    [SerializeField]
+    float HammerFrequenz;
 
     void Start () {
         GameManager.RegistLvlInfos(this);
@@ -16,5 +18,9 @@ public class LevelInfos : MonoBehaviour {
 
     public int GetLife() {
         return LevelLife;
+    }
+
+    public float GetHammerFrequenz() {
+        return HammerFrequenz;
     }
 }

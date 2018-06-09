@@ -167,6 +167,10 @@ public class GameManager : MonoBehaviour {
         return Time.time - GM.LevelTimeAtStart;
     }
 
+    public static float GetHammerTime() {
+        return (Time.time - GM.LevelTimeAtStart)/GM.LI.GetHammerFrequenz();
+    }
+
     public void FreezeGame() {
         if (Time.timeScale != 0) {
             Time.timeScale = 0;
