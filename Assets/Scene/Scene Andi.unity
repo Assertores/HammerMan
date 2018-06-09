@@ -16384,6 +16384,11 @@ Prefab:
       propertyPath: m_Name
       value: Level
       objectReference: {fileID: 0}
+    - target: {fileID: 114116088283773216, guid: a5c8441713603f94fa48ac12a1973f4d,
+        type: 2}
+      propertyPath: HammerFrequenz
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a5c8441713603f94fa48ac12a1973f4d, type: 2}
   m_IsPrefabParent: 0
