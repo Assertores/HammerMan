@@ -168,6 +168,25 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
+    public static Vector2 GetPlayerPosition() {
+        Vector2 ret = new Vector2(0, 0);
+        if (GM.PM == null) {
+            LogSystem.LogOnConsole("no Player available");// ----- ----- LOG ----- -----
+            return ret;
+        }
+        ret = new Vector2(GM.PM.transform.position.x, GM.PM.transform.position.y);
+        return ret;
+    }
+
+    public static bool KickPlayer(Vector2 force) {
+        if(GM.PM == null) {
+            LogSystem.LogOnConsole("no Player available");// ----- ----- LOG ----- -----
+            return false;
+        }
+        GM.PM.KickPlayer(force);
+        return true;
+    }
+
     //===== ===== Library ===== =====
     public static float GetTime() {
         return Time.time - GM.LevelTimeAtStart;
