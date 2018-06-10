@@ -97,7 +97,7 @@ public class PlayerMovment : MonoBehaviour {
                     ChangeState(PlayerState.Idle);
                 break;
             default:
-                ChangeState(PlayerState.Idle);
+                StateMachine_Transition01();
                 break;
             }
         } else
@@ -137,6 +137,7 @@ public class PlayerMovment : MonoBehaviour {
             case PlayerState.Landing:
                 break;
             default:
+                StateMachine_StayInState01();
                 break;
             }
         }
@@ -167,10 +168,13 @@ public class PlayerMovment : MonoBehaviour {
             this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - DistToGround, this.transform.position.z);
             break;
         default:
+            StateMachine_LeaveState01();
             break;
         }
 
-        switch (newState) {
+        State = newState;
+
+        switch (State) {
         case PlayerState.Idle:
             rb.velocity = new Vector2(0, 0);
             Hammer.SetHammer(true);
@@ -196,10 +200,27 @@ public class PlayerMovment : MonoBehaviour {
             rb.velocity = new Vector2(0, 0);
             break;
         default:
+            StateMachine_EnterState01();
             break;
         }
 
-        State = newState;
+        
+    }
+
+    void StateMachine_Transition01() {
+        ChangeState(PlayerState.Idle);
+    }
+
+    void StateMachine_StayInState01() {
+
+    }
+
+    void StateMachine_LeaveState01() {
+
+    }
+
+    void StateMachine_EnterState01() {
+
     }
 
     void OnTriggerEnter2D(Collider2D col) {

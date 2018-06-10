@@ -88,24 +88,6 @@ public class EnemyBehavior : MonoBehaviour {
         }
     }
 
-    void StateMachine_Transition01() {
-
-    }
-
-    void StateMachine_StayInState01() {
-
-    }
-
-    void StateMachine_LeaveState01() {
-
-    }
-
-    void StateMachine_EnterState01(EnemyState newState) {
-
-    }
-
-
-
     void ChangeState(EnemyState newState) {
         if (State == newState)
             return;
@@ -120,18 +102,34 @@ public class EnemyBehavior : MonoBehaviour {
             break;
         }
 
-        switch (newState) {
+        State = newState;
+
+        switch (State) {
         case EnemyState.Moving:
             break;
         case EnemyState.Falling:
             ChangeDir(Random.value > 0.5f);
             break;
         default:
-            StateMachine_EnterState01(newState);
+            StateMachine_EnterState01();
             break;
         }
+    }
 
-        State = newState;
+    void StateMachine_Transition01() {
+
+    }
+
+    void StateMachine_StayInState01() {
+
+    }
+
+    void StateMachine_LeaveState01() {
+
+    }
+
+    void StateMachine_EnterState01() {
+
     }
 
     private void OnTriggerEnter2D(Collider2D col) {
