@@ -59,6 +59,9 @@ public class EnemyBehavior : MonoBehaviour {
             if (rb.velocity.y >= -0.5f)
                 ChangeState(EnemyState.Moving);
             break;
+        default:
+            StateMachine_Transition01();
+            break;
         }
     }
 
@@ -79,6 +82,9 @@ public class EnemyBehavior : MonoBehaviour {
             break;
         case EnemyState.Falling:
             break;
+        default:
+            StateMachine_StayInState01();
+            break;
         }
     }
 
@@ -91,17 +97,39 @@ public class EnemyBehavior : MonoBehaviour {
             break;
         case EnemyState.Falling:
             break;
+        default:
+            StateMachine_LeaveState01();
+            break;
         }
 
-        switch (newState) {
+        State = newState;
+
+        switch (State) {
         case EnemyState.Moving:
             break;
         case EnemyState.Falling:
             ChangeDir(Random.value > 0.5f);
             break;
+        default:
+            StateMachine_EnterState01();
+            break;
         }
+    }
 
-        State = newState;
+    void StateMachine_Transition01() {
+
+    }
+
+    void StateMachine_StayInState01() {
+
+    }
+
+    void StateMachine_LeaveState01() {
+
+    }
+
+    void StateMachine_EnterState01() {
+
     }
 
     private void OnTriggerEnter2D(Collider2D col) {
