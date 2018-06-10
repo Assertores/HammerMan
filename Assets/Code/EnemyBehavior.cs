@@ -15,7 +15,7 @@ public class EnemyBehavior : MonoBehaviour {
     [SerializeField]
     AudioClip[] DeathSound;
     [SerializeField]
-    GameObject InvoceOnEnemyDeath;
+    GameObject[] InvoceOnEnemyDeath;
     [Header("Generel")]
     [SerializeField]
     float EnemySpeed = 10;
@@ -149,8 +149,10 @@ public class EnemyBehavior : MonoBehaviour {
         GameObject Die = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
         int temp = Random.Range(0, DeathSound.Length);
         Die.GetComponent<AudioSource>().clip = DeathSound[temp];
-        if (InvoceOnEnemyDeath) {
-            Instantiate(InvoceOnEnemyDeath).transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+        if (InvoceOnEnemyDeath.Length != 0) {
+            for(int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
+                Instantiate(InvoceOnEnemyDeath[i]).transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+            }
         }
         GameManager.ChangeEnemyCount(-1);
         GameObject.Destroy(this.transform.gameObject);
