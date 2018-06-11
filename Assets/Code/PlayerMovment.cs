@@ -257,6 +257,6 @@ public class PlayerMovment : MonoBehaviour {
     }
 
     public void KickPlayer(Vector2 force) {
-        rb.AddForce(force);
+        rb.velocity = rb.velocity + force;
     }
 }

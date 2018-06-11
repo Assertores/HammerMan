@@ -22,6 +22,7 @@ public class Explosion : MonoBehaviour {
             temp = new Vector2(temp.x - this.transform.position.x, temp.y - this.transform.position.y);
             temp *= explosionForce * 1 / temp.magnitude;
             GameManager.KickPlayer(temp);
+            LogSystem.LogOnConsole("I'm Exploding");// ----- ----- LOG ----- -----
             GameObject.Destroy(this.transform.gameObject);
         }
 	}
