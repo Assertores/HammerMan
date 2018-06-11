@@ -109,8 +109,12 @@ public class GameManager : MonoBehaviour {
             GM.PM = handle;
     }
 
-    public static void RegistCamera() {
-
+    CameraShake CS = null;
+    public static void RegistCamera(CameraShake handle) {
+        if (GM.CS == handle)
+            GM.CS = null;
+        else
+            GM.CS = handle;
     }
 
     LevelInfos LI = null;
@@ -120,7 +124,7 @@ public class GameManager : MonoBehaviour {
         else {
             GM.LI = handle;
             GM.CurrentLife = handle.GetLife();
-            print("live is: " + handle.GetLife());
+            LogSystem.LogOnConsole("live is: " + handle.GetLife());// ----- ----- LOG ----- -----
         }
     }
 
@@ -154,6 +158,15 @@ public class GameManager : MonoBehaviour {
 
         GM.UIM.UpdateLife(GM.CurrentLife / (float)GM.LI.GetLife());
         GM.UIM.UpdateEnemyCount(GM.EnemyCount);
+        return true;
+    }
+
+    public static bool CameraEffectOnEnemyDeath() {
+        if(GM.CS == null) {
+            LogSystem.LogOnConsole("no Camera available");// ----- ----- LOG ----- -----
+            return false;
+        }
+        GM.CS.StartShaking();
         return true;
     }
 

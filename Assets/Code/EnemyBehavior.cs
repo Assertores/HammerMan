@@ -146,6 +146,7 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     void DieByHammer() {
+        GameManager.CameraEffectOnEnemyDeath();
         GameObject Die = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
         int temp = Random.Range(0, DeathSound.Length);
         Die.GetComponent<AudioSource>().clip = DeathSound[temp];
