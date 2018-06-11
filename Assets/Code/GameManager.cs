@@ -166,7 +166,16 @@ public class GameManager : MonoBehaviour {
             LogSystem.LogOnConsole("no Camera available");// ----- ----- LOG ----- -----
             return false;
         }
-        GM.CS.StartShaking();
+        GM.CS.StartShaking(true, 0.2f);
+        return true;
+    }
+
+    public static bool CameraEffectOnEnemyExit() {
+        if (GM.CS == null) {
+            LogSystem.LogOnConsole("no Camera available");// ----- ----- LOG ----- -----
+            return false;
+        }
+        GM.CS.StartShaking(false);
         return true;
     }
 
