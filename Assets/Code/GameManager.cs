@@ -114,15 +114,21 @@ public class GameManager : MonoBehaviour {
         else {
             GM.LI = handle;
             GM.CurrentLife = handle.GetLife();
+            print("live is: " + handle.GetLife());
         }
     }
 
     //===== ===== Comunicator ===== =====
     public static bool ChangeEnemyCount(int count = 1, int life = 0) {
+        if(GM.LI == null) {
+            print("Level infos not loaded yet");// ----- ----- LOG ----- -----
+            return false;
+        }
         GM.EnemyCount += count;
         GM.CurrentLife += life;
 
         if(GM.CurrentLife <= 0) {
+            print("i changed to game over: " + GM.CurrentLife);
             GameManager.StartGameOver();
             return true;
         }
@@ -133,10 +139,6 @@ public class GameManager : MonoBehaviour {
 
         if(GM.UIM == null) {
             print("no UI available");// ----- ----- LOG ----- -----
-            return false;
-        }
-        if(GM.LI == null) {
-            print("no Level Infos available");// ----- ----- LOG ----- -----
             return false;
         }
         GM.UIM.UpdateLife(GM.CurrentLife/(float)GM.LI.GetLife());
