@@ -192,7 +192,7 @@ public class PlayerMovment : MonoBehaviour {
             break;
         case PlayerState.Falling:
             GetComponent<CapsuleCollider2D>().isTrigger = true;
-            rb.AddForce(new Vector2(0, -FallThroughBoost));
+            rb.velocity = new Vector2(0, -FallThroughBoost);
             break;
         case PlayerState.Landing:
             LogSystem.LogOnConsole("i'm landing");// ----- ----- LOG ----- -----
