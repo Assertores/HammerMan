@@ -189,7 +189,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114009663460776392, guid: e96100c97b8690547b62b4b132419c05,
+      - m_Target: {fileID: 114182877329260946, guid: e96100c97b8690547b62b4b132419c05,
           type: 2}
         m_MethodName: StartMainMenu
         m_Mode: 1
@@ -488,14 +488,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114009663460776392, guid: e96100c97b8690547b62b4b132419c05,
+      - m_Target: {fileID: 114182877329260946, guid: e96100c97b8690547b62b4b132419c05,
           type: 2}
-        m_MethodName: StartLvl
-        m_Mode: 1
+        m_MethodName: StartLevel
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

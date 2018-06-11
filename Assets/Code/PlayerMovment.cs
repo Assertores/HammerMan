@@ -30,6 +30,7 @@ public class PlayerMovment : MonoBehaviour {
     float DistToGround = 0;
 
     Rigidbody2D rb;
+    HammerManager Hammer;
     bool isUpPossible = false;
     bool DirRight = true;
     Vector2 Ladder;
@@ -41,17 +42,23 @@ public class PlayerMovment : MonoBehaviour {
         GameManager.RegistPlayer(this);
     }
 
-    void Start () {
+    void Start() {
         rb = GetComponent<Rigidbody2D>();
         if (!rb) {
             throw new System.Exception("Rigitbody not found. Player");
         }
+
+        Hammer = GetComponentInChildren<HammerManager>();
+        if (!Hammer) {
+            throw new System.Exception("Hammer not found. Player");
+        }
+
         oldGravityScale = rb.gravityScale;
-        print("i'm here. Player: " + this);// ----- ----- LOG ----- -----
+        LogSystem.LogOnConsole("i'm here. Player: " + this);// ----- ----- LOG ----- -----
         GameManager.RegistPlayer(this);
     }
-	
-	void Update () {
+
+    void Update() {
         if (this.transform.position.y < -0.1) {
             this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
             InputControler.SetDown(0);
@@ -59,39 +66,39 @@ public class PlayerMovment : MonoBehaviour {
         if (InControle) {
             DistToGround = Physics2D.Raycast(this.transform.position, -this.transform.up, 1000, FallLayers).distance;
             switch (State) {
-                case PlayerState.Idle:
-                    goto case PlayerState.Moving;
-                case PlayerState.Moving:
-                    if (DistToGround > HoverHight || InputControler.DownCount > 0)
-                        ChangeState(PlayerState.Falling);
-                    else if (InputControler.Vertical > 0 && isUpPossible)
-                        ChangeState(PlayerState.Climbing);
-                    else if (false) //if jump taste gedrückt
-                        ChangeState(PlayerState.Jumping);
-                    else if (InputControler.Horizontal == 0)
-                        ChangeState(PlayerState.Idle);
-                    else
-                        ChangeState(PlayerState.Moving);
-                    break;
-                case PlayerState.Climbing:
-                    if (!isUpPossible)
-                        ChangeState(PlayerState.Idle);
-                    break;
-                case PlayerState.Jumping:
-                    if (rb.velocity.y <= 0)
-                        ChangeState(PlayerState.Falling);
-                    break;
-                case PlayerState.Falling:
-                    if (DistToGround <= HoverHight && InputControler.DownCount <= 0)
-                        ChangeState(PlayerState.Landing);
-                    break;
-                case PlayerState.Landing:
-                    if (true)//if next time beat;
-                        ChangeState(PlayerState.Idle);
-                    break;
-                default:
+            case PlayerState.Idle:
+                goto case PlayerState.Moving;
+            case PlayerState.Moving:
+                if (DistToGround > HoverHight || InputControler.DownCount > 0)
+                    ChangeState(PlayerState.Falling);
+                else if (InputControler.Vertical > 0 && isUpPossible)
+                    ChangeState(PlayerState.Climbing);
+                else if (InputControler.Jump)
+                    ChangeState(PlayerState.Jumping);
+                else if (InputControler.Horizontal == 0)
                     ChangeState(PlayerState.Idle);
-                    break;
+                else
+                    ChangeState(PlayerState.Moving);
+                break;
+            case PlayerState.Climbing:
+                if (!isUpPossible)
+                    ChangeState(PlayerState.Idle);
+                break;
+            case PlayerState.Jumping:
+                if (rb.velocity.y <= 0)
+                    ChangeState(PlayerState.Falling);
+                break;
+            case PlayerState.Falling:
+                if (DistToGround <= HoverHight && InputControler.DownCount <= 0)
+                    ChangeState(PlayerState.Landing);
+                break;
+            case PlayerState.Landing:
+                if (GameManager.GetHammerTime() % 1 > 0.9)
+                    ChangeState(PlayerState.Idle);
+                break;
+            default:
+                StateMachine_Transition01();
+                break;
             }
         } else
             ChangeState(PlayerState.Idle);
@@ -99,34 +106,6 @@ public class PlayerMovment : MonoBehaviour {
 
     void FixedUpdate() {
         if (InControle) {
-            /*if (isUpPossible && this.transform.position.y > Ladder.y + 1) {
-                if (InputControler.Up) {
-                    print("klimp");// ----- ----- LOG ----- -----
-                    this.transform.position = new Vector2(Ladder.x, this.transform.position.y);
-                    rb.velocity = new Vector2(0, ClimbSpeed);
-                } else {
-                    print("dont klimp annymore");// ----- ----- LOG ----- -----
-                    rb.velocity = new Vector2(0, 0);
-                }
-            } else {
-                rb.velocity = new Vector2(InputControler.Horizontal * PlayerSpeed, rb.velocity.y);
-
-                if ((InputControler.Horizontal < 0 && DirRight) || (InputControler.Horizontal > 0 && !DirRight)) {
-                    ChangeDir(!DirRight);
-                }
-            }
-            if (Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && !PlayerIsInGround) {
-                PlayerIsInGround = true;
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y - FallThroughBoost);
-            } else if (!Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && PlayerIsInGround) {
-                PlayerIsInGround = false;
-                InputControler.ChangeDown(-1);
-            }
-            if (InputControler.DownCount <= 0) {
-                GetComponent<CapsuleCollider2D>().isTrigger = false;
-            } else {
-                GetComponent<CapsuleCollider2D>().isTrigger = true;
-            }*/
 
             if (Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && !PlayerIsInGround) {
                 PlayerIsInGround = true;
@@ -136,29 +115,30 @@ public class PlayerMovment : MonoBehaviour {
             }
 
             switch (State) {
-                case PlayerState.Idle:
-                    break;
-                case PlayerState.Moving:
-                    rb.velocity = new Vector2(InputControler.Horizontal * PlayerSpeed, rb.velocity.y);
-                    if ((InputControler.Horizontal < 0 && DirRight) || (InputControler.Horizontal > 0 && !DirRight)) {
-                        ChangeDir(!DirRight);
-                    }
-                    break;
-                case PlayerState.Climbing:
-                    if (InputControler.Up) {
-                        rb.velocity = new Vector2(0, ClimbSpeed);
-                    } else {
-                        rb.velocity = new Vector2(rb.velocity.x, 0);
-                    }
-                    break;
-                case PlayerState.Jumping:
-                    break;
-                case PlayerState.Falling:
-                    break;
-                case PlayerState.Landing:
-                    break;
-                default:
-                    break;
+            case PlayerState.Idle:
+                break;
+            case PlayerState.Moving:
+                rb.velocity = new Vector2(InputControler.Horizontal * PlayerSpeed, rb.velocity.y);
+                if ((InputControler.Horizontal < 0 && DirRight) || (InputControler.Horizontal > 0 && !DirRight)) {
+                    ChangeDir(!DirRight);
+                }
+                break;
+            case PlayerState.Climbing:
+                if (InputControler.Up) {
+                    rb.velocity = new Vector2(0, ClimbSpeed);
+                } else {
+                    rb.velocity = new Vector2(rb.velocity.x, 0);
+                }
+                break;
+            case PlayerState.Jumping:
+                break;
+            case PlayerState.Falling:
+                break;
+            case PlayerState.Landing:
+                break;
+            default:
+                StateMachine_StayInState01();
+                break;
             }
         }
     }
@@ -168,60 +148,84 @@ public class PlayerMovment : MonoBehaviour {
             return;
 
         switch (State) {
-            case PlayerState.Idle:
-                break;
-            case PlayerState.Moving:
-                break;
-            case PlayerState.Climbing:
-                rb.gravityScale = oldGravityScale;
-                rb.velocity = new Vector2(rb.velocity.x, 0);
-                break;
-            case PlayerState.Jumping:
-                break;
-            case PlayerState.Falling:
-                GetComponent<CapsuleCollider2D>().isTrigger = false;
-                break;
-            case PlayerState.Landing:
-                rb.gravityScale = oldGravityScale;
-                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - DistToGround, this.transform.position.z);
-                break;
-            default:
-                break;
-        }
-
-        switch (newState) {
-            case PlayerState.Idle:
-                rb.velocity = new Vector2(0, 0);
-                break;
-            case PlayerState.Moving:
-                break;
-            case PlayerState.Climbing:
-                print("i'm klimping");// ----- ----- LOG ----- -----
-                rb.gravityScale = 0;
-                this.transform.position = new Vector3(Ladder.x, this.transform.position.y, this.transform.position.z);
-                break;
-            case PlayerState.Jumping:
-                rb.AddForce(new Vector2(0, JumpStrength));
-                break;
-            case PlayerState.Falling:
-                GetComponent<CapsuleCollider2D>().isTrigger = true;
-                rb.AddForce(new Vector2(0, -FallThroughBoost));
-                break;
-            case PlayerState.Landing:
-                print("i'm landing");// ----- ----- LOG ----- -----
-                rb.gravityScale = 0;
-                rb.velocity = new Vector2(0, 0);
-                break;
-            default:
-                break;
+        case PlayerState.Idle:
+            Hammer.SetHammer(false);
+            break;
+        case PlayerState.Moving:
+            Hammer.SetHammer(false);
+            break;
+        case PlayerState.Climbing:
+            rb.gravityScale = oldGravityScale;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            break;
+        case PlayerState.Jumping:
+            break;
+        case PlayerState.Falling:
+            GetComponent<CapsuleCollider2D>().isTrigger = false;
+            break;
+        case PlayerState.Landing:
+            rb.gravityScale = oldGravityScale;
+            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - DistToGround, this.transform.position.z);
+            break;
+        default:
+            StateMachine_LeaveState01();
+            break;
         }
 
         State = newState;
+
+        switch (State) {
+        case PlayerState.Idle:
+            rb.velocity = new Vector2(0, 0);
+            Hammer.SetHammer(true);
+            break;
+        case PlayerState.Moving:
+            Hammer.SetHammer(true);
+            break;
+        case PlayerState.Climbing:
+            LogSystem.LogOnConsole("i'm klimping");// ----- ----- LOG ----- -----
+            rb.gravityScale = 0;
+            this.transform.position = new Vector3(Ladder.x, this.transform.position.y, this.transform.position.z);
+            break;
+        case PlayerState.Jumping:
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + JumpStrength);
+            break;
+        case PlayerState.Falling:
+            GetComponent<CapsuleCollider2D>().isTrigger = true;
+            rb.AddForce(new Vector2(0, -FallThroughBoost));
+            break;
+        case PlayerState.Landing:
+            LogSystem.LogOnConsole("i'm landing");// ----- ----- LOG ----- -----
+            rb.gravityScale = 0;
+            rb.velocity = new Vector2(0, 0);
+            break;
+        default:
+            StateMachine_EnterState01();
+            break;
+        }
+
+        
+    }
+
+    void StateMachine_Transition01() {
+        ChangeState(PlayerState.Idle);
+    }
+
+    void StateMachine_StayInState01() {
+
+    }
+
+    void StateMachine_LeaveState01() {
+
+    }
+
+    void StateMachine_EnterState01() {
+
     }
 
     void OnTriggerEnter2D(Collider2D col) {
         if (col.transform.gameObject.tag == StringCollection.LADDER) {
-            print("i'm on ladder");// ----- ----- LOG ----- -----
+            LogSystem.LogOnConsole("i'm on ladder");// ----- ----- LOG ----- -----
             Ladder = col.transform.position;
             isUpPossible = true;
             //rb.bodyType = RigidbodyType2D.Kinematic;
@@ -231,7 +235,7 @@ public class PlayerMovment : MonoBehaviour {
     void OnTriggerExit2D(Collider2D col) {
         if (col.transform.gameObject.tag == StringCollection.LADDER) {
             if (InputControler.Vertical < 0) {
-                print("no ladder anymore");// ----- ----- LOG ----- -----
+                LogSystem.LogOnConsole("no ladder anymore");// ----- ----- LOG ----- -----
                 rb.velocity = new Vector2(rb.velocity.x, 0.1f);
                 //this.transform.position = new Vector2(this.transform.position.x, Ladder.y + 4.0f);
                 //rb.bodyType = RigidbodyType2D.Dynamic;

@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
     //===== ===== Outer Variables ===== =====
     [SerializeField]
     bool StartingInLevel = false;
+    [SerializeField]
+    bool DebugMode = false;
 
     //===== ===== Inner Variables ===== =====
     float LevelTimeAtStart = 0;
@@ -15,40 +17,40 @@ public class GameManager : MonoBehaviour {
     int EnemyCount = 0;
 
     int Scene = 0;
-    
+
     //===== ===== Singelton ===== =====
     public static GameManager GM = null;
 
     void Awake() {
-        //print("GameManager awake bevor: " + GM.name);// ----- ----- LOG ----- -----
+        //LogSystem.LogOnConsole("GameManager awake bevor: " + GM.name);// ----- ----- LOG ----- -----
         if (GM == null) {
             GM = this;
             DontDestroyOnLoad(this);
         } else {
             Destroy(this.gameObject);
         }
-        print("GameManager awake after: " + GM.name);// ----- ----- LOG ----- -----
+        LogSystem.LogOnConsole("GameManager awake after: " + GM.name);// ----- ----- LOG ----- -----
     }
 
     //===== ===== Starting of ===== =====
-    void Start () {
+    void Start() {
         if (!StartingInLevel) {
             StartMainMenu();
         } else {
             StartLevel(0);
             StartingInLevel = false;
         }
-	}
+    }
 
     private void Update() {
-        if(InputControler.ExitCount > 0) {
+        if (InputControler.ExitCount > 0) {
             InputControler.PopExit();
 
-            if(Scene == 0) {
+            if (Scene == 0) {
                 Application.Quit();
-            }else if(Scene <= 2) {
+            } else if (Scene <= 2) {
                 StartMainMenu();
-            }else if(Time.timeScale != 0) {
+            } else if (Time.timeScale != 0) {
                 GM.FreezeGame();
             } else {
                 StartMainMenu();
@@ -57,29 +59,33 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    public static void StartMainMenu() {
+    public void StartMainMenu() {
         SceneManager.LoadScene(StringCollection.MAINMENU, LoadSceneMode.Single);
         GM.Scene = 0;
     }
 
-    public static void StartLevel(int level) {
+    public void StartLevel(int level) {
         GM.LevelTimeAtStart = Time.time;
         GM.EnemyCount = 0;
         if (!GM.StartingInLevel) {
             switch (level) {
-                case 1: SceneManager.LoadScene(StringCollection.SCENE01, LoadSceneMode.Single); break;
-                default: print("Level not found"); break;// ----- ----- LOG ----- -----
+            case 1:
+                SceneManager.LoadScene(StringCollection.SCENE01, LoadSceneMode.Single);
+                break;
+            default:
+                LogSystem.LogOnConsole("Level not found");// ----- ----- LOG ----- -----
+                break;
             }
         }
         GM.Scene = level + 2;
     }
 
-    public static void StartGameOver() {
+    public void StartGameOver() {
         SceneManager.LoadScene(StringCollection.GAMEOVER, LoadSceneMode.Single);
         GM.Scene = 1;
     }
 
-    public static void StartCreadits() {
+    public void StartCreadits() {
         SceneManager.LoadScene(StringCollection.CREADITS, LoadSceneMode.Single);
         GM.Scene = 2;
     }
@@ -95,14 +101,14 @@ public class GameManager : MonoBehaviour {
 
     PlayerMovment PM = null;
     public static void RegistPlayer(PlayerMovment handle) {
-        print("GameManager got: " + handle);// ----- ----- LOG ----- -----
-        //print("GameManager is: " + GM.name);// ----- ----- LOG ----- -----
+        LogSystem.LogOnConsole("GameManager got: " + handle);// ----- ----- LOG ----- -----
+        //LogSystem.LogOnConsole("GameManager is: " + GM.name);// ----- ----- LOG ----- -----
         if (GM.PM == handle)
             GM.PM = null;
         else
             GM.PM = handle;
     }
-    
+
     public static void RegistCamera() {
 
     }
@@ -120,35 +126,40 @@ public class GameManager : MonoBehaviour {
 
     //===== ===== Comunicator ===== =====
     public static bool ChangeEnemyCount(int count = 1, int life = 0) {
-        if(GM.LI == null) {
-            print("Level infos not loaded yet");// ----- ----- LOG ----- -----
+        if(GM == null) {
+            LogSystem.LogOnConsole("Game Manager not available");// ----- ----- LOG ----- -----
             return false;
         }
+        if (GM.UIM == null) {
+            LogSystem.LogOnConsole("no UI available");// ----- ----- LOG ----- -----
+            return false;
+        }
+        if (GM.LI == null) {
+            LogSystem.LogOnConsole("no Level Infos available");// ----- ----- LOG ----- -----
+            return false;
+        }
+        LogSystem.LogOnConsole("Current Life was: " + GM.CurrentLife);// ----- ----- LOG ----- -----
         GM.EnemyCount += count;
         GM.CurrentLife += life;
+        LogSystem.LogOnConsole("Current Life is: " + GM.CurrentLife);// ----- ----- LOG ----- -----
 
-        if(GM.CurrentLife <= 0) {
-            print("i changed to game over: " + GM.CurrentLife);
-            GameManager.StartGameOver();
+        if (GM.CurrentLife <= 0) {
+            GM.StartGameOver();
             return true;
         }
-        if(GM.EnemyCount <= 0) {
-            GameManager.StartMainMenu();
+        if (GM.EnemyCount <= 0) {
+            GM.StartMainMenu();
             return true;
         }
 
-        if(GM.UIM == null) {
-            print("no UI available");// ----- ----- LOG ----- -----
-            return false;
-        }
-        GM.UIM.UpdateLife(GM.CurrentLife/(float)GM.LI.GetLife());
+        GM.UIM.UpdateLife(GM.CurrentLife / (float)GM.LI.GetLife());
         GM.UIM.UpdateEnemyCount(GM.EnemyCount);
         return true;
     }
 
     public static bool PlayerAnimation() {
-        if(GM.PM == null) {
-            print("no Player available");// ----- ----- LOG ----- -----
+        if (GM.PM == null) {
+            LogSystem.LogOnConsole("no Player available");// ----- ----- LOG ----- -----
             return false;
         }
         print("start Player Animation");// ----- ----- LOG ----- -----
@@ -156,8 +167,8 @@ public class GameManager : MonoBehaviour {
     }
 
     public static bool EndOfIntro() {
-        if(GM.PM == null) {
-            print("no Player available");// ----- ----- LOG ----- -----
+        if (GM.PM == null) {
+            LogSystem.LogOnConsole("no Player available");// ----- ----- LOG ----- -----
             return false;
         }
         GM.PM.SetPlayerControl(true);
@@ -167,6 +178,14 @@ public class GameManager : MonoBehaviour {
     //===== ===== Library ===== =====
     public static float GetTime() {
         return Time.time - GM.LevelTimeAtStart;
+    }
+
+    public static float GetHammerTime() {
+        return (Time.time - GM.LevelTimeAtStart) / GM.LI.GetHammerFrequenz();
+    }
+
+    public static bool GetDebugMode() {
+        return GM.DebugMode;
     }
 
     public void FreezeGame() {
