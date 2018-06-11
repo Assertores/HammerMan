@@ -146,9 +146,10 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     void DieByHammer() {
-        GameObject Die = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
         int temp = Random.Range(0, DeathSound.Length);
+        GameObject Die = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
         Die.GetComponent<AudioSource>().clip = DeathSound[temp];
+        Die.GetComponent<ParticleKiller>().PlayStart();
         if (InvoceOnEnemyDeath.Length != 0) {
             for(int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
                 Instantiate(InvoceOnEnemyDeath[i]).transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
