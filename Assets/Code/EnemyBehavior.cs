@@ -160,7 +160,7 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     void DieByExit() {
-        GameManager.ChangeEnemyCount(-1, EnemyDamageOnExit);
+        GameManager.ChangeEnemyCount(-1, -EnemyDamageOnExit);
         GameObject.Destroy(this.transform.gameObject);
     }
 
