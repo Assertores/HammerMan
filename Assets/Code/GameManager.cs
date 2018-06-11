@@ -59,12 +59,12 @@ public class GameManager : MonoBehaviour {
 
     }
 
-    public static void StartMainMenu() {
+    public void StartMainMenu() {
         SceneManager.LoadScene(StringCollection.MAINMENU, LoadSceneMode.Single);
         GM.Scene = 0;
     }
 
-    public static void StartLevel(int level) {
+    public void StartLevel(int level) {
         GM.LevelTimeAtStart = Time.time;
         GM.EnemyCount = 0;
         if (!GM.StartingInLevel) {
@@ -80,12 +80,12 @@ public class GameManager : MonoBehaviour {
         GM.Scene = level + 2;
     }
 
-    public static void StartGameOver() {
+    public void StartGameOver() {
         SceneManager.LoadScene(StringCollection.GAMEOVER, LoadSceneMode.Single);
         GM.Scene = 1;
     }
 
-    public static void StartCreadits() {
+    public void StartCreadits() {
         SceneManager.LoadScene(StringCollection.CREADITS, LoadSceneMode.Single);
         GM.Scene = 2;
     }
@@ -120,23 +120,16 @@ public class GameManager : MonoBehaviour {
         else {
             GM.LI = handle;
             GM.CurrentLife = handle.GetLife();
+            print("live is: " + handle.GetLife());
         }
     }
 
     //===== ===== Comunicator ===== =====
     public static bool ChangeEnemyCount(int count = 1, int life = 0) {
-        GM.EnemyCount += count;
-        GM.CurrentLife += life;
-
-        if (GM.CurrentLife <= 0) {
-            GameManager.StartGameOver();
-            return true;
+        if(GM == null) {
+            LogSystem.LogOnConsole("Game Manager not available");// ----- ----- LOG ----- -----
+            return false;
         }
-        if (GM.EnemyCount <= 0) {
-            GameManager.StartMainMenu();
-            return true;
-        }
-
         if (GM.UIM == null) {
             LogSystem.LogOnConsole("no UI available");// ----- ----- LOG ----- -----
             return false;
@@ -145,6 +138,20 @@ public class GameManager : MonoBehaviour {
             LogSystem.LogOnConsole("no Level Infos available");// ----- ----- LOG ----- -----
             return false;
         }
+        LogSystem.LogOnConsole("Current Life was: " + GM.CurrentLife);// ----- ----- LOG ----- -----
+        GM.EnemyCount += count;
+        GM.CurrentLife += life;
+        LogSystem.LogOnConsole("Current Life is: " + GM.CurrentLife);// ----- ----- LOG ----- -----
+
+        if (GM.CurrentLife <= 0) {
+            GM.StartGameOver();
+            return true;
+        }
+        if (GM.EnemyCount <= 0) {
+            GM.StartMainMenu();
+            return true;
+        }
+
         GM.UIM.UpdateLife(GM.CurrentLife / (float)GM.LI.GetLife());
         GM.UIM.UpdateEnemyCount(GM.EnemyCount);
         return true;
