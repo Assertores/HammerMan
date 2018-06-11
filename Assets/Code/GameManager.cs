@@ -125,7 +125,16 @@ public class GameManager : MonoBehaviour {
 
     //===== ===== Comunicator ===== =====
     public static bool ChangeEnemyCount(int count = 1, int life = 0) {
+        if(GM == null) {
+            LogSystem.LogOnConsole("Game Manager not available");// ----- ----- LOG ----- -----
+            return false;
+        }
         GM.EnemyCount += count;
+        if (GM.LI == null) {
+            LogSystem.LogOnConsole("no Level Infos available");// ----- ----- LOG ----- -----
+            return false;
+        }
+        LogSystem.LogOnConsole("Current Life was: " + GM.CurrentLife);// ----- ----- LOG ----- -----
         GM.CurrentLife += life;
 
         if (GM.CurrentLife <= 0) {
@@ -136,17 +145,10 @@ public class GameManager : MonoBehaviour {
             GameManager.StartMainMenu();
             return true;
         }
-
-        if (GM.UIM == null) {
-            LogSystem.LogOnConsole("no UI available");// ----- ----- LOG ----- -----
-            return false;
+        if(GM.UIM != null) {
+            GM.UIM.UpdateLife(GM.CurrentLife / (float)GM.LI.GetLife());
+            GM.UIM.UpdateEnemyCount(GM.EnemyCount);
         }
-        if (GM.LI == null) {
-            LogSystem.LogOnConsole("no Level Infos available");// ----- ----- LOG ----- -----
-            return false;
-        }
-        GM.UIM.UpdateLife(GM.CurrentLife / (float)GM.LI.GetLife());
-        GM.UIM.UpdateEnemyCount(GM.EnemyCount);
         return true;
     }
 

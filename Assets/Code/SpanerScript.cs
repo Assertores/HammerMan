@@ -39,7 +39,9 @@ public class SpanerScript : MonoBehaviour {
         CurrentLife = MaxLife;
         NextSpawn = GameManager.GetTime();
         WaveBar.fillAmount = 1;
-        GameManager.ChangeEnemyCount(100);
+        if (!GameManager.ChangeEnemyCount(100)) {
+            LogSystem.LogOnConsole("Spawner konnte nicht den enemyCount erhöhen");
+        }
     }
 	
 	void Update () {
