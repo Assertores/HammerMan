@@ -3379,6 +3379,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114116088283773216, guid: a5c8441713603f94fa48ac12a1973f4d,
+        type: 2}
+      propertyPath: HammerFrequenz
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a5c8441713603f94fa48ac12a1973f4d, type: 2}
   m_IsPrefabParent: 0
@@ -8350,6 +8355,11 @@ Prefab:
     - target: {fileID: 20963292732971900, guid: c54b5a4d135130146988dfc5e2fb94bc,
         type: 2}
       propertyPath: m_BackGroundColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 81318442222331452, guid: c54b5a4d135130146988dfc5e2fb94bc,
+        type: 2}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
