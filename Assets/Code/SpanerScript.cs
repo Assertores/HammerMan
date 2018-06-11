@@ -6,6 +6,10 @@ using UnityEngine.UI;
 public class SpanerScript : MonoBehaviour {
 
     [SerializeField]
+    AudioClip[] HitSound;
+    [SerializeField]
+    AudioClip DeathSound;
+    [SerializeField]
     Image WaveBar;
     [SerializeField]
     int MaxLife = 1;
@@ -99,12 +103,23 @@ public class SpanerScript : MonoBehaviour {
     }
 
     private void Hit(int damage = 1) {
-        Instantiate(SpawnHitParticle, this.transform.position, this.transform.rotation);
+        GameObject Die;
         CurrentLife -= damage;
         WaveBar.fillAmount = CurrentLife / (float)MaxLife;
         if (CurrentLife <= 0) {
             GameManager.ChangeEnemyCount(-100);
             GameObject.Destroy(this.transform.gameObject);
+            LogSystem.LogOnConsole("Spawner is dead");// ----- ----- LOG ----- -----
+            Die = Instantiate(SpawnHitParticle, this.transform.position, this.transform.rotation);
+            if(DeathSound != null)
+                Die.GetComponent<AudioSource>().clip = DeathSound;
+            return;
+        }
+        LogSystem.LogOnConsole("Spawner got hit");// ----- ----- LOG ----- -----
+        Die = Instantiate(SpawnHitParticle, this.transform.position, this.transform.rotation);
+        if(HitSound.Length > 0) {
+            int temp = Random.Range(0, HitSound.Length);
+            Die.GetComponent<AudioSource>().clip = HitSound[temp];
         }
     }
 }
