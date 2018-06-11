@@ -9,8 +9,10 @@ public class CameraShake : MonoBehaviour {
     Vector3 initialPosition;
     bool shakeIt = false;
     float stopShaking = 0;
+    bool dirY = true;
 
     private void Start() {
+        initialPosition = transform.position;
         GameManager.RegistCamera(this);
     }
     private void OnDestroy() {
@@ -19,7 +21,13 @@ public class CameraShake : MonoBehaviour {
 
     private void Update() {
         if (shakeIt) {
-            Vector3 _newPosition = new Vector3(0, ShakeY, 0);
+            Vector3 _newPosition;
+            if (dirY) {
+                _newPosition = new Vector3(0, ShakeY, 0);
+            } else {
+                _newPosition = new Vector3(ShakeY, 0, 0);
+            }
+            
             if (ShakeY < 0) {
                 ShakeY *= ShakeYSpeed;
             }
@@ -30,9 +38,10 @@ public class CameraShake : MonoBehaviour {
         }
     }
 
-    public void StartShaking(float shakitime = 1.0f, float force = 0.8f) {
-        ShakeY = force;
-        initialPosition = transform.position;
+    public void StartShaking(bool inYDirekton = true, float amplitude = 0.8f, float falloff = 0.8f, float shakitime = 1.0f) {
+        dirY = inYDirekton;
+        ShakeY = amplitude;
+        ShakeYSpeed = falloff;
         shakeIt = true;
         stopShaking = GameManager.GetTime() + shakitime;
     }
