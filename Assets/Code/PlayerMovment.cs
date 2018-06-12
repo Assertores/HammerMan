@@ -83,6 +83,10 @@ public class PlayerMovment : MonoBehaviour {
             case PlayerState.Climbing:
                 if (!isUpPossible)
                     ChangeState(PlayerState.Idle);
+                else if (this.transform.position.y - Ladder.y > 2.7 && InputControler.Horizontal != 0) {
+                    this.transform.position = new Vector3(this.transform.position.x, Ladder.y + 3.1f, this.transform.position.z);
+                    ChangeState(PlayerState.Moving);
+                }
                 break;
             case PlayerState.Jumping:
                 if (rb.velocity.y <= 0)
@@ -125,6 +129,7 @@ public class PlayerMovment : MonoBehaviour {
                 break;
             case PlayerState.Climbing:
                 rb.velocity = new Vector2(0, InputControler.Vertical * ClimbSpeed);
+                this.transform.position = new Vector3(Ladder.x, this.transform.position.y, this.transform.position.z);
                 break;
             case PlayerState.Jumping:
                 break;
