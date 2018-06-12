@@ -134,16 +134,12 @@ public class GameManager : MonoBehaviour {
             LogSystem.LogOnConsole("Game Manager not available");// ----- ----- LOG ----- -----
             return false;
         }
-        if (GM.UIM == null) {
-            LogSystem.LogOnConsole("no UI available");// ----- ----- LOG ----- -----
-            return false;
-        }
+        GM.EnemyCount += count;
         if (GM.LI == null) {
             LogSystem.LogOnConsole("no Level Infos available");// ----- ----- LOG ----- -----
             return false;
         }
         LogSystem.LogOnConsole("Current Life was: " + GM.CurrentLife);// ----- ----- LOG ----- -----
-        GM.EnemyCount += count;
         GM.CurrentLife += life;
         LogSystem.LogOnConsole("Current Life is: " + GM.CurrentLife);// ----- ----- LOG ----- -----
 
@@ -155,14 +151,15 @@ public class GameManager : MonoBehaviour {
             GM.StartMainMenu();
             return true;
         }
-
-        GM.UIM.UpdateLife(GM.CurrentLife / (float)GM.LI.GetLife());
-        GM.UIM.UpdateEnemyCount(GM.EnemyCount);
+        if (GM.UIM != null) {
+            GM.UIM.UpdateLife(GM.CurrentLife / (float)GM.LI.GetLife());
+            GM.UIM.UpdateEnemyCount(GM.EnemyCount);
+        }
         return true;
     }
 
     public static bool CameraEffectOnEnemyDeath() {
-        if(GM.CS == null) {
+        if (GM.CS == null) {
             LogSystem.LogOnConsole("no Camera available");// ----- ----- LOG ----- -----
             return false;
         }
@@ -194,6 +191,25 @@ public class GameManager : MonoBehaviour {
             return false;
         }
         GM.PM.SetPlayerControl(true);
+        return true;
+    }
+
+    public static Vector2 GetPlayerPosition() {
+        Vector2 ret = new Vector2(0, 0);
+        if (GM.PM == null) {
+            LogSystem.LogOnConsole("no Player available");// ----- ----- LOG ----- -----
+            return ret;
+        }
+        ret = new Vector2(GM.PM.transform.position.x, GM.PM.transform.position.y);
+        return ret;
+    }
+
+    public static bool KickPlayer(Vector2 force) {
+        if(GM.PM == null) {
+            LogSystem.LogOnConsole("no Player available");// ----- ----- LOG ----- -----
+            return false;
+        }
+        GM.PM.KickPlayer(force);
         return true;
     }
 

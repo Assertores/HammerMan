@@ -255,4 +255,8 @@ public class PlayerMovment : MonoBehaviour {
     public void SetPlayerControl(bool controle) {
         InControle = controle;
     }
+
+    public void KickPlayer(Vector2 force) {
+        rb.velocity = rb.velocity + force;
+    }
 }

@@ -15,7 +15,10 @@ public class EnemyBehavior : MonoBehaviour {
     [SerializeField]
     AudioClip[] DeathSound;
     [SerializeField]
-    GameObject InvoceOnEnemyDeath;
+    GameObject[] InvoceOnEnemyDeath;
+    [SerializeField]
+    [Tooltip("0 = boath direktion, 1 only front, 2 = only back")]
+    int AbleToHitFrom = 0;
     [Header("Generel")]
     [SerializeField]
     float EnemySpeed = 10;
@@ -23,7 +26,7 @@ public class EnemyBehavior : MonoBehaviour {
     int EnemyDamageOnExit = 1;
     [SerializeField]
     float TurningDistance = 10;
-    public LayerMask layer;
+    public LayerMask ChangeDirectionAt;
     public LayerMask FallLayers;
 
     Rigidbody2D rb;
@@ -47,7 +50,7 @@ public class EnemyBehavior : MonoBehaviour {
     void Update() {
 
         //DistToGround = Physics2D.Raycast(this.transform.position, -this.transform.up, 1000, FallLayers).distance;
-        LogSystem.LogOnConsole(State.ToString());// ----- ----- LOG ----- -----
+        //LogSystem.LogOnConsole(State.ToString());// ----- ----- LOG ----- -----
         switch (State) {
         case EnemyState.Moving:
             /*if (DistToGround > 0.5f)//triggert zu früh
@@ -69,7 +72,7 @@ public class EnemyBehavior : MonoBehaviour {
         switch (State) {
         case EnemyState.Moving:
             RaycastHit2D hit = Physics2D.Raycast(new Vector3(this.transform.position.x + (DirRight ? 0.6f: -0.6f), this.transform.position.y, this.transform.position.z),
-                                                this.transform.right * rb.velocity.x, TurningDistance - 0.6f, layer);
+                                                this.transform.right * rb.velocity.x, TurningDistance - 0.6f, ChangeDirectionAt);
 
             if (hit.collider != null) {
                 ChangeDir(!DirRight);
@@ -135,7 +138,13 @@ public class EnemyBehavior : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D col) {
         switch (col.transform.gameObject.tag) {
         case StringCollection.HAMMER:
-            DieByHammer();
+            float dist = GameManager.GetPlayerPosition().x - this.transform.position.x;
+            if (!DirRight)
+                dist *= -1;
+            if (AbleToHitFrom == 0 || (AbleToHitFrom == 1 && dist > 0) || (AbleToHitFrom == 2 && dist < 0)) {
+                print("dist = " + dist);
+                DieByHammer();
+            }
             break;
         case StringCollection.EXIT:
             DieByExit();
@@ -146,12 +155,15 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     void DieByHammer() {
+        int temp = Random.Range(0, DeathSound.Length);
         GameManager.CameraEffectOnEnemyDeath();
         GameObject Die = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
-        int temp = Random.Range(0, DeathSound.Length);
         Die.GetComponent<AudioSource>().clip = DeathSound[temp];
-        if (InvoceOnEnemyDeath) {
-            Instantiate(InvoceOnEnemyDeath).transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+        Die.GetComponent<ParticleKiller>().PlayStart();
+        if (InvoceOnEnemyDeath.Length != 0) {
+            for(int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
+                Instantiate(InvoceOnEnemyDeath[i]).transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+            }
         }
         GameManager.ChangeEnemyCount(-1);
         GameObject.Destroy(this.transform.gameObject);

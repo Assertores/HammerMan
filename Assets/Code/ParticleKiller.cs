@@ -5,9 +5,12 @@ using UnityEngine;
 public class ParticleKiller : MonoBehaviour {
 
     float time = 0.0f;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         time = GameManager.GetTime();
+    }
+
+    public void PlayStart() {
         ParticleSystem temp = GetComponent<ParticleSystem>();
         if (temp) {
             temp.Play();
@@ -18,7 +21,6 @@ public class ParticleKiller : MonoBehaviour {
             audio.Play();
             return;
         }
-
     }
 	
 	// Update is called once per frame
