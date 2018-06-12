@@ -158,7 +158,8 @@ public class EnemyBehavior : MonoBehaviour {
         int temp = Random.Range(0, DeathSound.Length);
         GameManager.CameraEffectOnEnemyDeath();
         GameObject Die = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
-        Die.GetComponent<AudioSource>().clip = DeathSound[temp];
+        if(DeathSound.Length != 0)
+            Die.GetComponent<AudioSource>().clip = DeathSound[temp];
         Die.GetComponent<ParticleKiller>().PlayStart();
         if (InvoceOnEnemyDeath.Length != 0) {
             for(int i = 0; i < InvoceOnEnemyDeath.Length; i++) {

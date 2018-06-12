@@ -19,8 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4651663534908124}
-  - component: {fileID: 114100635604056726}
   - component: {fileID: 61484014238186522}
+  - component: {fileID: 114100635604056726}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -143,6 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3abebbdbaf444c847a45b36124887e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HitSound: []
+  DeathSound: {fileID: 0}
   WaveBar: {fileID: 114516782951851560}
   MaxLife: 10
   Creap1: {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
