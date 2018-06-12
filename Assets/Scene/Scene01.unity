@@ -8205,7 +8205,7 @@ Prefab:
     - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
         type: 2}
       propertyPath: Intro
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
         type: 2}
@@ -8441,6 +8441,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 82798935967307138, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 866ce52b5205dc24592a25275a536ab1, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0, type: 2}
   m_IsPrefabParent: 0
