@@ -26,7 +26,7 @@ public class PlayerMovment : MonoBehaviour {
     [SerializeField]
     float JumpStrength = 1.0f;
 
-    PlayerState State = PlayerState.Idle;
+    public PlayerState State = PlayerState.Idle;
     float DistToGround = 0;
 
     Rigidbody2D rb;
@@ -71,7 +71,7 @@ public class PlayerMovment : MonoBehaviour {
             case PlayerState.Moving:
                 if (DistToGround > HoverHight || InputControler.DownCount > 0)
                     ChangeState(PlayerState.Falling);
-                else if (InputControler.Vertical > 0 && isUpPossible)
+                else if (InputControler.Vertical != 0 && isUpPossible)
                     ChangeState(PlayerState.Climbing);
                 else if (InputControler.Jump)
                     ChangeState(PlayerState.Jumping);
@@ -83,6 +83,10 @@ public class PlayerMovment : MonoBehaviour {
             case PlayerState.Climbing:
                 if (!isUpPossible)
                     ChangeState(PlayerState.Idle);
+                else if (this.transform.position.y - Ladder.y > 2.7 && InputControler.Horizontal != 0) {
+                    this.transform.position = new Vector3(this.transform.position.x, Ladder.y + 3.1f, this.transform.position.z);
+                    ChangeState(PlayerState.Moving);
+                }
                 break;
             case PlayerState.Jumping:
                 if (rb.velocity.y <= 0)
@@ -93,7 +97,7 @@ public class PlayerMovment : MonoBehaviour {
                     ChangeState(PlayerState.Landing);
                 break;
             case PlayerState.Landing:
-                if (GameManager.GetHammerTime() % 1 > 0.9)
+                //if (GameManager.GetHammerTime() % 1 > 0.9)
                     ChangeState(PlayerState.Idle);
                 break;
             default:
@@ -124,18 +128,15 @@ public class PlayerMovment : MonoBehaviour {
                 }
                 break;
             case PlayerState.Climbing:
-                if (InputControler.Up) {
-                    rb.velocity = new Vector2(0, ClimbSpeed);
-                } else {
-                    rb.velocity = new Vector2(rb.velocity.x, 0);
-                }
+                rb.velocity = new Vector2(0, InputControler.Vertical * ClimbSpeed);
+                this.transform.position = new Vector3(Ladder.x, this.transform.position.y, this.transform.position.z);
                 break;
             case PlayerState.Jumping:
                 break;
             case PlayerState.Falling:
                 break;
-            case PlayerState.Landing:
-                break;
+            /*case PlayerState.Landing:
+                break;*/
             default:
                 StateMachine_StayInState01();
                 break;
@@ -157,16 +158,17 @@ public class PlayerMovment : MonoBehaviour {
         case PlayerState.Climbing:
             rb.gravityScale = oldGravityScale;
             rb.velocity = new Vector2(rb.velocity.x, 0);
+            InputControler.SetDown(0);
             break;
         case PlayerState.Jumping:
             break;
         case PlayerState.Falling:
             GetComponent<CapsuleCollider2D>().isTrigger = false;
             break;
-        case PlayerState.Landing:
+        /*case PlayerState.Landing:
             rb.gravityScale = oldGravityScale;
             this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - DistToGround, this.transform.position.z);
-            break;
+            break;*/
         default:
             StateMachine_LeaveState01();
             break;
@@ -192,13 +194,13 @@ public class PlayerMovment : MonoBehaviour {
             break;
         case PlayerState.Falling:
             GetComponent<CapsuleCollider2D>().isTrigger = true;
-            rb.velocity = new Vector2(0, -FallThroughBoost);
+            rb.velocity = new Vector2(rb.velocity.x, -FallThroughBoost);
             break;
-        case PlayerState.Landing:
+        /*case PlayerState.Landing:
             LogSystem.LogOnConsole("i'm landing");// ----- ----- LOG ----- -----
             rb.gravityScale = 0;
             rb.velocity = new Vector2(0, 0);
-            break;
+            break;*/
         default:
             StateMachine_EnterState01();
             break;
