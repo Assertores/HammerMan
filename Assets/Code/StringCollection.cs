@@ -11,6 +11,7 @@ public class StringCollection {
     public const string HORIZONTAL = "Horizontal";
     public const string CANCEL = "Cancel";
     public const string JUMP = "Jump";
+    public const string CROUCH = "Crouch";
     //TAGS
     public const string PLAYER = "Player";
     public const string ENEMY = "Enemy";

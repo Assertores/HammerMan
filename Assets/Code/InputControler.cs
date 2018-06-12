@@ -9,8 +9,10 @@ public class InputControler : MonoBehaviour {
     float LastVertical = 0.0f;
     public static bool Up { get; private set; }
     public static int DownCount { get; private set; }
-    bool Down = false;
+    bool DownCountOn = false;
+    public bool Down { get; private set; }
     public static int ExitCount { get; private set; }
+    bool ExitCountOn = false;
     public static bool Jump { get; private set; }
 
     private void Awake() {
@@ -18,6 +20,7 @@ public class InputControler : MonoBehaviour {
         Vertical = 0.0f;
         Up = false;
         DownCount = 0;
+        Down = false;
         ExitCount = 0;
         Jump = false;
     }
@@ -35,7 +38,6 @@ public class InputControler : MonoBehaviour {
         if((Vertical < 0 && LastVertical > Vertical) || Vertical == -1) {
             if (!Down) {
                 Down = true;
-                DownCount++;
             }
         } else {
             if (Down)
@@ -48,6 +50,24 @@ public class InputControler : MonoBehaviour {
                 Jump = true;
         }else if (Jump) {
             Jump = false;
+        }
+
+        if(Input.GetAxis(StringCollection.CROUCH) > 0) {
+            if (!DownCountOn) {
+                DownCountOn = true;
+                DownCount++;
+            }
+        }else if (DownCountOn) {
+            DownCountOn = false;
+        }
+
+        if(Input.GetAxis(StringCollection.CANCEL) > 0) {
+            if (!ExitCountOn) {
+                ExitCountOn = true;
+                ExitCount++;
+            }else if (ExitCountOn) {
+                ExitCountOn = false;
+            }
         }
 	}
 
