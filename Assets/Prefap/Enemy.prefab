@@ -131,10 +131,16 @@ MonoBehaviour:
   EnemyDieParticle: {fileID: 1146176289402804, guid: a2b6bf90712fd9048b588eced2d76d74,
     type: 2}
   DeathSound:
-  - {fileID: 8300000, guid: c5cc2acc9df3256498d77568d376a6c5, type: 3}
-  - {fileID: 8300000, guid: 32dcdd99df94d284aa0a3d537ed6c615, type: 3}
-  - {fileID: 8300000, guid: 1e82a398661e3254b84959586e0f36a0, type: 3}
-  - {fileID: 8300000, guid: 14b0c18c3fee008428ba9cec60968cdb, type: 3}
+  - {fileID: 8300000, guid: 27c19732aa256da4aac8ffa47dae2f42, type: 3}
+  - {fileID: 8300000, guid: 68be76fc125240f4187ddfa243fba99c, type: 3}
+  - {fileID: 8300000, guid: 133eb1206dac565469c2a51378e0858a, type: 3}
+  - {fileID: 8300000, guid: 323ffe58935c11549848d9652e058853, type: 3}
+  - {fileID: 8300000, guid: 7771acb61b3ddb04e9c2df71ec25f0f8, type: 3}
+  - {fileID: 8300000, guid: e37f4b2040c7fcc408ce767fcc2eaf50, type: 3}
+  - {fileID: 8300000, guid: 40c39b6c4c88f8c43bce9b334223436f, type: 3}
+  - {fileID: 8300000, guid: 48aab8f5914e9f748b8d1b11c0f29a7f, type: 3}
+  - {fileID: 8300000, guid: fd5fac23f924dd741a8bb20a963aa8d4, type: 3}
+  - {fileID: 8300000, guid: 7ed730c82152923458adff83d779f961, type: 3}
   InvoceOnEnemyDeath: {fileID: 0}
   EnemySpeed: 2
   EnemyDamageOnExit: 1
