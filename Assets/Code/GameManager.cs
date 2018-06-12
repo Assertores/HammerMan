@@ -176,24 +176,6 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
-    public static bool CameraEffectOnEnemyDeath() {
-        if(GM.CS == null) {
-            LogSystem.LogOnConsole("no Camera available");// ----- ----- LOG ----- -----
-            return false;
-        }
-        GM.CS.StartShaking(true, 0.2f);
-        return true;
-    }
-
-    public static bool CameraEffectOnEnemyExit() {
-        if (GM.CS == null) {
-            LogSystem.LogOnConsole("no Camera available");// ----- ----- LOG ----- -----
-            return false;
-        }
-        GM.CS.StartShaking(false);
-        return true;
-    }
-
     public static bool PlayerAnimation() {
         if (GM.PM == null) {
             LogSystem.LogOnConsole("no Player available");// ----- ----- LOG ----- -----

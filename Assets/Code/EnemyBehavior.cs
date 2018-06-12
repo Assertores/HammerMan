@@ -142,7 +142,6 @@ public class EnemyBehavior : MonoBehaviour {
             if (!DirRight)
                 dist *= -1;
             if (AbleToHitFrom == 0 || (AbleToHitFrom == 1 && dist > 0) || (AbleToHitFrom == 2 && dist < 0)) {
-                print("dist = " + dist);
                 DieByHammer();
             }
             break;
