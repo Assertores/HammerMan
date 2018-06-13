@@ -61,10 +61,10 @@ public class CameraIntroScript : MonoBehaviour {
             }
         }
 
-        if(index2 > ShowElements.Length && ShowElements[index2].Start <= GameManager.GetTime()) {
+        if(index2 <= ShowElements.Length && ShowElements[index2].Start <= GameManager.GetTime()) {
             ShowElements[index2].Element.SetActive(true);
         }
-        if (ShowElements[index2].Stop <= GameManager.GetTime()) {
+        if (index2 <= ShowElements.Length && ShowElements[index2].Stop <= GameManager.GetTime()) {
             ShowElements[index2].Element.SetActive(false);
             index2++;
         }
