@@ -141,7 +141,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 48aab8f5914e9f748b8d1b11c0f29a7f, type: 3}
   - {fileID: 8300000, guid: fd5fac23f924dd741a8bb20a963aa8d4, type: 3}
   - {fileID: 8300000, guid: 7ed730c82152923458adff83d779f961, type: 3}
-  InvoceOnEnemyDeath: {fileID: 0}
+  InvoceOnEnemyDeath: []
+  AbleToHitFrom: 0
   EnemySpeed: 2
   EnemyDamageOnExit: 1
   TurningDistance: 0.6
