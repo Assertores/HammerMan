@@ -15,7 +15,8 @@ public class SpanerScript : MonoBehaviour {
     int MaxLife = 1;
     int CurrentLife;
     [SerializeField]
-    GameObject Creap1;
+    SpawnCreap[] Creaps;
+    List<GameObject> Creap1;
     [SerializeField]
     float SpawnRate;
     [SerializeField]
@@ -46,6 +47,13 @@ public class SpanerScript : MonoBehaviour {
         if (!GameManager.ChangeEnemyCount(100)) {
             LogSystem.LogOnConsole("Spawner konnte nicht den enemyCount erhöhen");
         }
+        Creap1 = new List<GameObject>();
+        Creap1.Clear();
+        for(int i = 0; i < Creaps.Length; i++) {
+            for(int j = 0; j < Creaps[i].Ratio; j++) {
+                Creap1.Add(Creaps[i].Creap);
+            }
+        }
     }
 	
 	void Update () {
@@ -59,7 +67,7 @@ public class SpanerScript : MonoBehaviour {
 
     void SpawnBehavior0() {
         if (GameManager.GetTime() % (WaveLength + GapLength) <= WaveLength && GameManager.GetTime() >= NextSpawn) {
-            Instantiate(Creap1).transform.position = this.transform.position;
+            Instantiate(Creap1[Random.Range(0,Creap1.Count)]).transform.position = this.transform.position;
             GameManager.ChangeEnemyCount(1);
             NextSpawn = GameManager.GetTime() + SpawnRate;
         }

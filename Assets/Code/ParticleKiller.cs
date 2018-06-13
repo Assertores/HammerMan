@@ -14,12 +14,10 @@ public class ParticleKiller : MonoBehaviour {
         ParticleSystem temp = GetComponent<ParticleSystem>();
         if (temp) {
             temp.Play();
-            return;
         }
         AudioSource audio = GetComponent<AudioSource>();
         if (audio) {
             audio.Play();
-            return;
         }
     }
 	

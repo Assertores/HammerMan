@@ -159,7 +159,11 @@ public class EnemyBehavior : MonoBehaviour {
         GameObject Die = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
         if(DeathSound.Length != 0)
             Die.GetComponent<AudioSource>().clip = DeathSound[temp];
-        Die.GetComponent<ParticleKiller>().PlayStart();
+        if(Die.GetComponent<ParticleKiller>() == null) {
+            print("ParticalKillerScript kann nicht gefunden werden.");
+        } else {
+            Die.GetComponent<ParticleKiller>().PlayStart();
+        }
         if (InvoceOnEnemyDeath.Length != 0) {
             for(int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
                 Instantiate(InvoceOnEnemyDeath[i]).transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);

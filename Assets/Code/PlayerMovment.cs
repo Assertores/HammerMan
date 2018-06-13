@@ -71,7 +71,7 @@ public class PlayerMovment : MonoBehaviour {
             case PlayerState.Moving:
                 if (DistToGround > HoverHight || InputControler.DownCount > 0)
                     ChangeState(PlayerState.Falling);
-                else if (InputControler.Vertical != 0 && isUpPossible)
+                else if (InputControler.Vertical > 0 && isUpPossible)
                     ChangeState(PlayerState.Climbing);
                 else if (InputControler.Jump)
                     ChangeState(PlayerState.Jumping);
@@ -86,7 +86,8 @@ public class PlayerMovment : MonoBehaviour {
                 else if (this.transform.position.y - Ladder.y > 2.7 && InputControler.Horizontal != 0) {
                     this.transform.position = new Vector3(this.transform.position.x, Ladder.y + 3.1f, this.transform.position.z);
                     ChangeState(PlayerState.Moving);
-                }
+                } else if (InputControler.Vertical <= 0)
+                    ChangeState(PlayerState.Falling);
                 break;
             case PlayerState.Jumping:
                 if (rb.velocity.y <= 0)
@@ -98,7 +99,7 @@ public class PlayerMovment : MonoBehaviour {
                 break;
             case PlayerState.Landing:
                 //if (GameManager.GetHammerTime() % 1 > 0.9)
-                    ChangeState(PlayerState.Idle);
+                ChangeState(PlayerState.Idle);
                 break;
             default:
                 StateMachine_Transition01();
@@ -134,7 +135,8 @@ public class PlayerMovment : MonoBehaviour {
             case PlayerState.Jumping:
                 break;
             case PlayerState.Falling:
-                break;
+                goto case PlayerState.Moving;
+                //break;
             /*case PlayerState.Landing:
                 break;*/
             default:
@@ -206,7 +208,7 @@ public class PlayerMovment : MonoBehaviour {
             break;
         }
 
-        
+
     }
 
     void StateMachine_Transition01() {
