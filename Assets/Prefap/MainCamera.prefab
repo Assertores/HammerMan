@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1031914555526032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -28.5, y: 11, z: -10}
+  m_LocalPosition: {x: -34, y: 7.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -52,7 +52,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.6415094, g: 0.5876544, b: 0.5234959, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -63,7 +63,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 16.875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -97,8 +97,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 768f36f5660e39b4196faf30efcd11be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraPath: []
-  PlayerAnimation: 0
+  CameraPath:
+  - Position: {fileID: 0}
+    Zoom: 5.5
+    Stay: 2
+    Duration: 2
+    Sharpness: 2
+  - Position: {fileID: 0}
+    Zoom: 4
+    Stay: 0.5
+    Duration: 2
+    Sharpness: 2
+  - Position: {fileID: 0}
+    Zoom: 4
+    Stay: 0.5
+    Duration: 2
+    Sharpness: 2
+  - Position: {fileID: 0}
+    Zoom: 8
+    Stay: 0.5
+    Duration: 2
+    Sharpness: 2
+  PlayerAnimation: 1
+  Intro: 0
 --- !u!124 &124969210719961108
 Behaviour:
   m_ObjectHideFlags: 1
