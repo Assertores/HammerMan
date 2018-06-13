@@ -135,7 +135,8 @@ public class PlayerMovment : MonoBehaviour {
             case PlayerState.Jumping:
                 break;
             case PlayerState.Falling:
-                break;
+                goto case PlayerState.Moving;
+                //break;
             /*case PlayerState.Landing:
                 break;*/
             default:
