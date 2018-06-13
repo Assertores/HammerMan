@@ -152,7 +152,7 @@ MonoBehaviour:
     Ratio: 1
   SpawnRate: 2.5
   WaveLength: 5
-  GapLength: 5
+  GapLength: 0
   Factor: 1
   MaximumGapLength: 12
   UseFunction: 1
