@@ -151,6 +151,38 @@ MonoBehaviour:
     type: 2}
   DeathSound:
   - {fileID: 8300000, guid: 3d4b1f75a906cc84481b9a1bf455c338, type: 3}
+  - {fileID: 8300000, guid: aceaee08795215c4daaff277e30d63b6, type: 3}
+  - {fileID: 8300000, guid: 5a39dd60135a8694eb0cd4f77a04ac3b, type: 3}
+  - {fileID: 8300000, guid: 044e61b413e0c404ebcb62aa2bc4bff6, type: 3}
+  - {fileID: 8300000, guid: 370e0a4a769c9b440b46fea07e8ea602, type: 3}
+  - {fileID: 8300000, guid: ba295bd116e03384697af216e6aae5ad, type: 3}
+  - {fileID: 8300000, guid: 3dae90f23d223dd4da641ec442fb7e1a, type: 3}
+  - {fileID: 8300000, guid: 5e546c2ed171fbc4ebff73f32be80f18, type: 3}
+  - {fileID: 8300000, guid: 126836bb8e6d31a41af6f3f98b8eb58d, type: 3}
+  - {fileID: 8300000, guid: d285ba4bc408f6a4d8204e2a72ff8937, type: 3}
+  - {fileID: 8300000, guid: 5484ab55b2f177d4987e6e01d80db059, type: 3}
+  - {fileID: 8300000, guid: e93bbf276280e7145a9f4f1a8e85d804, type: 3}
+  - {fileID: 8300000, guid: 469243679819aac45abf73450f238f7e, type: 3}
+  - {fileID: 8300000, guid: b81a2c9ded730704882a49ada8ee6b1b, type: 3}
+  - {fileID: 8300000, guid: b00b14bfe38449b4f82cf61b2701ea79, type: 3}
+  - {fileID: 8300000, guid: d0b13f81a4f591e4cadae6f822152af1, type: 3}
+  - {fileID: 8300000, guid: 386b16006792214439b6f42abfbf6336, type: 3}
+  - {fileID: 8300000, guid: 13a45eef901cd81488d9a147da09b778, type: 3}
+  - {fileID: 8300000, guid: 1199647d813d7844cbd4c8e231c1c54f, type: 3}
+  - {fileID: 8300000, guid: 61c0b408cc941c943b42efa98ec32ac7, type: 3}
+  - {fileID: 8300000, guid: 5074ebe2466902d408607b2f270dbb8c, type: 3}
+  - {fileID: 8300000, guid: 677a5fe27f6bdc7469e1cfd067b3ee1c, type: 3}
+  - {fileID: 8300000, guid: 7bc7b7eac330baa43937e822c113d2d6, type: 3}
+  - {fileID: 8300000, guid: 20a034ded96260c44ac140cda1c6c623, type: 3}
+  - {fileID: 8300000, guid: 3cb90fb9c77e7c44a9ade87ac80993f8, type: 3}
+  - {fileID: 8300000, guid: 288f3d81ca7795645abc28c1842286e8, type: 3}
+  - {fileID: 8300000, guid: 1c74ecd932034be43bcda0eb9935e4fb, type: 3}
+  - {fileID: 8300000, guid: 175c69c7a0ffaa84e83db7bfd8e3e3d3, type: 3}
+  - {fileID: 8300000, guid: e7f6380ae55692c40bbb77e8b0d930b8, type: 3}
+  - {fileID: 8300000, guid: 63325450d5cf8b040b282b2b7ba43d0d, type: 3}
+  - {fileID: 8300000, guid: cb08ed5fa5b3db14c9ed7718c57a30ea, type: 3}
+  - {fileID: 8300000, guid: ecc2ba8cd7da0454b8e08eede7017f61, type: 3}
+  - {fileID: 8300000, guid: d63f4a2903f3cd843bd8b41a3b3e88ea, type: 3}
   InvoceOnEnemyDeath: []
   AbleToHitFrom: 0
   EnemySpeed: 2
