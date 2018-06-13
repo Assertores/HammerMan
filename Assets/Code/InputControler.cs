@@ -38,6 +38,7 @@ public class InputControler : MonoBehaviour {
         if((Vertical < 0 && LastVertical > Vertical) || Vertical == -1) {
             if (!Down) {
                 Down = true;
+                DownCount++;
             }
         } else {
             if (Down)
