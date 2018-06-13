@@ -139,9 +139,9 @@ public class GameManager : MonoBehaviour {
             LogSystem.LogOnConsole("no Level Infos available");// ----- ----- LOG ----- -----
             return false;
         }
-        LogSystem.LogOnConsole("Current Life was: " + GM.CurrentLife);// ----- ----- LOG ----- -----
+        //LogSystem.LogOnConsole("Current Life was: " + GM.CurrentLife);// ----- ----- LOG ----- -----
         GM.CurrentLife += life;
-        LogSystem.LogOnConsole("Current Life is: " + GM.CurrentLife);// ----- ----- LOG ----- -----
+        //LogSystem.LogOnConsole("Current Life is: " + GM.CurrentLife);// ----- ----- LOG ----- -----
 
         if (GM.CurrentLife <= 0) {
             GM.StartGameOver();
