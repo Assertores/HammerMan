@@ -5,13 +5,16 @@ using UnityEngine;
 public class CameraIntroScript : MonoBehaviour {
 
     [SerializeField]
-    public CameraPathAnchor[] CameraPath;
+    CameraPathAnchor[] CameraPath;
+    [SerializeField]
+    UIElements[] ShowElements;
     [SerializeField]
     int PlayerAnimation = 0;
     [SerializeField]
     bool Intro = false;
 
     int index = 0;
+    int index2 = 0;
     float time = 0;
     bool finished = false;
     bool yellAnimation = true;
@@ -28,6 +31,9 @@ public class CameraIntroScript : MonoBehaviour {
             this.transform.position = new Vector3(CameraPath[0].Position.transform.position.x, CameraPath[0].Position.transform.position.y, -10);
         } else {
             GameManager.EndOfIntro();
+        }
+        for(int i = 0; i < ShowElements.Length; i++) {
+            ShowElements[i].Element.SetActive(false);
         }
     }
     
@@ -53,6 +59,14 @@ public class CameraIntroScript : MonoBehaviour {
                 GameManager.PlayerAnimation();
                 yellAnimation = false;
             }
+        }
+
+        if(ShowElements[index2].Start <= GameManager.GetTime()) {
+            ShowElements[index2].Element.SetActive(true);
+        }
+        if (ShowElements[index2].Stop <= GameManager.GetTime()) {
+            ShowElements[index2].Element.SetActive(false);
+            index2++;
         }
     }
 }
