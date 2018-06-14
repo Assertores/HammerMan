@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraShake : MonoBehaviour {
 
+    [SerializeField]
+    GameObject Position = null;
     float ShakeY = 0.8f;
     float ShakeYSpeed = 0.8f;
     Vector3 initialPosition;
@@ -12,8 +14,12 @@ public class CameraShake : MonoBehaviour {
     bool dirY = true;
 
     private void Start() {
-        initialPosition = transform.position;
         GameManager.RegistCamera(this);
+
+        if (Position == null)
+            initialPosition = transform.position;
+        else
+            initialPosition = new Vector3(Position.transform.position.x, Position.transform.position.y, -10);
     }
     private void OnDestroy() {
         GameManager.RegistCamera(this);
