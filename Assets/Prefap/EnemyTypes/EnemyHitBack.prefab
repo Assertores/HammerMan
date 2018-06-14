@@ -162,18 +162,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyDieParticle: {fileID: 1146176289402804, guid: a2b6bf90712fd9048b588eced2d76d74,
     type: 2}
-  DeathSound: []
+  DeathSound:
+  - {fileID: 8300000, guid: 949408d843d506740b7f28f13229646b, type: 3}
+  - {fileID: 8300000, guid: 70e6b2053cdaad24fab79476b646995f, type: 3}
+  - {fileID: 8300000, guid: a03aa083a808cbc41bc62cb2b8b55dba, type: 3}
+  - {fileID: 8300000, guid: 5ded2a95a1f0a1c4fbabf34e60c1884c, type: 3}
+  - {fileID: 8300000, guid: 5d2b7cb1f36c8ff49ae275d666bb689b, type: 3}
+  - {fileID: 8300000, guid: ad3c10fbd21bf1e458bf3cf67a83e737, type: 3}
   InvoceOnEnemyDeath: []
   AbleToHitFrom: 0
   EnemySpeed: 2
   EnemyDamageOnExit: 1
   TurningDistance: 0.6
+  Invulnerable: 1
   ChangeDirectionAt:
     serializedVersion: 2
     m_Bits: 2560
   FallLayers:
     serializedVersion: 2
     m_Bits: 512
+  State: 0
+  DirRight: 1
 --- !u!212 &212127519759165522
 SpriteRenderer:
   m_ObjectHideFlags: 1

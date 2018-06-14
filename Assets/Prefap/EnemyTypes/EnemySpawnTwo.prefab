@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4077442444480478}
   - component: {fileID: 212127519759165522}
-  - component: {fileID: 95059905821503836}
+  - component: {fileID: 95682111090392158}
   m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114753376574924906}
   - component: {fileID: 114478710921738570}
   m_Layer: 11
-  m_Name: EnemyHitFront
+  m_Name: EnemySpawnTwo
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,7 +119,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0.05
---- !u!95 &95059905821503836
+--- !u!95 &95682111090392158
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -128,7 +128,7 @@ Animator:
   m_GameObject: {fileID: 1025917008769302}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 86649793599b5b54185e7c9c0887942f, type: 2}
+  m_Controller: {fileID: 9100000, guid: f009edb4d8d4fed43bafd4710bbfdd04, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -162,18 +162,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyDieParticle: {fileID: 1146176289402804, guid: a2b6bf90712fd9048b588eced2d76d74,
     type: 2}
-  DeathSound: []
-  InvoceOnEnemyDeath: []
-  AbleToHitFrom: 1
+  DeathSound:
+  - {fileID: 8300000, guid: 949408d843d506740b7f28f13229646b, type: 3}
+  - {fileID: 8300000, guid: 70e6b2053cdaad24fab79476b646995f, type: 3}
+  - {fileID: 8300000, guid: a03aa083a808cbc41bc62cb2b8b55dba, type: 3}
+  - {fileID: 8300000, guid: 5ded2a95a1f0a1c4fbabf34e60c1884c, type: 3}
+  - {fileID: 8300000, guid: 5d2b7cb1f36c8ff49ae275d666bb689b, type: 3}
+  - {fileID: 8300000, guid: ad3c10fbd21bf1e458bf3cf67a83e737, type: 3}
+  InvoceOnEnemyDeath:
+  - {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
+  - {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
+  AbleToHitFrom: 0
   EnemySpeed: 2
   EnemyDamageOnExit: 1
   TurningDistance: 0.6
+  Invulnerable: 1
   ChangeDirectionAt:
     serializedVersion: 2
     m_Bits: 2560
   FallLayers:
     serializedVersion: 2
     m_Bits: 512
+  State: 0
+  DirRight: 1
 --- !u!212 &212127519759165522
 SpriteRenderer:
   m_ObjectHideFlags: 1
