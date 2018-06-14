@@ -39,7 +39,6 @@ GameObject:
   - component: {fileID: 61457333285938392}
   - component: {fileID: 50682961213363256}
   - component: {fileID: 114753376574924906}
-  - component: {fileID: 114478710921738570}
   m_Layer: 11
   m_Name: Enemy
   m_TagString: Enemy
@@ -152,7 +151,8 @@ MonoBehaviour:
     type: 2}
   DeathSound:
   - {fileID: 8300000, guid: 3d4b1f75a906cc84481b9a1bf455c338, type: 3}
-  InvoceOnEnemyDeath: []
+  InvoceOnEnemyDeath:
+  - {fileID: 1789330704175232, guid: b547a133ff30ead4eacf51c4d6cec4c9, type: 2}
   AbleToHitFrom: 0
   EnemySpeed: 2
   EnemyDamageOnExit: 1

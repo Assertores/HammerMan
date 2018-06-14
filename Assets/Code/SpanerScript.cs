@@ -68,7 +68,6 @@ public class SpanerScript : MonoBehaviour {
     void SpawnBehavior0() {
         if (GameManager.GetTime() % (WaveLength + GapLength) <= WaveLength && GameManager.GetTime() >= NextSpawn) {
             Instantiate(Creap1[Random.Range(0,Creap1.Count)]).transform.position = this.transform.position;
-            GameManager.ChangeEnemyCount(1);
             NextSpawn = GameManager.GetTime() + SpawnRate;
         }
     }

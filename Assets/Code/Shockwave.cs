@@ -13,7 +13,7 @@ public class Shockwave : MonoBehaviour {
     }
 
     private void Update() {
-        if(ShockDuration >= GameManager.GetTime()) {
+        if(ShockDuration <= GameManager.GetTime()) {
             GameManager.Destroy(this.transform.gameObject);
         }
     }

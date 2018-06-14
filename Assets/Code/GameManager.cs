@@ -214,6 +214,9 @@ public class GameManager : MonoBehaviour {
     }
 
     //===== ===== Library ===== =====
+    public static void EndGame() {
+        GM.StartGameOver();
+    }
     public static float GetTime() {
         return Time.time - GM.LevelTimeAtStart;
     }

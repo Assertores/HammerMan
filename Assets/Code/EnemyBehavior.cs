@@ -26,6 +26,8 @@ public class EnemyBehavior : MonoBehaviour {
     int EnemyDamageOnExit = 1;
     [SerializeField]
     float TurningDistance = 10;
+    [SerializeField]
+    float Invulnerable = 1;
     public LayerMask ChangeDirectionAt;
     public LayerMask FallLayers;
 
@@ -36,6 +38,8 @@ public class EnemyBehavior : MonoBehaviour {
     float DistToGround = 0.0f;
 
     void Start() {
+        GameManager.ChangeEnemyCount(1);
+        Invulnerable += GameManager.GetTime();
         rb = GetComponent<Rigidbody2D>();
         if (!rb) {
             throw new System.Exception("Rigitbody not found. Enemy");
@@ -135,14 +139,17 @@ public class EnemyBehavior : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D col) {
         switch (col.transform.gameObject.tag) {
         case StringCollection.HAMMER:
-            float dist = GameManager.GetPlayerPosition().x - this.transform.position.x;
-            if (!DirRight)
-                dist *= -1;
-            if (AbleToHitFrom == 0 || (AbleToHitFrom == 1 && dist > 0) || (AbleToHitFrom == 2 && dist < 0)) {
-                DieByHammer();
+            if(Invulnerable < GameManager.GetTime()) {
+                float dist = GameManager.GetPlayerPosition().x - this.transform.position.x;
+                if (!DirRight)
+                    dist *= -1;
+                if (AbleToHitFrom == 0 || (AbleToHitFrom == 1 && dist > 0) || (AbleToHitFrom == 2 && dist < 0)) {
+                    DieByHammer();
+                }
             }
             break;
         case StringCollection.EXIT:
+            col.GetComponent<ExitControler>().Hit(EnemyDamageOnExit);
             DieByExit();
             break;
         default:
@@ -163,7 +170,7 @@ public class EnemyBehavior : MonoBehaviour {
         }
         if (InvoceOnEnemyDeath.Length != 0) {
             for(int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
-                Instantiate(InvoceOnEnemyDeath[i]).transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+                Instantiate(InvoceOnEnemyDeath[i]).transform.position = this.transform.position;
             }
         }
         GameManager.ChangeEnemyCount(-1);
@@ -172,7 +179,7 @@ public class EnemyBehavior : MonoBehaviour {
 
     void DieByExit() {
         GameManager.CameraEffectOnEnemyExit();
-        GameManager.ChangeEnemyCount(-1, -EnemyDamageOnExit);
+        //GameManager.ChangeEnemyCount(-1, -EnemyDamageOnExit);
         GameObject.Destroy(this.transform.gameObject);
     }
 
