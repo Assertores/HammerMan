@@ -179,7 +179,7 @@ public class EnemyBehavior : MonoBehaviour {
 
     void DieByExit() {
         GameManager.CameraEffectOnEnemyExit();
-        //GameManager.ChangeEnemyCount(-1, -EnemyDamageOnExit);
+        GameManager.ChangeEnemyCount(-1);
         GameObject.Destroy(this.transform.gameObject);
     }
 
