@@ -38,6 +38,7 @@ public class EnemyBehavior : MonoBehaviour {
     float DistToGround = 0.0f;
 
     void Start() {
+        GameManager.ChangeEnemyCount(1);
         Invulnerable += GameManager.GetTime();
         rb = GetComponent<Rigidbody2D>();
         if (!rb) {
