@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 61202717798721606}
   - component: {fileID: 251195629592693130}
   m_Layer: 9
-  m_Name: Ground (58)
+  m_Name: GroundRight
   m_TagString: Level
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

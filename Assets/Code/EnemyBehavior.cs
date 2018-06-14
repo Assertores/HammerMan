@@ -31,8 +31,8 @@ public class EnemyBehavior : MonoBehaviour {
 
     Rigidbody2D rb;
 
-    EnemyState State = EnemyState.Moving;
-    bool DirRight = true;
+    public EnemyState State = EnemyState.Moving;
+    public bool DirRight = true;
     float DistToGround = 0.0f;
 
     void Start() {
@@ -69,19 +69,16 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        switch (State) {
-        case EnemyState.Moving:
-            RaycastHit2D hit = Physics2D.Raycast(new Vector3(this.transform.position.x + (DirRight ? 0.6f: -0.6f), this.transform.position.y, this.transform.position.z),
+        RaycastHit2D hit = Physics2D.Raycast(new Vector3(this.transform.position.x + (DirRight ? 0.6f : -0.6f), this.transform.position.y, this.transform.position.z),
                                                 this.transform.right * rb.velocity.x, TurningDistance - 0.6f, ChangeDirectionAt);
 
-            if (hit.collider != null) {
-                ChangeDir(!DirRight);
-            }
-            if (rb.velocity.x <= 0.1f && rb.velocity.x >= -0.1f) {
-                rb.velocity = new Vector2(DirRight ? -EnemySpeed : EnemySpeed, rb.velocity.y);
-            } else {
+        if (hit.collider != null)
+        {
+            ChangeDir(!DirRight);
+        }
+        switch (State) {
+        case EnemyState.Moving:
                 rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
-            }
             break;
         case EnemyState.Falling:
             break;
