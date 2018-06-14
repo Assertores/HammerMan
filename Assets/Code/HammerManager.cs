@@ -5,8 +5,6 @@ using UnityEngine;
 public class HammerManager : MonoBehaviour {
 
     [SerializeField]
-    float HammerFrequency;
-    [SerializeField]
     [Range(0.0f, 1.0f)]
     [Tooltip("Anfang des Hammerschlags als prozentzahl der frequenzzeit")]
     float HammerOnBeginning;
@@ -15,6 +13,8 @@ public class HammerManager : MonoBehaviour {
     [Tooltip("Ende des Hammerschlags als prozentzahl der frequenzzeit")]
     float HammerOnEnd;
 
+    bool DoHammer = true;
+
     BoxCollider2D HammerCol;
     
     void Start () {
@@ -22,16 +22,22 @@ public class HammerManager : MonoBehaviour {
         if (!HammerCol) {
             throw new System.Exception("Hammer Collider not found. Hammer");
         }
-        HammerOnBeginning = HammerFrequency * HammerOnBeginning;
-        HammerOnEnd = HammerFrequency * HammerOnEnd;
     }
 	
 	void Update () {
-        float time = GameControler.GetTime() % HammerFrequency;
-        if (time > HammerOnBeginning && time < HammerOnEnd) {
-            HammerCol.enabled = true;
-        } else if (HammerCol.enabled == true) {
-            HammerCol.enabled = false;
+        if (DoHammer) {
+            float time = GameManager.GetHammerTime() % 1;
+            if (time > HammerOnBeginning && time < HammerOnEnd) {
+                HammerCol.enabled = true;
+            } else if (HammerCol.enabled == true) {
+                HammerCol.enabled = false;
+            }
         }
 	}
+
+    public void SetHammer(bool on) {
+        DoHammer = on;
+        if (!on)
+            HammerCol.enabled = false;
+    }
 }
