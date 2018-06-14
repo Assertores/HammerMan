@@ -123,6 +123,11 @@ public class SpanerScript : MonoBehaviour {
             Die = Instantiate(SpawnHitParticle, this.transform.position, this.transform.rotation);
             if(DeathSound != null)
                 Die.GetComponent<AudioSource>().clip = DeathSound;
+            if (Die.GetComponent<ParticleKiller>() == null) {
+                print("ParticalKillerScript kann nicht gefunden werden.");
+            } else {
+                Die.GetComponent<ParticleKiller>().PlayStart();
+            }
             return;
         }
         LogSystem.LogOnConsole("Spawner got hit");// ----- ----- LOG ----- -----
@@ -130,6 +135,11 @@ public class SpanerScript : MonoBehaviour {
         if(HitSound.Length > 0) {
             int temp = Random.Range(0, HitSound.Length);
             Die.GetComponent<AudioSource>().clip = HitSound[temp];
+        }
+        if (Die.GetComponent<ParticleKiller>() == null) {
+            print("ParticalKillerScript kann nicht gefunden werden.");
+        } else {
+            Die.GetComponent<ParticleKiller>().PlayStart();
         }
     }
 }
