@@ -167,8 +167,6 @@ MonoBehaviour:
   WaveBar: {fileID: 114516782951851560}
   MaxLife: 10
   Creaps:
-  - Creap: {fileID: 1540867809136188, guid: d4361b2d390f7944a87c38b727a7af6c, type: 2}
-    Ratio: 1
   - Creap: {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
     Ratio: 1
   - Creap: {fileID: 1720267005446818, guid: 85cf98f1829e0c846902234024c8ba63, type: 2}
@@ -176,6 +174,8 @@ MonoBehaviour:
   - Creap: {fileID: 1720267005446818, guid: 2cf71ccdc9e84cf4abda369c6397aa56, type: 2}
     Ratio: 1
   - Creap: {fileID: 1720267005446818, guid: a613bc1583b1be040a60477ddfe100bb, type: 2}
+    Ratio: 1
+  - Creap: {fileID: 1720267005446818, guid: 1bf1460173a30f14bb65cb44cbaec3cc, type: 2}
     Ratio: 1
   - Creap: {fileID: 1720267005446818, guid: d96b0e860e9793c44844fd85d2c48864, type: 2}
     Ratio: 1
