@@ -166,7 +166,7 @@ public class EnemyBehavior : MonoBehaviour {
         }
         if (InvoceOnEnemyDeath.Length != 0) {
             for(int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
-                Instantiate(InvoceOnEnemyDeath[i]).transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+                Instantiate(InvoceOnEnemyDeath[i]).transform.position = this.transform.position;
             }
         }
         GameManager.ChangeEnemyCount(-1);
