@@ -4110,6 +4110,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 762649981}
     m_Modifications:
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4651663534908124, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
       propertyPath: m_LocalPosition.x
       value: -36
@@ -4145,6 +4150,61 @@ Prefab:
     - target: {fileID: 1144896226500246, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
       propertyPath: m_Name
       value: Spawner (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[1].Creap
+      value: 
+      objectReference: {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec,
+        type: 2}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[1].Ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[2].Creap
+      value: 
+      objectReference: {fileID: 1720267005446818, guid: 85cf98f1829e0c846902234024c8ba63,
+        type: 2}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[2].Ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[3].Creap
+      value: 
+      objectReference: {fileID: 1720267005446818, guid: 2cf71ccdc9e84cf4abda369c6397aa56,
+        type: 2}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[3].Ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[4].Creap
+      value: 
+      objectReference: {fileID: 1720267005446818, guid: a613bc1583b1be040a60477ddfe100bb,
+        type: 2}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[4].Ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[5].Creap
+      value: 
+      objectReference: {fileID: 1720267005446818, guid: 1bf1460173a30f14bb65cb44cbaec3cc,
+        type: 2}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[5].Ratio
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
@@ -10849,6 +10909,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 762649981}
     m_Modifications:
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4651663534908124, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
       propertyPath: m_LocalPosition.x
       value: -27.26
@@ -10884,6 +10949,61 @@ Prefab:
     - target: {fileID: 1144896226500246, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
       propertyPath: m_Name
       value: Spawner (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[1].Creap
+      value: 
+      objectReference: {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec,
+        type: 2}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[1].Ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[2].Creap
+      value: 
+      objectReference: {fileID: 1720267005446818, guid: 85cf98f1829e0c846902234024c8ba63,
+        type: 2}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[2].Ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[3].Creap
+      value: 
+      objectReference: {fileID: 1720267005446818, guid: 2cf71ccdc9e84cf4abda369c6397aa56,
+        type: 2}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[3].Ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[4].Creap
+      value: 
+      objectReference: {fileID: 1720267005446818, guid: a613bc1583b1be040a60477ddfe100bb,
+        type: 2}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[4].Ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[5].Creap
+      value: 
+      objectReference: {fileID: 1720267005446818, guid: d96b0e860e9793c44844fd85d2c48864,
+        type: 2}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[5].Ratio
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
