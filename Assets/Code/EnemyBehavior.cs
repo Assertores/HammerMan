@@ -17,9 +17,9 @@ public class EnemyBehavior : MonoBehaviour {
     [SerializeField]
     GameObject[] InvoceOnEnemyDeath;
     [SerializeField]
+    [Header("Generel")]
     [Tooltip("0 = boath direktion, 1 only front, 2 = only back")]
     int AbleToHitFrom = 0;
-    [Header("Generel")]
     [SerializeField]
     float EnemySpeed = 10;
     [SerializeField]
@@ -27,15 +27,13 @@ public class EnemyBehavior : MonoBehaviour {
     [SerializeField]
     float TurningDistance = 10;
     [SerializeField]
-    float Invulnerable = 1;
+    float Invulnerable = 1; //time
     public LayerMask ChangeDirectionAt;
-    public LayerMask FallLayers;
 
     Rigidbody2D rb;
 
     public EnemyState State = EnemyState.Moving;
     public bool DirRight = true;
-    float DistToGround = 0.0f;
 
     void Start() {
         GameManager.ChangeEnemyCount(1);
@@ -44,21 +42,19 @@ public class EnemyBehavior : MonoBehaviour {
         if (!rb) {
             throw new System.Exception("Rigitbody not found. Enemy");
         }
-
+        //randam direction
         DirRight = (Random.value > 0.5f);
         if (!DirRight) {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
     }
+    private void OnDestroy() {
+        GameManager.ChangeEnemyCount(-1);
+    }
 
-    void Update() {
-
-        //DistToGround = Physics2D.Raycast(this.transform.position, -this.transform.up, 1000, FallLayers).distance;
-        //LogSystem.LogOnConsole(State.ToString());// ----- ----- LOG ----- -----
+    void Update() {//finite state machine: übergänge von states
         switch (State) {
         case EnemyState.Moving:
-            /*if (DistToGround > 0.5f)//triggert zu früh
-                ChangeState(EnemyState.Falling);*/
             if (rb.velocity.y < -1.5f)
                 ChangeState(EnemyState.Falling);
             break;
@@ -73,6 +69,7 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     private void FixedUpdate() {
+        //umdrehen?
         RaycastHit2D hit = Physics2D.Raycast(new Vector3(this.transform.position.x + (DirRight ? 0.6f : -0.6f), this.transform.position.y, this.transform.position.z),
                                                 this.transform.right * rb.velocity.x, TurningDistance - 0.6f, ChangeDirectionAt);
 
@@ -80,7 +77,7 @@ public class EnemyBehavior : MonoBehaviour {
         {
             ChangeDir(!DirRight);
         }
-        switch (State) {
+        switch (State) {//finite state machine: während diesem state
         case EnemyState.Moving:
                 rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
             break;
@@ -93,10 +90,10 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     void ChangeState(EnemyState newState) {
-        if (State == newState)
+        if (State == newState)//stellt sicher, dass es einen übergang giebt
             return;
 
-        switch (State) {
+        switch (State) {//finite state machine: bei verlassen des states
         case EnemyState.Moving:
             break;
         case EnemyState.Falling:
@@ -108,7 +105,7 @@ public class EnemyBehavior : MonoBehaviour {
 
         State = newState;
 
-        switch (State) {
+        switch (State) {//finite state machine: bei betreten des states
         case EnemyState.Moving:
             break;
         case EnemyState.Falling:
@@ -120,6 +117,7 @@ public class EnemyBehavior : MonoBehaviour {
         }
     }
 
+    //----- ----- für vererbung ----- -----
     void StateMachine_Transition01() {
 
     }
@@ -138,9 +136,9 @@ public class EnemyBehavior : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D col) {
         switch (col.transform.gameObject.tag) {
-        case StringCollection.HAMMER:
-            if(Invulnerable < GameManager.GetTime()) {
-                float dist = GameManager.GetPlayerPosition().x - this.transform.position.x;
+        case StringCollection.HAMMER://wenn mit hammer kolidiert
+            if(Invulnerable < GameManager.GetTime()) {//wenn nichtmehr unverwundbar
+                float dist = GameManager.GetPlayerPosition().x - this.transform.position.x; //für nur von einer seite aus tötbar
                 if (!DirRight)
                     dist *= -1;
                 if (AbleToHitFrom == 0 || (AbleToHitFrom == 1 && dist > 0) || (AbleToHitFrom == 2 && dist < 0)) {
@@ -148,8 +146,8 @@ public class EnemyBehavior : MonoBehaviour {
                 }
             }
             break;
-        case StringCollection.EXIT:
-            col.GetComponent<ExitControler>().Hit(EnemyDamageOnExit);
+        case StringCollection.EXIT://wen nach drausen leuft
+            col.GetComponent<ExitControler>().Hit(EnemyDamageOnExit); //macht ausgang kaputt
             DieByExit();
             break;
         default:
@@ -158,32 +156,30 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     void DieByHammer() {
-        int temp = Random.Range(0, DeathSound.Length);
+        int temp = Random.Range(0, DeathSound.Length); //welcher sound soll für den tod verwendet werden
         GameManager.CameraEffectOnEnemyDeath();
-        GameObject Die = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
-        if(DeathSound.Length != 0)
+        GameObject Die = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation); //macht partikel
+        if(DeathSound.Length != 0)//fügt audioclip hinzu
             Die.GetComponent<AudioSource>().clip = DeathSound[temp];
         if(Die.GetComponent<ParticleKiller>() == null) {
             print("ParticalKillerScript kann nicht gefunden werden.");
         } else {
-            Die.GetComponent<ParticleKiller>().PlayStart();
+            Die.GetComponent<ParticleKiller>().PlayStart(); //started partikel und audio
         }
-        if (InvoceOnEnemyDeath.Length != 0) {
+        if (InvoceOnEnemyDeath.Length != 0) {//macht gameobjekts bei tot durch hammer
             for(int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
                 Instantiate(InvoceOnEnemyDeath[i]).transform.position = this.transform.position;
             }
         }
-        GameManager.ChangeEnemyCount(-1);
         GameObject.Destroy(this.transform.gameObject);
     }
 
     void DieByExit() {
         GameManager.CameraEffectOnEnemyExit();
-        GameManager.ChangeEnemyCount(-1);
         GameObject.Destroy(this.transform.gameObject);
     }
 
-    void ChangeDir(bool right) {
+    void ChangeDir(bool right) { //kümmert sich ums umdrehen
         if (right != DirRight) {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
