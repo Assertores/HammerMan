@@ -164,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HitSound: []
   DeathSound: {fileID: 8300000, guid: 17c4c93aa79fb05418f769df26497195, type: 3}
-  WaveBar: {fileID: 114516782951851560}
+  LifeBar: {fileID: 114516782951851560}
   MaxLife: 10
   Creaps:
   - Creap: {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
