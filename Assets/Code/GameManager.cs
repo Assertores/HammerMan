@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour {
 
     public void StartLevel(int level) {
         GM.LevelTimeAtStart = Time.time;
+        LogSystem.LogOnFile("LevelStart");
         GM.EnemyCount = 0;
         if (!GM.StartingInLevel) {
             switch (level) {//wählt level aus
@@ -135,6 +136,7 @@ public class GameManager : MonoBehaviour {
             return false;
         }
         GM.EnemyCount += count;
+        LogSystem.LogOnFile(GM.EnemyCount.ToString());
         if (GM.LI == null) {
             LogSystem.LogOnConsole("no Level Infos available");// ----- ----- LOG ----- -----
             return false;
@@ -148,6 +150,7 @@ public class GameManager : MonoBehaviour {
             return true;
         }
         if (GM.EnemyCount <= 0) {
+            LogSystem.LogOnFile("Game Won");
             GM.StartMainMenu();
             return true;
         }
@@ -215,6 +218,7 @@ public class GameManager : MonoBehaviour {
 
     //===== ===== Library ===== =====
     public static void EndGame() {
+        LogSystem.LogOnFile("Game failed");
         GM.StartGameOver();
     }
     public static float GetTime() {
