@@ -222,6 +222,10 @@ public class GameManager : MonoBehaviour {
     }
 
     public static float GetHammerTime() {
+        if(GM.LI == null) {
+            LogSystem.LogOnConsole("no Level Infos available");// ----- ----- LOG ----- -----
+            return -1;
+        }
         return (Time.time - GM.LevelTimeAtStart) / GM.LI.GetHammerFrequenz();
     }
 
@@ -235,5 +239,13 @@ public class GameManager : MonoBehaviour {
         } else {
             Time.timeScale = 1;
         }
+    }
+
+    public static float StartMusic() {
+        if (GM.LI == null) {
+            LogSystem.LogOnConsole("no Level Infos available");// ----- ----- LOG ----- -----
+            return -1;
+        }
+        return (GetHammerTime() % 1) * GM.LI.GetHammerFrequenz();
     }
 }
