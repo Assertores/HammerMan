@@ -33,7 +33,7 @@ public class PlayerMovment : MonoBehaviour {
     HammerManager Hammer;
     bool isUpPossible = false;
     bool DirRight = true;
-    Vector2 Ladder;
+    Vector2 Ladder;//position der leiter an der du hoch gehst
     bool InControle = false;
     bool PlayerIsInGround = false;
     float oldGravityScale;
@@ -59,13 +59,13 @@ public class PlayerMovment : MonoBehaviour {
     }
 
     void Update() {
-        if (this.transform.position.y < -0.1) {
+        if (this.transform.position.y < -0.1) {//macht das man nicht durch den boden durchfallen kann
             this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
             InputControler.SetDown(0);
         }
         if (InControle) {
             DistToGround = Physics2D.Raycast(this.transform.position, -this.transform.up, 1000, FallLayers).distance;
-            switch (State) {
+            switch (State) { //finite state machine: übergänge von states
             case PlayerState.Idle:
                 goto case PlayerState.Moving;
             case PlayerState.Moving:
@@ -112,14 +112,14 @@ public class PlayerMovment : MonoBehaviour {
     void FixedUpdate() {
         if (InControle) {
 
-            if (Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && !PlayerIsInGround) {
+            if (Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && !PlayerIsInGround) {//macht dass man durch die richtige anzahl an ebenen durchfällt
                 PlayerIsInGround = true;
             } else if (!Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && PlayerIsInGround) {
                 PlayerIsInGround = false;
                 InputControler.ChangeDown(-1);
             }
 
-            switch (State) {
+            switch (State) { //finite state machine: während diesem state
             case PlayerState.Idle:
                 break;
             case PlayerState.Moving:
@@ -136,7 +136,6 @@ public class PlayerMovment : MonoBehaviour {
                 break;
             case PlayerState.Falling:
                 goto case PlayerState.Moving;
-                //break;
             /*case PlayerState.Landing:
                 break;*/
             default:
@@ -147,15 +146,13 @@ public class PlayerMovment : MonoBehaviour {
     }
 
     void ChangeState(PlayerState newState) {
-        if (State == newState)
+        if (State == newState) //stellt sicher, dass es einen übergang giebt
             return;
 
-        switch (State) {
+        switch (State) { //finite state machine: bei verlassen des states
         case PlayerState.Idle:
-            Hammer.SetHammer(false);
             break;
         case PlayerState.Moving:
-            Hammer.SetHammer(false);
             break;
         case PlayerState.Climbing:
             rb.gravityScale = oldGravityScale;
@@ -178,7 +175,7 @@ public class PlayerMovment : MonoBehaviour {
 
         State = newState;
 
-        switch (State) {
+        switch (State) { //finite state machine: bei betreten des states
         case PlayerState.Idle:
             rb.velocity = new Vector2(0, 0);
             Hammer.SetHammer(true);
@@ -187,14 +184,17 @@ public class PlayerMovment : MonoBehaviour {
             Hammer.SetHammer(true);
             break;
         case PlayerState.Climbing:
+            Hammer.SetHammer(false);
             LogSystem.LogOnConsole("i'm klimping");// ----- ----- LOG ----- -----
             rb.gravityScale = 0;
             this.transform.position = new Vector3(Ladder.x, this.transform.position.y, this.transform.position.z);
             break;
         case PlayerState.Jumping:
+            Hammer.SetHammer(false);
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + JumpStrength);
             break;
         case PlayerState.Falling:
+            Hammer.SetHammer(false);
             GetComponent<CapsuleCollider2D>().isTrigger = true;
             rb.velocity = new Vector2(rb.velocity.x, -FallThroughBoost);
             break;
@@ -211,6 +211,7 @@ public class PlayerMovment : MonoBehaviour {
 
     }
 
+    //----- ----- für vererbung ----- -----
     void StateMachine_Transition01() {
         ChangeState(PlayerState.Idle);
     }
@@ -232,7 +233,6 @@ public class PlayerMovment : MonoBehaviour {
             LogSystem.LogOnConsole("i'm on ladder");// ----- ----- LOG ----- -----
             Ladder = col.transform.position;
             isUpPossible = true;
-            //rb.bodyType = RigidbodyType2D.Kinematic;
         }
     }
 
@@ -241,26 +241,24 @@ public class PlayerMovment : MonoBehaviour {
             if (InputControler.Vertical < 0) {
                 LogSystem.LogOnConsole("no ladder anymore");// ----- ----- LOG ----- -----
                 rb.velocity = new Vector2(rb.velocity.x, 0.1f);
-                //this.transform.position = new Vector2(this.transform.position.x, Ladder.y + 4.0f);
-                //rb.bodyType = RigidbodyType2D.Dynamic;
             }
-            rb.gravityScale = 5;
+            rb.gravityScale = oldGravityScale;
             isUpPossible = false;
         }
     }
 
-    void ChangeDir(bool right) {
+    void ChangeDir(bool right) { //kümmert sich ums umdrehen
         if (right != DirRight) {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
         DirRight = right;
     }
 
-    public void SetPlayerControl(bool controle) {
+    public void SetPlayerControl(bool controle) { //wird von GameManager aufgerufen
         InControle = controle;
     }
 
-    public void KickPlayer(Vector2 force) {
+    public void KickPlayer(Vector2 force) { //wird von GameManager aufgerufen
         rb.velocity = rb.velocity + force;
     }
 }

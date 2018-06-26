@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+
 [Serializable()]
-public class CameraPathAnchor
-{
+public class CameraPathAnchor { //ist wichtig für den camerapath
     public GameObject Position;
     public float Zoom;
     public float Stay;

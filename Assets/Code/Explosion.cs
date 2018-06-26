@@ -10,13 +10,13 @@ public class Explosion : MonoBehaviour {
     float explosionForce = 0.0f;
 
     float startTime;
-	// Use this for initialization
+	
 	void Start () {
         startTime = GameManager.GetTime();
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	
+	void Update () {//drückt spieler weck wenn der delay ausleuft
 		if(startTime+explosionDelay <= GameManager.GetTime()) {
             Vector2 temp = GameManager.GetPlayerPosition();
             temp = new Vector2(temp.x - this.transform.position.x, temp.y - this.transform.position.y);

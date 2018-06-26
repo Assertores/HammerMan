@@ -8,7 +8,8 @@ public class LevelInfos : MonoBehaviour {
     int LevelLife;
     [SerializeField]
     float HammerFrequenz;
-
+    
+    //meldet sich beim gamemanager an und ab
     void Start () {
         GameManager.RegistLvlInfos(this);
 	}

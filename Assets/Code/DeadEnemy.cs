@@ -15,10 +15,10 @@ public class DeadEnemy : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D col) {
         switch (col.gameObject.transform.tag) {
         case StringCollection.ENEMY:
-            Instantiate(Enemy);
+            Instantiate(Enemy);//resereckt
             goto case StringCollection.HAMMER;
         case StringCollection.HAMMER:
-            GameManager.ChangeEnemyCount(-1);
+            GameManager.ChangeEnemyCount(-1);//kill kompletly
             GameObject.Destroy(this.transform.gameObject);
             break;
         default:
