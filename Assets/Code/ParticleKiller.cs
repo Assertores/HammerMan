@@ -5,7 +5,7 @@ using UnityEngine;
 public class ParticleKiller : MonoBehaviour {
 
     float time = 0.0f;
-    // Use this for initialization
+
     void Start () {
         time = GameManager.GetTime();
     }
@@ -20,9 +20,8 @@ public class ParticleKiller : MonoBehaviour {
             audio.Play();
         }
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+	void FixedUpdate () {//macht dass es wieder weck geht
 		if (GameManager.GetTime() - time > 2.0f) {
             GameObject.Destroy(this.transform.gameObject);
         }

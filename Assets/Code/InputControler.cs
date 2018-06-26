@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputControler : MonoBehaviour {
+public class InputControler : MonoBehaviour {//liest input aus und macht ihn global verfügbar
 
     public static float Horizontal { get; private set; }
     public static float Vertical { get; private set; }

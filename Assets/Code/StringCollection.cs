@@ -12,6 +12,7 @@ public class StringCollection {
     public const string CANCEL = "Cancel";
     public const string JUMP = "Jump";
     public const string CROUCH = "Crouch";
+
     //TAGS
     public const string PLAYER = "Player";
     public const string ENEMY = "Enemy";
@@ -20,6 +21,7 @@ public class StringCollection {
     public const string HAMMER = "Hammer";
     public const string EXIT = "Exit";
     public const string UI = "UI";
+
     //Sceens
     public const string MAINMENU = "MainMenu";
     public const string GAMEOVER = "GameOver";

@@ -52,7 +52,7 @@ public class EnemyBehavior : MonoBehaviour {
         GameManager.ChangeEnemyCount(-1);
     }
 
-    void Update() {//finite state machine: übergänge von states
+    void Update() { //finite state machine: übergänge von states
         switch (State) {
         case EnemyState.Moving:
             if (rb.velocity.y < -1.5f)
@@ -77,7 +77,7 @@ public class EnemyBehavior : MonoBehaviour {
         {
             ChangeDir(!DirRight);
         }
-        switch (State) {//finite state machine: während diesem state
+        switch (State) { //finite state machine: während diesem state
         case EnemyState.Moving:
                 rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
             break;
@@ -90,10 +90,10 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     void ChangeState(EnemyState newState) {
-        if (State == newState)//stellt sicher, dass es einen übergang giebt
+        if (State == newState) //stellt sicher, dass es einen übergang giebt
             return;
 
-        switch (State) {//finite state machine: bei verlassen des states
+        switch (State) { //finite state machine: bei verlassen des states
         case EnemyState.Moving:
             break;
         case EnemyState.Falling:
@@ -105,7 +105,7 @@ public class EnemyBehavior : MonoBehaviour {
 
         State = newState;
 
-        switch (State) {//finite state machine: bei betreten des states
+        switch (State) { //finite state machine: bei betreten des states
         case EnemyState.Moving:
             break;
         case EnemyState.Falling:

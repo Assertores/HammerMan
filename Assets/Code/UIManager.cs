@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour {
+public class UIManager : MonoBehaviour {//ist veralltet wird nicht mehr verwendet
 
     [SerializeField]
     Image Life;
@@ -13,8 +13,7 @@ public class UIManager : MonoBehaviour {
     private void OnDestroy() {
         GameManager.RegistUI(this);
     }
-
-    // Use this for initialization
+    
     void Start () {
         if (!Life) {
             throw new System.Exception("Life Image not assinght. UI");
@@ -26,7 +25,6 @@ public class UIManager : MonoBehaviour {
         Life.fillAmount = 1.0f;
 	}
 	
-	// Update is called once per frame
 	public void UpdateLife (float LifeRatio) {
         Life.fillAmount = LifeRatio;
 	}

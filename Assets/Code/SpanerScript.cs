@@ -5,19 +5,22 @@ using UnityEngine.UI;
 
 public class SpanerScript : MonoBehaviour {
 
+    [Header("Spawner")]
     [SerializeField]
     AudioClip[] HitSound;
     [SerializeField]
     AudioClip DeathSound;
     [SerializeField]
-    Image WaveBar;
+    Image LifeBar;
     [SerializeField]
     int MaxLife = 1;
     int CurrentLife;
     [SerializeField]
+    [Header("Creaps")]
     SpawnCreap[] Creaps;
     List<GameObject> Creap1;
     [SerializeField]
+    [Header("Wave")]
     float SpawnRate;
     [SerializeField]
     float WaveLength;
@@ -38,22 +41,26 @@ public class SpanerScript : MonoBehaviour {
     int WaveCount = 0;
 
 	void Start () {
-        if (!WaveBar) {
+        if (!LifeBar) {
             throw new System.Exception("WaveBar not assigned. Spawner");
         }
         CurrentLife = MaxLife;
         NextSpawn = GameManager.GetTime();
-        WaveBar.fillAmount = 1;
-        if (!GameManager.ChangeEnemyCount(100)) {
+        LifeBar.fillAmount = 1;
+        if (!GameManager.ChangeEnemyCount(100)) {//TODO: gegen Spawner-Generator system ersetzten
             LogSystem.LogOnConsole("Spawner konnte nicht den enemyCount erhöhen");
         }
         Creap1 = new List<GameObject>();
         Creap1.Clear();
-        for(int i = 0; i < Creaps.Length; i++) {
+        for(int i = 0; i < Creaps.Length; i++) {//fügt creaps in der anzahl der Ratio zu ner liste hinzu aus der ein zufälliges element genommen wird
             for(int j = 0; j < Creaps[i].Ratio; j++) {
                 Creap1.Add(Creaps[i].Creap);
             }
         }
+    }
+
+    private void OnDestroy() {
+        GameManager.ChangeEnemyCount(-100);
     }
 	
 	void Update () {
@@ -65,14 +72,14 @@ public class SpanerScript : MonoBehaviour {
         }
     }
 
-    void SpawnBehavior0() {
+    void SpawnBehavior0() {//spawnt gegner wenn es zeit dafür ist
         if (GameManager.GetTime() % (WaveLength + GapLength) <= WaveLength && GameManager.GetTime() >= NextSpawn) {
             Instantiate(Creap1[Random.Range(0,Creap1.Count)]).transform.position = this.transform.position;
             NextSpawn = GameManager.GetTime() + SpawnRate;
         }
     }
 
-    void SpawnBehavior1() {
+    void SpawnBehavior1() {//fügt jedesmal am ende den factor an die gaplength hinzu
         SpawnBehavior0();
         if (GameManager.GetTime() % (WaveLength + GapLength) > WaveLength && GameManager.GetTime() > WaveCount * (WaveLength + GapLength) && GapLength < MaximumGapLength) {
             WaveCount++;
@@ -83,7 +90,7 @@ public class SpanerScript : MonoBehaviour {
         }
     }
 
-    void SpawnBehavior2() {
+    void SpawnBehavior2() {//fügt jedesmal am ende den factor * waveAnzahl an die gaplength hinzu
         SpawnBehavior0();
         if (GameManager.GetTime() % (WaveLength + GapLength) > WaveLength && GameManager.GetTime() > WaveCount * (WaveLength + GapLength) && GapLength < MaximumGapLength) {
             WaveCount++;
@@ -94,7 +101,7 @@ public class SpanerScript : MonoBehaviour {
         }
     }
 
-    void SpawnBehavior3() {
+    void SpawnBehavior3() {//fügt jedesmal am ende den factor * 1/waveAnzahl an die gaplength hinzu
         SpawnBehavior0();
         if (GameManager.GetTime() % (WaveLength + GapLength) > WaveLength && GameManager.GetTime() > WaveCount * (WaveLength + GapLength) && GapLength < MaximumGapLength) {
             WaveCount++;
@@ -105,40 +112,40 @@ public class SpanerScript : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D col) {
+    private void OnTriggerEnter2D(Collider2D col) {//macht dass es getroffen werden kann
         if (col.transform.gameObject.tag == StringCollection.HAMMER) {
             Hit();
         }
     }
 
     private void Hit(int damage = 1) {
-        GameObject Die;
+        GameObject handle;
         CurrentLife -= damage;
-        WaveBar.fillAmount = CurrentLife / (float)MaxLife;
+        LifeBar.fillAmount = CurrentLife / (float)MaxLife;
         if (CurrentLife <= 0) {
-            GameManager.ChangeEnemyCount(-100);
-            GameObject.Destroy(this.transform.gameObject);
             LogSystem.LogOnConsole("Spawner is dead");// ----- ----- LOG ----- -----
-            Die = Instantiate(SpawnHitParticle, this.transform.position, this.transform.rotation);
+            handle = Instantiate(SpawnHitParticle, this.transform.position, this.transform.rotation);
             if(DeathSound != null)
-                Die.GetComponent<AudioSource>().clip = DeathSound;
-            if (Die.GetComponent<ParticleKiller>() == null) {
+                handle.GetComponent<AudioSource>().clip = DeathSound;
+            if (handle.GetComponent<ParticleKiller>() == null) {
                 print("ParticalKillerScript kann nicht gefunden werden.");
             } else {
-                Die.GetComponent<ParticleKiller>().PlayStart();
+                handle.GetComponent<ParticleKiller>().PlayStart();
             }
+            GameObject.Destroy(this.transform.gameObject);
             return;
         }
         LogSystem.LogOnConsole("Spawner got hit");// ----- ----- LOG ----- -----
-        Die = Instantiate(SpawnHitParticle, this.transform.position, this.transform.rotation);
-        if(HitSound.Length > 0) {
+
+        handle = Instantiate(SpawnHitParticle, this.transform.position, this.transform.rotation);
+        if(HitSound.Length > 0) {//kümmert sich um particel
             int temp = Random.Range(0, HitSound.Length);
-            Die.GetComponent<AudioSource>().clip = HitSound[temp];
+            handle.GetComponent<AudioSource>().clip = HitSound[temp];
         }
-        if (Die.GetComponent<ParticleKiller>() == null) {
+        if (handle.GetComponent<ParticleKiller>() == null) {
             print("ParticalKillerScript kann nicht gefunden werden.");
         } else {
-            Die.GetComponent<ParticleKiller>().PlayStart();
+            handle.GetComponent<ParticleKiller>().PlayStart();
         }
     }
 }

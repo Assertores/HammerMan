@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Update() {
-        if (InputControler.ExitCount > 0) {
+        if (InputControler.ExitCount > 0) {//kümmert sich um exit behavior
             InputControler.PopExit();
 
             if (Scene == 0) {
@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour {
         GM.LevelTimeAtStart = Time.time;
         GM.EnemyCount = 0;
         if (!GM.StartingInLevel) {
-            switch (level) {
+            switch (level) {//wählt level aus
             case 1:
                 SceneManager.LoadScene(StringCollection.SCENE01, LoadSceneMode.Single);
                 break;
