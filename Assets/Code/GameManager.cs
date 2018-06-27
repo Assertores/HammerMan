@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour {
 
     public void StartLevel(int level) {
         GM.LevelTimeAtStart = Time.time;
+        LogSystem.LogOnFile("===== LevelStart =====");// ----- ----- LOG ----- -----
         GM.EnemyCount = 0;
         if (!GM.StartingInLevel) {
             switch (level) {//wählt level aus
@@ -102,7 +103,6 @@ public class GameManager : MonoBehaviour {
     PlayerMovment PM = null;
     public static void RegistPlayer(PlayerMovment handle) {
         LogSystem.LogOnConsole("GameManager got: " + handle);// ----- ----- LOG ----- -----
-        //LogSystem.LogOnConsole("GameManager is: " + GM.name);// ----- ----- LOG ----- -----
         if (GM.PM == handle)
             GM.PM = null;
         else
@@ -135,6 +135,7 @@ public class GameManager : MonoBehaviour {
             return false;
         }
         GM.EnemyCount += count;
+        LogSystem.LogOnFile("now the enemycount is " + GM.EnemyCount.ToString());// ----- ----- LOG ----- -----
         if (GM.LI == null) {
             LogSystem.LogOnConsole("no Level Infos available");// ----- ----- LOG ----- -----
             return false;
@@ -148,6 +149,7 @@ public class GameManager : MonoBehaviour {
             return true;
         }
         if (GM.EnemyCount <= 0) {
+            LogSystem.LogOnFile("===== Game Won =====");// ----- ----- LOG ----- -----
             GM.StartMainMenu();
             return true;
         }
@@ -215,6 +217,7 @@ public class GameManager : MonoBehaviour {
 
     //===== ===== Library ===== =====
     public static void EndGame() {
+        LogSystem.LogOnFile("===== Game failed =====");// ----- ----- LOG ----- -----
         GM.StartGameOver();
     }
     public static float GetTime() {

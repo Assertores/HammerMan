@@ -16,3 +16,5 @@ HammerMan\.sln
 obj/
 
 *.csproj
+
+LOG/

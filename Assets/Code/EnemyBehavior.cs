@@ -16,8 +16,10 @@ public class EnemyBehavior : MonoBehaviour {
     AudioClip[] DeathSound;
     [SerializeField]
     GameObject[] InvoceOnEnemyDeath;
-    [SerializeField]
     [Header("Generel")]
+    [SerializeField]
+    string Name;
+    [SerializeField]
     [Tooltip("0 = boath direktion, 1 only front, 2 = only back")]
     int AbleToHitFrom = 0;
     [SerializeField]
@@ -36,6 +38,7 @@ public class EnemyBehavior : MonoBehaviour {
     public bool DirRight = true;
 
     void Start() {
+        LogSystem.LogOnFile(Name + " Enemy got spawned");// ----- ----- LOG ----- -----
         GameManager.ChangeEnemyCount(1);
         Invulnerable += GameManager.GetTime();
         rb = GetComponent<Rigidbody2D>();
@@ -49,6 +52,7 @@ public class EnemyBehavior : MonoBehaviour {
         }
     }
     private void OnDestroy() {
+        LogSystem.LogOnFile(Name + " Enemy died");// ----- ----- LOG ----- -----
         GameManager.ChangeEnemyCount(-1);
     }
 
