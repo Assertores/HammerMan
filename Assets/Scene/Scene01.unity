@@ -35232,6 +35232,90 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 2.9}
   m_EdgeRadius: 0
+--- !u!1001 &2101943836
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651663534908124, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -27.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651663534908124, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651663534908124, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651663534908124, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651663534908124, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651663534908124, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651663534908124, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651663534908124, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[1].Creap
+      value: 
+      objectReference: {fileID: 1720267005446818, guid: a613bc1583b1be040a60477ddfe100bb,
+        type: 2}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[1].Ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[2].Creap
+      value: 
+      objectReference: {fileID: 1720267005446818, guid: 1bf1460173a30f14bb65cb44cbaec3cc,
+        type: 2}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[2].Ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[3].Creap
+      value: 
+      objectReference: {fileID: 1720267005446818, guid: d96b0e860e9793c44844fd85d2c48864,
+        type: 2}
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: Creaps.Array.data[3].Ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144896226500246, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
+      propertyPath: m_Name
+      value: Spawner (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &2102019872
 GameObject:
   m_ObjectHideFlags: 0
