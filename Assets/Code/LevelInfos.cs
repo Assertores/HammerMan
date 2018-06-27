@@ -7,11 +7,12 @@ public class LevelInfos : MonoBehaviour {
     [SerializeField]
     int LevelLife;
     [SerializeField]
-    float HammerFrequenz;
+    float HammerBPM;
     
     //meldet sich beim gamemanager an und ab
     void Start () {
         GameManager.RegistLvlInfos(this);
+        HammerBPM = 1/(HammerBPM / 60); //macht aus Beats per minute die zeit zwischen zwei hammerschlägen in secunden
 	}
     private void OnDestroy() {
         GameManager.RegistLvlInfos(this);
@@ -22,6 +23,6 @@ public class LevelInfos : MonoBehaviour {
     }
 
     public float GetHammerFrequenz() {
-        return HammerFrequenz;
+        return HammerBPM;
     }
 }
