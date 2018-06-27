@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
 
     //===== ===== Inner Variables ===== =====
     float LevelTimeAtStart = 0;
+    float HammerDelay = 0;
     int CurrentLife = 0;
     int EnemyCount = 0;
 
@@ -215,6 +216,10 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
+    public static void SetHammerDelay(float delay) {
+        GM.HammerDelay = delay;
+    }
+
     //===== ===== Library ===== =====
     public static void EndGame() {
         LogSystem.LogOnFile("===== Game failed =====");// ----- ----- LOG ----- -----
@@ -229,7 +234,7 @@ public class GameManager : MonoBehaviour {
             LogSystem.LogOnConsole("no Level Infos available");// ----- ----- LOG ----- -----
             return -1;
         }
-        return (Time.time - GM.LevelTimeAtStart) / GM.LI.GetHammerFrequenz();
+        return (Time.time - GM.LevelTimeAtStart - GM.HammerDelay) / GM.LI.GetHammerFrequenz();
     }
 
     public static bool GetDebugMode() {
@@ -239,16 +244,10 @@ public class GameManager : MonoBehaviour {
     public void FreezeGame() {
         if (Time.timeScale != 0) {
             Time.timeScale = 0;
+            //TODO: find alle audiosorces and pause them
         } else {
             Time.timeScale = 1;
+            //TODO: find all audiosorces and unpause them
         }
-    }
-
-    public static float StartMusic() {
-        if (GM.LI == null) {
-            LogSystem.LogOnConsole("no Level Infos available");// ----- ----- LOG ----- -----
-            return -1;
-        }
-        return (GetHammerTime() % 1) * GM.LI.GetHammerFrequenz();
     }
 }
