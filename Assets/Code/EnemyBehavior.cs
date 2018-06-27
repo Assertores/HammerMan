@@ -154,9 +154,32 @@ public class EnemyBehavior : MonoBehaviour {
             col.GetComponent<ExitControler>().Hit(EnemyDamageOnExit); //macht ausgang kaputt
             DieByExit();
             break;
+        case StringCollection.TRAP:
+            if (Invulnerable < GameManager.GetTime()) {//wenn nichtmehr unverwundbar
+                DieByTrap();
+            }
+            break;
         default:
             break;
         }
+    }
+
+    void DieByTrap() {
+        int temp = Random.Range(0, DeathSound.Length); //welcher sound soll für den tod verwendet werden
+        GameObject Die = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation); //macht partikel
+        if (DeathSound.Length != 0)//fügt audioclip hinzu
+            Die.GetComponent<AudioSource>().clip = DeathSound[temp];
+        if (Die.GetComponent<ParticleKiller>() == null) {
+            print("ParticalKillerScript kann nicht gefunden werden.");
+        } else {
+            Die.GetComponent<ParticleKiller>().PlayStart(); //started partikel und audio
+        }
+        if (InvoceOnEnemyDeath.Length != 0) {//erzeugt gameobjekts bei tot
+            for (int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
+                Instantiate(InvoceOnEnemyDeath[i]).transform.position = this.transform.position;
+            }
+        }
+        GameObject.Destroy(this.transform.gameObject);
     }
 
     void DieByHammer() {
@@ -170,7 +193,7 @@ public class EnemyBehavior : MonoBehaviour {
         } else {
             Die.GetComponent<ParticleKiller>().PlayStart(); //started partikel und audio
         }
-        if (InvoceOnEnemyDeath.Length != 0) {//macht gameobjekts bei tot durch hammer
+        if (InvoceOnEnemyDeath.Length != 0) {//erzeugt gameobjekts bei tot durch hammer
             for(int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
                 Instantiate(InvoceOnEnemyDeath[i]).transform.position = this.transform.position;
             }
