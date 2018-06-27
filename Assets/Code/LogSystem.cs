@@ -13,6 +13,6 @@ public static class LogSystem {
     }
 
     public static void LogOnFile(string message) {
-        File.AppendAllText(fileName, System.DateTime.Now.ToString() + " |LT: " + GameManager.GetTime().ToString("0000.00") + " |HT: " + GameManager.GetHammerTime().ToString("0000.00") + " |=|Message: " + message + System.Environment.NewLine);
+        File.AppendAllText(fileName, System.DateTime.Now.ToString("HH:mm:ss") + " |LT: " + GameManager.GetTime().ToString("0000.00") + " |HT: " + GameManager.GetHammerTime().ToString("0000.00") + " |=|Message: " + message + System.Environment.NewLine);
     }
 }
