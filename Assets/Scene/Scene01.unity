@@ -1167,7 +1167,7 @@ Prefab:
     - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
         type: 2}
       propertyPath: Intro
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
         type: 2}
@@ -1557,6 +1557,16 @@ Prefab:
         type: 2}
       propertyPath: m_Volume
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114084384804812090, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0,
+        type: 2}
+      propertyPath: delayToFirstBeatInFile
+      value: 6.858
+      objectReference: {fileID: 0}
+    - target: {fileID: 114084384804812090, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0,
+        type: 2}
+      propertyPath: delayToFirstHammerHitInGame
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0, type: 2}
