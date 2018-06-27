@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4077442444480478}
   - component: {fileID: 212127519759165522}
-  - component: {fileID: 95643770635602416}
+  - component: {fileID: 95401922783211734}
   m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114753376574924906}
   - component: {fileID: 114478710921738570}
   m_Layer: 11
-  m_Name: EnemyRepair
+  m_Name: HitBackEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,7 +119,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0.05
---- !u!95 &95643770635602416
+--- !u!95 &95401922783211734
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -128,7 +128,7 @@ Animator:
   m_GameObject: {fileID: 1025917008769302}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2c62e7fbc241a444b842c87c68506aea, type: 2}
+  m_Controller: {fileID: 9100000, guid: b313f7929f055e84db5b7c59144666cf, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -170,10 +170,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5d2b7cb1f36c8ff49ae275d666bb689b, type: 3}
   - {fileID: 8300000, guid: ad3c10fbd21bf1e458bf3cf67a83e737, type: 3}
   InvoceOnEnemyDeath: []
-  Name: Repair
+  Name: Hit at Back
   AbleToHitFrom: 0
   EnemySpeed: 2
-  EnemyDamageOnExit: -1
+  EnemyDamageOnExit: 1
   TurningDistance: 0.6
   Invulnerable: 1
   ChangeDirectionAt:
