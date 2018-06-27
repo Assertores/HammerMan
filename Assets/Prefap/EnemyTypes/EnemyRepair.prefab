@@ -170,6 +170,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5d2b7cb1f36c8ff49ae275d666bb689b, type: 3}
   - {fileID: 8300000, guid: ad3c10fbd21bf1e458bf3cf67a83e737, type: 3}
   InvoceOnEnemyDeath: []
+  Name: Repair
   AbleToHitFrom: 0
   EnemySpeed: 2
   EnemyDamageOnExit: -1
@@ -178,9 +179,6 @@ MonoBehaviour:
   ChangeDirectionAt:
     serializedVersion: 2
     m_Bits: 2560
-  FallLayers:
-    serializedVersion: 2
-    m_Bits: 512
   State: 0
   DirRight: 1
 --- !u!212 &212127519759165522
