@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114168452113425700}
   m_Layer: 0
   m_Name: Shockwave
-  m_TagString: Hammer
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
