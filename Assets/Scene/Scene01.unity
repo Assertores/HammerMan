@@ -11714,11 +11714,6 @@ Prefab:
       propertyPath: m_Name
       value: Wall (34)
       objectReference: {fileID: 0}
-    - target: {fileID: 212587835114270594, guid: 613be300657b77f46bc1142156c7667c,
-        type: 2}
-      propertyPath: m_SortingOrder
-      value: -1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 613be300657b77f46bc1142156c7667c, type: 2}
   m_IsPrefabParent: 0
