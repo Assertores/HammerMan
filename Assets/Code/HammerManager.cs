@@ -22,6 +22,7 @@ public class HammerManager : MonoBehaviour {
         if (!HammerCol) {
             throw new System.Exception("Hammer Collider not found. Hammer");
         }
+        HammerCol.enabled = false;
     }
 	
 	void Update () {
