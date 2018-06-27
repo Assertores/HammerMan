@@ -25,7 +25,7 @@ public class HammerManager : MonoBehaviour {
     }
 	
 	void Update () {
-        if (DoHammer) {
+        if (DoHammer && GameManager.GetHammerTime() >= 0) {
             float time = GameManager.GetHammerTime() % 1;//mach zeit zwischen den beats
             if (time > HammerOnBeginning && time < HammerOnEnd) {
                 HammerCol.enabled = true;
