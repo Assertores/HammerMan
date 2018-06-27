@@ -30410,6 +30410,11 @@ Prefab:
       propertyPath: m_Offset.x
       value: -0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 82233182450575562, guid: e059c6e2a478e24428b5c9821d2dbb2d,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f3401d0ff7cd61445bb893e27264be00, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e059c6e2a478e24428b5c9821d2dbb2d, type: 2}
   m_IsPrefabParent: 0
@@ -30619,13 +30624,13 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114084384804812090, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0,
         type: 2}
-      propertyPath: delayToFirstHammerHitInGame
-      value: 0
+      propertyPath: delayToFirstBeatInFile
+      value: 6.858
       objectReference: {fileID: 0}
     - target: {fileID: 114084384804812090, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0,
         type: 2}
-      propertyPath: delayToFirstBeatInFile
-      value: -5
+      propertyPath: delayToFirstHammerHitInGame
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0, type: 2}
