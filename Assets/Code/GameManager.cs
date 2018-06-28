@@ -76,9 +76,6 @@ public class GameManager : MonoBehaviour {
         GM.EnemyCount = 0;
         if (!GM.StartingInLevel) {
             switch (level) {//wählt level aus
-            case 0:
-                level = 100;
-                break;
             case 1:
                 SceneManager.LoadScene(StringCollection.SCENE01);
                 break;
@@ -86,6 +83,8 @@ public class GameManager : MonoBehaviour {
                 LogSystem.LogOnConsole("Level not found");// ----- ----- LOG ----- -----
                 break;
             }
+        } else {
+            level = 100;
         }
         GM.Scene = level + 2;
     }
@@ -231,17 +230,18 @@ public class GameManager : MonoBehaviour {
     public static void StartBeats(float beats, float nullTime) { //beats = abstand zweiter beats in secunden, nullTime = zeitpunkt des nullten beats abLeveltime
         GM.BeatSeconds = beats;
         GM.BeatCount = -(int)(nullTime/beats);
-        GM.BeatTimeAtStart = (nullTime - (-GM.BeatCount * beats)) + GM.LevelTimeAtStart;
-        GM.Invoke("TriggerBPMUpdate", GM.BeatTimeAtStart - Time.time);
+        GM.BeatTimeAtStart = GM.LevelTimeAtStart + nullTime;
+        GM.Invoke("TriggerBPMUpdate", (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time);
     }
 
     //===== ===== Library ===== =====
-    private static void TriggerBPMUpdate() {
-        GM.BPMUpdate(GM.BeatCount);
-
-        GM.BeatCount++;
-        if(GM.Scene > 2)
-            GM.Invoke("TriggerBPMUpdate",(GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time);
+    private void TriggerBPMUpdate() {
+        BPMUpdate(BeatCount);
+        print("BPM: " + BeatCount);
+        BeatCount++;
+        if(Scene > 2) {
+            Invoke("TriggerBPMUpdate", (BeatTimeAtStart + BeatCount * BeatSeconds) - Time.time);
+        }
     }
 
     public static void EndGame() {
@@ -250,6 +250,10 @@ public class GameManager : MonoBehaviour {
     }
     public static float GetTime() {
         return Time.time - GM.LevelTimeAtStart;
+    }
+
+    public static float GetBeatSeconds() {
+        return GM.BeatSeconds;
     }
 
     public static bool GetDebugMode() {
