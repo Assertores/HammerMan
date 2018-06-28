@@ -162,6 +162,7 @@ public class GameManager : MonoBehaviour {
         }
         if (GM.EnemyCount <= 0) {
             LogSystem.LogOnFile("===== Game Won =====");// ----- ----- LOG ----- -----
+            GM.CancelInvoke("TriggerBPMUpdate");
             GM.StartMainMenu();
             return true;
         }
@@ -231,7 +232,7 @@ public class GameManager : MonoBehaviour {
         GM.BeatSeconds = beats;
         GM.BeatCount = -(int)(nullTime/beats);
         GM.BeatTimeAtStart = GM.LevelTimeAtStart + nullTime;
-        GM.Invoke("TriggerBPMUpdate", (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time);
+        GM.InvokeRepeating("TriggerBPMUpdate", (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time, GM.BeatSeconds);
     }
 
     //===== ===== Library ===== =====
@@ -239,13 +240,11 @@ public class GameManager : MonoBehaviour {
         BPMUpdate(BeatCount);
         print("BPM: " + BeatCount);
         BeatCount++;
-        if(Scene > 2) {
-            Invoke("TriggerBPMUpdate", (BeatTimeAtStart + BeatCount * BeatSeconds) - Time.time);
-        }
     }
 
     public static void EndGame() {
         LogSystem.LogOnFile("===== Game failed =====");// ----- ----- LOG ----- -----
+        GM.CancelInvoke("TriggerBPMUpdate");
         GM.StartGameOver();
     }
     public static float GetTime() {
