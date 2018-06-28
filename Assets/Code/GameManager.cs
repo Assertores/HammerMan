@@ -10,11 +10,16 @@ public class GameManager : MonoBehaviour {
     bool StartingInLevel = false;
     [SerializeField]
     bool DebugMode = false;
+
+    public System.Action<int> BPMUpdate;
+
     [Header("Debug Infos")]
 
     //===== ===== Inner Variables ===== =====
     public float LevelTimeAtStart = 0;
-    public float HammerDelay = 0;
+    public float BeatTimeAtStart = 0;
+    public float BeatSeconds = 0;
+    public int BeatCount = 0;
     public int CurrentLife = 0;
     public int EnemyCount = 0;
 
@@ -71,6 +76,9 @@ public class GameManager : MonoBehaviour {
         GM.EnemyCount = 0;
         if (!GM.StartingInLevel) {
             switch (level) {//wählt level aus
+            case 0:
+                level = 100;
+                break;
             case 1:
                 SceneManager.LoadScene(StringCollection.SCENE01);
                 break;
@@ -220,25 +228,28 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
-    public static void SetHammerDelay(float delay) {
-        GM.HammerDelay = delay;
+    public static void StartBeats(float beats, float nullTime) { //beats = abstand zweiter beats in secunden, nullTime = zeitpunkt des nullten beats abLeveltime
+        GM.BeatSeconds = beats;
+        GM.BeatCount = -(int)(nullTime/beats);
+        GM.BeatTimeAtStart = (nullTime - (-GM.BeatCount * beats)) + GM.LevelTimeAtStart;
+        GM.Invoke("TriggerBPMUpdate", GM.BeatTimeAtStart - Time.time);
     }
 
     //===== ===== Library ===== =====
+    private static void TriggerBPMUpdate() {
+        GM.BPMUpdate(GM.BeatCount);
+
+        GM.BeatCount++;
+        if(GM.Scene > 2)
+            GM.Invoke("TriggerBPMUpdate",(GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time);
+    }
+
     public static void EndGame() {
         LogSystem.LogOnFile("===== Game failed =====");// ----- ----- LOG ----- -----
         GM.StartGameOver();
     }
     public static float GetTime() {
         return Time.time - GM.LevelTimeAtStart;
-    }
-
-    public static float GetHammerTime() {
-        if(GM.LI == null) {
-            LogSystem.LogOnConsole("no Level Infos available");// ----- ----- LOG ----- -----
-            return -1;
-        }
-        return (Time.time - GM.LevelTimeAtStart - GM.HammerDelay) / GM.LI.GetHammerFrequenz();
     }
 
     public static bool GetDebugMode() {
