@@ -10,14 +10,15 @@ public class GameManager : MonoBehaviour {
     bool StartingInLevel = false;
     [SerializeField]
     bool DebugMode = false;
+    [Header("Debug Infos")]
 
     //===== ===== Inner Variables ===== =====
-    float LevelTimeAtStart = 0;
-    float HammerDelay = 0;
-    int CurrentLife = 0;
-    int EnemyCount = 0;
+    public float LevelTimeAtStart = 0;
+    public float HammerDelay = 0;
+    public int CurrentLife = 0;
+    public int EnemyCount = 0;
 
-    int Scene = 0;
+    public int Scene = 0;
 
     //===== ===== Singelton ===== =====
     public static GameManager GM = null;
@@ -47,9 +48,9 @@ public class GameManager : MonoBehaviour {
         if (InputControler.ExitCount > 0) {//kümmert sich um exit behavior
             InputControler.PopExit();
 
-            if (Scene == 0) {
-                Application.Quit();
-            } else if (Scene <= 2) {
+            if (GM.Scene == 0) {
+                StopExe();
+            } else if (GM.Scene <= 2) {
                 StartMainMenu();
             } else if (Time.timeScale != 0) {
                 GM.FreezeGame();
@@ -57,7 +58,6 @@ public class GameManager : MonoBehaviour {
                 StartMainMenu();
             }
         }
-
     }
 
     public void StartMainMenu() {
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour {
         if (!GM.StartingInLevel) {
             switch (level) {//wählt level aus
             case 1:
-                SceneManager.LoadScene(StringCollection.SCENE01, LoadSceneMode.Single);
+                SceneManager.LoadScene(StringCollection.SCENE01);
                 break;
             default:
                 LogSystem.LogOnConsole("Level not found");// ----- ----- LOG ----- -----
@@ -92,8 +92,12 @@ public class GameManager : MonoBehaviour {
         GM.Scene = 2;
     }
 
+    public void StopExe() {
+        Application.Quit();
+    }
+
     //===== ===== Registration ===== =====
-    UIManager UIM = null;
+    public UIManager UIM = null;
     public static void RegistUI(UIManager handle) {
         if (GM.UIM == handle)
             GM.UIM = null;
@@ -101,7 +105,7 @@ public class GameManager : MonoBehaviour {
             GM.UIM = handle;
     }
 
-    PlayerMovment PM = null;
+    public PlayerMovment PM = null;
     public static void RegistPlayer(PlayerMovment handle) {
         LogSystem.LogOnConsole("GameManager got: " + handle);// ----- ----- LOG ----- -----
         if (GM.PM == handle)
@@ -110,7 +114,7 @@ public class GameManager : MonoBehaviour {
             GM.PM = handle;
     }
 
-    CameraShake CS = null;
+    public CameraShake CS = null;
     public static void RegistCamera(CameraShake handle) {
         if (GM.CS == handle)
             GM.CS = null;
@@ -118,7 +122,7 @@ public class GameManager : MonoBehaviour {
             GM.CS = handle;
     }
 
-    LevelInfos LI = null;
+    public LevelInfos LI = null;
     public static void RegistLvlInfos(LevelInfos handle) {
         if (GM.LI == handle)
             GM.LI = null;
