@@ -46,7 +46,7 @@ public class CameraIntroScript : MonoBehaviour {
     void BPMUpdate(int count) {
         //kümmert sich um den camera swipe
         if (!finished) {
-            if (index >= CameraPath.Length) {
+            if (index >= CameraPath.Length-1) {
                 cam.orthographicSize = CameraPath[CameraPath.Length - 1].Zoom;
                 this.transform.position = new Vector3(CameraPath[CameraPath.Length - 1].Position.transform.position.x, CameraPath[CameraPath.Length - 1].Position.transform.position.y, -10);
                 GameManager.EndOfIntro();

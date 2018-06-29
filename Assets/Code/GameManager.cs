@@ -232,7 +232,7 @@ public class GameManager : MonoBehaviour {
         GM.BeatSeconds = beats;
         GM.BeatCount = -(int)(nullTime/beats);
         GM.BeatTimeAtStart = GM.LevelTimeAtStart + nullTime;
-        GM.InvokeRepeating("TriggerBPMUpdate", (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time, GM.BeatSeconds);
+        GM.Invoke("TriggerBPMUpdate", (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time);
     }
 
     //===== ===== Library ===== =====
@@ -240,6 +240,7 @@ public class GameManager : MonoBehaviour {
         BPMUpdate(BeatCount);
         print("BPM: " + BeatCount);
         BeatCount++;
+        Invoke("TriggerBPMUpdate", (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time);
     }
 
     public static void EndGame() {

@@ -32,7 +32,7 @@ public class HammerManager : MonoBehaviour {
         GameManager.GM.BPMUpdate += BPMUpdate;
     }
     
-    void onDestroy() {
+    void OnDestroy() {
         GameManager.GM.BPMUpdate -= BPMUpdate;
         CancelInvoke();
     }
