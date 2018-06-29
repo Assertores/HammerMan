@@ -24,7 +24,6 @@ public class CameraIntroScript : MonoBehaviour {
     void Start() {
         if (!Intro) {
             index = CameraPath.Length; //springt direkt ans ende
-            print("no intro");
         }
         if (CameraPath.Length > 0) { //setzt alles richtig auf
             cam = this.gameObject.GetComponent<Camera>();
@@ -34,9 +33,10 @@ public class CameraIntroScript : MonoBehaviour {
             GameManager.EndOfIntro();
             finished = true;
         }
-        for(int i = 0; i < ShowElements.Length; i++) {//blendet alle elemente aus
+        for(int i = 1; i < ShowElements.Length; i++) {//blendet alle elemente aus
             ShowElements[i].Element.SetActive(false);
         }
+        ShowElements[0].Element.SetActive(true);
         GameManager.GM.BPMUpdate += BPMUpdate;
     }
 
@@ -51,7 +51,6 @@ public class CameraIntroScript : MonoBehaviour {
                 cam.orthographicSize = CameraPath[CameraPath.Length - 1].Zoom;
                 this.transform.position = new Vector3(CameraPath[CameraPath.Length - 1].Position.transform.position.x, CameraPath[CameraPath.Length - 1].Position.transform.position.y, -10);
                 GameManager.EndOfIntro();
-                print("ende of intro");
                 finished = true;
             } else if (CameraPath[index].End == count) {
                 LerpDuration = (CameraPath[index + 1].Start - count) * GameManager.GetBeatSeconds();

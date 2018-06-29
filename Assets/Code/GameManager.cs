@@ -72,7 +72,6 @@ public class GameManager : MonoBehaviour {
         if(GameManager.GetTime() >= BeatTimeAtStart + BeatCount * BeatSeconds)
             {
             beatTime -= BeatSeconds;
-            print("BPM: " + GM.BeatCount);
             GM.BPMUpdate(GM.BeatCount);
             GM.BeatCount++;
         }

@@ -41,8 +41,10 @@ public class InputControler : MonoBehaviour {//liest input aus und macht ihn glo
                 DownCount++;
             }
         } else {
-            if (Down)
+            if (Down) {
                 Down = false;
+            }
+            //print("test3: " + Down);
         }
         LastVertical = Vertical;
 
@@ -57,6 +59,7 @@ public class InputControler : MonoBehaviour {//liest input aus und macht ihn glo
             if (!DownCountOn) {
                 DownCountOn = true;
                 DownCount++;
+                print("test2");
             }
         }else if (DownCountOn) {
             DownCountOn = false;

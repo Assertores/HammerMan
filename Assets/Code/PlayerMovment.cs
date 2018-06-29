@@ -62,6 +62,7 @@ public class PlayerMovment : MonoBehaviour {
         if (this.transform.position.y < -0.1) {//macht das man nicht durch den boden durchfallen kann
             this.transform.position = new Vector3(this.transform.position.x, 0, this.transform.position.z);
             InputControler.SetDown(0);
+            ChangeState(PlayerState.Idle);
         }
         if (InControle) {
             DistToGround = Physics2D.Raycast(this.transform.position, -this.transform.up, 1000, FallLayers).distance;
@@ -94,6 +95,7 @@ public class PlayerMovment : MonoBehaviour {
                     ChangeState(PlayerState.Falling);
                 break;
             case PlayerState.Falling:
+                //print("================================" + InputControler.DownCount);
                 if (DistToGround <= HoverHight && InputControler.DownCount <= 0)
                     ChangeState(PlayerState.Landing);
                 break;
