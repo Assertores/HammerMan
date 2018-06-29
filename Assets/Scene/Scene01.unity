@@ -30109,6 +30109,46 @@ Prefab:
       propertyPath: ShowElements.Array.data[7].Stop
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
+        type: 2}
+      propertyPath: CameraPath.Array.data[0].Start
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
+        type: 2}
+      propertyPath: CameraPath.Array.data[0].End
+      value: -12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
+        type: 2}
+      propertyPath: CameraPath.Array.data[1].Start
+      value: -9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
+        type: 2}
+      propertyPath: CameraPath.Array.data[1].End
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
+        type: 2}
+      propertyPath: CameraPath.Array.data[2].Start
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
+        type: 2}
+      propertyPath: CameraPath.Array.data[2].End
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
+        type: 2}
+      propertyPath: CameraPath.Array.data[3].Start
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
+        type: 2}
+      propertyPath: CameraPath.Array.data[3].End
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c54b5a4d135130146988dfc5e2fb94bc, type: 2}
   m_IsPrefabParent: 0
