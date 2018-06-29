@@ -32,6 +32,7 @@ public class CameraIntroScript : MonoBehaviour {
             this.transform.position = new Vector3(CameraPath[0].Position.transform.position.x, CameraPath[0].Position.transform.position.y, -10);
         } else { //falls der path lehr ist
             GameManager.EndOfIntro();
+            finished = true;
         }
         for(int i = 0; i < ShowElements.Length; i++) {//blendet alle elemente aus
             ShowElements[i].Element.SetActive(false);

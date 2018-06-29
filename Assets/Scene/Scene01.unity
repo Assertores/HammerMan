@@ -30441,7 +30441,7 @@ Prefab:
         type: 2}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: f3401d0ff7cd61445bb893e27264be00, type: 3}
+      objectReference: {fileID: 8300000, guid: 50af4cf2dfb414c4ab61f4e3db486e60, type: 3}
     - target: {fileID: 114935631411381980, guid: e059c6e2a478e24428b5c9821d2dbb2d,
         type: 2}
       propertyPath: HammerOnEnd
@@ -30673,6 +30673,15 @@ Prefab:
         type: 2}
       propertyPath: BPM
       value: 140
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719413530874810, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 82798935967307138, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0, type: 2}
