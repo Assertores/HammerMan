@@ -159,7 +159,7 @@ MonoBehaviour:
   - {fileID: 1789330704175232, guid: b547a133ff30ead4eacf51c4d6cec4c9, type: 2}
   Name: Normal
   AbleToHitFrom: 0
-  EnemySpeed: 4
+  EnemySpeed: 3
   EnemyDamageOnExit: 1
   TurningDistance: 0.6
   Invulnerable: 1
