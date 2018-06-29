@@ -171,7 +171,7 @@ MonoBehaviour:
   InvoceOnEnemyDeath: []
   Name: Repair
   AbleToHitFrom: 0
-  EnemySpeed: 5
+  EnemySpeed: 4
   EnemyDamageOnExit: -1
   TurningDistance: 0.6
   Invulnerable: 1
