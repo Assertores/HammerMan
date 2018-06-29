@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Diagnostics;
 
 public class GameManager : MonoBehaviour {
 
@@ -17,11 +18,13 @@ public class GameManager : MonoBehaviour {
 
     //===== ===== Inner Variables ===== =====
     public float LevelTimeAtStart = 0;
+    Stopwatch LevelTime = null;
     public float BeatTimeAtStart = 0;
     public float BeatSeconds = 0;
     public int BeatCount = 0;
     public int CurrentLife = 0;
     public int EnemyCount = 0;
+    float beatTime = 0;
 
     public int Scene = 0;
 
@@ -41,6 +44,7 @@ public class GameManager : MonoBehaviour {
 
     //===== ===== Starting of ===== =====
     void Start() {
+        LevelTime = new Stopwatch();
         if (!StartingInLevel) {
             StartMainMenu();
         } else {
@@ -63,6 +67,15 @@ public class GameManager : MonoBehaviour {
                 StartMainMenu();
             }
         }
+        //beatTime += Time.deltaTime;
+        //if (beatTime >= BeatSeconds)
+        if(GameManager.GetTime() >= BeatTimeAtStart + BeatCount * BeatSeconds)
+            {
+            beatTime -= BeatSeconds;
+            print("BPM: " + GM.BeatCount);
+            GM.BPMUpdate(GM.BeatCount);
+            GM.BeatCount++;
+        }
     }
 
     public void StartMainMenu() {
@@ -71,7 +84,8 @@ public class GameManager : MonoBehaviour {
     }
 
     public void StartLevel(int level) {
-        GM.LevelTimeAtStart = Time.time;
+        //GM.LevelTimeAtStart = Time.time;
+        GM.LevelTime.Start();
         LogSystem.LogOnFile("===== LevelStart =====");// ----- ----- LOG ----- -----
         GM.EnemyCount = 0;
         if (!GM.StartingInLevel) {
@@ -161,9 +175,7 @@ public class GameManager : MonoBehaviour {
             return true;
         }
         if (GM.EnemyCount <= 0) {
-            LogSystem.LogOnFile("===== Game Won =====");// ----- ----- LOG ----- -----
-            GM.CancelInvoke("TriggerBPMUpdate");
-            GM.StartMainMenu();
+            EndGame(true);
             return true;
         }
         if (GM.UIM != null) {
@@ -231,26 +243,38 @@ public class GameManager : MonoBehaviour {
     public static void StartBeats(float beats, float nullTime) { //beats = abstand zweiter beats in secunden, nullTime = zeitpunkt des nullten beats abLeveltime
         GM.BeatSeconds = beats;
         GM.BeatCount = -(int)(nullTime/beats);
-        GM.BeatTimeAtStart = GM.LevelTimeAtStart + nullTime;
-        print("lets go:" + ((GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time));
-        GM.Invoke("TriggerBPMUpdate", (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time);
+        GM.BeatTimeAtStart = GameManager.GetTime() + nullTime;
+        print("lets go:" + (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds));
+        GM.beatTime = GM.BeatSeconds - (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds);
+        //GM.StartCoroutine(GM.TriggerBPMUpdate());
+        //GM.Invoke("TriggerBPMUpdate", (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time);
     }
 
     //===== ===== Library ===== =====
-    private void TriggerBPMUpdate() {
-        print("BPM: " + BeatCount);
-        BPMUpdate(BeatCount);
-        BeatCount++;
-        Invoke("TriggerBPMUpdate", (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time);
+    private IEnumerator TriggerBPMUpdate() {
+        print("BPM: " + GM.BeatCount);
+        GM.BPMUpdate(GM.BeatCount);
+        GM.BeatCount++;
+        yield return new WaitForSeconds((GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time);
+        if(Scene > 2)
+            StartCoroutine(TriggerBPMUpdate());
     }
 
-    public static void EndGame() {
-        LogSystem.LogOnFile("===== Game failed =====");// ----- ----- LOG ----- -----
-        GM.CancelInvoke("TriggerBPMUpdate");
-        GM.StartGameOver();
+    public static void EndGame(bool won = false) {
+        if (won) {
+            LogSystem.LogOnFile("===== Game Won =====");// ----- ----- LOG ----- -----
+            GM.StartMainMenu();
+        } else {
+            LogSystem.LogOnFile("===== Game failed =====");// ----- ----- LOG ----- -----
+            GM.StartGameOver();
+        }
+        GM.LevelTime.Stop();
+        //GM.CancelInvoke("TriggerBPMUpdate");
     }
     public static float GetTime() {
-        return Time.time - GM.LevelTimeAtStart;
+        //print(GM.LevelTime.ElapsedMilliseconds);
+        return (float)GM.LevelTime.ElapsedMilliseconds/1000;
+        //return Time.time - GM.LevelTimeAtStart;
     }
 
     public static float GetBeatSeconds() {

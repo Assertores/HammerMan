@@ -1786,6 +1786,11 @@ Prefab:
       propertyPath: delayToFirstHammerHitInGame
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114084384804812090, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0,
+        type: 2}
+      propertyPath: delayToFirstBeatInFile
+      value: 0.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0, type: 2}
   m_IsPrefabParent: 0
