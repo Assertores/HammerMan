@@ -56,6 +56,22 @@ public class PlayerMovment : MonoBehaviour {
         oldGravityScale = rb.gravityScale;
         LogSystem.LogOnConsole("i'm here. Player: " + this);// ----- ----- LOG ----- -----
         GameManager.RegistPlayer(this);
+
+        Animator anim = GetComponentInChildren<Animator>();
+        if (!anim) {
+            throw new System.Exception("No Animation vor hammerman. Player");
+        }
+        anim.speed = anim.GetCurrentAnimatorStateInfo(0).length / GameManager.GetBeatSeconds();
+        GameManager.GM.BPMUpdate += StartAnim;
+    }
+
+    void StartAnim(int i) {
+        Animator anim = GetComponentInChildren<Animator>();
+        if (!anim) {
+            throw new System.Exception("No Animation vor hammerman. Player");
+        }
+        anim.Play(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
+        GameManager.GM.BPMUpdate -= StartAnim;
     }
 
     void Update() {
