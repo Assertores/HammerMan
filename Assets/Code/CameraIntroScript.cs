@@ -15,10 +15,10 @@ public class CameraIntroScript : MonoBehaviour {
     bool Intro = false; //für debug. um direkt starten zu können
 
     int index = 0; //CameraPath
+    float LerpDuration;
+    float LerpStart = 0;
     int index2 = 0; //ShowElements
-    float time = 0;
     bool finished = false;
-    bool yellAnimation = true; //es muss noch geyelled werden
     Camera cam;
 
     void Start() {
@@ -26,48 +26,57 @@ public class CameraIntroScript : MonoBehaviour {
             index = CameraPath.Length; //springt direkt ans ende
         }
         if (CameraPath.Length > 0) { //setzt alles richtig auf
-            time = GameManager.GetTime();
             cam = this.gameObject.GetComponent<Camera>();
             cam.orthographicSize = CameraPath[0].Zoom;
             this.transform.position = new Vector3(CameraPath[0].Position.transform.position.x, CameraPath[0].Position.transform.position.y, -10);
         } else { //falls der path lehr ist
             GameManager.EndOfIntro();
+            finished = true;
         }
-        for(int i = 0; i < ShowElements.Length; i++) {//blendet alle elemente aus
+        for(int i = 1; i < ShowElements.Length; i++) {//blendet alle elemente aus
             ShowElements[i].Element.SetActive(false);
         }
+        ShowElements[0].Element.SetActive(true);
+        GameManager.GM.BPMUpdate += BPMUpdate;
     }
-    
-    void Update() {
-        if (CameraPath.Length > 0) {
-            if (index < CameraPath.Length - 1) {
-                if (GameManager.GetTime() - time > CameraPath[index].Stay) { //wird nach stay zeit ausgeführt, macht den swipe
-                    cam.orthographicSize = Mathf.Lerp(CameraPath[index].Zoom, CameraPath[index + 1].Zoom, (GameManager.GetTime() - time - CameraPath[index].Stay) / CameraPath[index].Duration); //kümmert sich um zoom.
-                    Vector2 temp = Vector2.Lerp(CameraPath[index].Position.transform.position, CameraPath[index + 1].Position.transform.position, 1 / (1 + Mathf.Pow(CameraPath[index].Sharpness, -(((GameManager.GetTime() - time - CameraPath[index].Stay) / CameraPath[index].Duration) - 0.5f) * 20))); // mach den swipe [1/1+2^-((deltaTime-0.5)*20)]
-                    transform.position = new Vector3(temp.x, temp.y, -10);
-                }
-                if (GameManager.GetTime() - time > CameraPath[index].Stay + CameraPath[index].Duration) {//wen swipe zuende
-                    index++;
-                    time = GameManager.GetTime();
-                }
-            } else if (!finished) {//wird am ende einmal ausgeführt
+
+    private void OnDestroy() {
+        GameManager.GM.BPMUpdate -= BPMUpdate;
+    }
+
+    void BPMUpdate(int count) {
+        //kümmert sich um den camera swipe
+        if (!finished) {
+            if (index >= CameraPath.Length-1) {
                 cam.orthographicSize = CameraPath[CameraPath.Length - 1].Zoom;
                 this.transform.position = new Vector3(CameraPath[CameraPath.Length - 1].Position.transform.position.x, CameraPath[CameraPath.Length - 1].Position.transform.position.y, -10);
                 GameManager.EndOfIntro();
                 finished = true;
-            }
-            if (yellAnimation && index == PlayerAnimation) {//macht das der spieler sich bewegt
+            } else if (CameraPath[index].End == count) {
+                LerpDuration = (CameraPath[index + 1].Start - count) * GameManager.GetBeatSeconds();
+                LerpStart = GameManager.GetTime();
+                index++;
+            } else if (index == PlayerAnimation && CameraPath[index].Start == count) {
                 GameManager.PlayerAnimation();
-                yellAnimation = false;
             }
         }
         //kümmert sich um die schrift
-        if(index2 < ShowElements.Length && ShowElements[index2].Start <= GameManager.GetTime()) {
+        if (index2 < ShowElements.Length && ShowElements[index2].Start == count) {
             ShowElements[index2].Element.SetActive(true);
         }
-        if (index2 < ShowElements.Length && ShowElements[index2].Stop <= GameManager.GetTime()) {
+        if (index2 < ShowElements.Length && ShowElements[index2].Stop == count) {
             ShowElements[index2].Element.SetActive(false);
             index2++;
+        }
+    }
+    
+    void Update() {
+        if(LerpStart != 0) {
+            if (GameManager.GetTime() - LerpStart >=  LerpDuration)
+                LerpStart = 0;
+            cam.orthographicSize = Mathf.Lerp(CameraPath[index - 1].Zoom, CameraPath[index].Zoom, (GameManager.GetTime()-LerpStart) / LerpDuration); //kümmert sich um zoom.
+            Vector2 temp = Vector2.Lerp(CameraPath[index - 1].Position.transform.position, CameraPath[index].Position.transform.position, 1 / (1 + Mathf.Pow(2, -(((GameManager.GetTime() - LerpStart) / LerpDuration) - 0.5f) * 20))); // mach den swipe [1/(1+2^-((deltaTime-0.5)*20))]
+            transform.position = new Vector3(temp.x, temp.y, -10);
         }
     }
 }

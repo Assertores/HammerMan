@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Diagnostics;
 
 public class GameManager : MonoBehaviour {
 
@@ -11,13 +12,21 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     bool DebugMode = false;
 
-    //===== ===== Inner Variables ===== =====
-    float LevelTimeAtStart = 0;
-    float HammerDelay = 0;
-    int CurrentLife = 0;
-    int EnemyCount = 0;
+    public System.Action<int> BPMUpdate;
 
-    int Scene = 0;
+    [Header("Debug Infos")]
+
+    //===== ===== Inner Variables ===== =====
+    public float LevelTimeAtStart = 0;
+    Stopwatch LevelTime = null;
+    public float BeatTimeAtStart = 0;
+    public float BeatSeconds = 0;
+    public int BeatCount = 0;
+    public int CurrentLife = 0;
+    public int EnemyCount = 0;
+    float beatTime = 0;
+
+    public int Scene = 0;
 
     //===== ===== Singelton ===== =====
     public static GameManager GM = null;
@@ -35,6 +44,7 @@ public class GameManager : MonoBehaviour {
 
     //===== ===== Starting of ===== =====
     void Start() {
+        LevelTime = new Stopwatch();
         if (!StartingInLevel) {
             StartMainMenu();
         } else {
@@ -47,9 +57,9 @@ public class GameManager : MonoBehaviour {
         if (InputControler.ExitCount > 0) {//kümmert sich um exit behavior
             InputControler.PopExit();
 
-            if (Scene == 0) {
-                Application.Quit();
-            } else if (Scene <= 2) {
+            if (GM.Scene == 0) {
+                StopExe();
+            } else if (GM.Scene <= 2) {
                 StartMainMenu();
             } else if (Time.timeScale != 0) {
                 GM.FreezeGame();
@@ -57,7 +67,14 @@ public class GameManager : MonoBehaviour {
                 StartMainMenu();
             }
         }
-
+        //beatTime += Time.deltaTime;
+        //if (beatTime >= BeatSeconds)
+        if(GameManager.GetTime() >= BeatTimeAtStart + BeatCount * BeatSeconds)
+            {
+            beatTime -= BeatSeconds;
+            GM.BPMUpdate(GM.BeatCount);
+            GM.BeatCount++;
+        }
     }
 
     public void StartMainMenu() {
@@ -66,18 +83,21 @@ public class GameManager : MonoBehaviour {
     }
 
     public void StartLevel(int level) {
-        GM.LevelTimeAtStart = Time.time;
+        //GM.LevelTimeAtStart = Time.time;
+        GM.LevelTime.Start();
         LogSystem.LogOnFile("===== LevelStart =====");// ----- ----- LOG ----- -----
         GM.EnemyCount = 0;
         if (!GM.StartingInLevel) {
             switch (level) {//wählt level aus
             case 1:
-                SceneManager.LoadScene(StringCollection.SCENE01, LoadSceneMode.Single);
+                SceneManager.LoadScene(StringCollection.SCENE01);
                 break;
             default:
                 LogSystem.LogOnConsole("Level not found");// ----- ----- LOG ----- -----
                 break;
             }
+        } else {
+            level = 100;
         }
         GM.Scene = level + 2;
     }
@@ -92,8 +112,12 @@ public class GameManager : MonoBehaviour {
         GM.Scene = 2;
     }
 
+    public void StopExe() {
+        Application.Quit();
+    }
+
     //===== ===== Registration ===== =====
-    UIManager UIM = null;
+    public UIManager UIM = null;
     public static void RegistUI(UIManager handle) {
         if (GM.UIM == handle)
             GM.UIM = null;
@@ -101,7 +125,7 @@ public class GameManager : MonoBehaviour {
             GM.UIM = handle;
     }
 
-    PlayerMovment PM = null;
+    public PlayerMovment PM = null;
     public static void RegistPlayer(PlayerMovment handle) {
         LogSystem.LogOnConsole("GameManager got: " + handle);// ----- ----- LOG ----- -----
         if (GM.PM == handle)
@@ -110,7 +134,7 @@ public class GameManager : MonoBehaviour {
             GM.PM = handle;
     }
 
-    CameraShake CS = null;
+    public CameraShake CS = null;
     public static void RegistCamera(CameraShake handle) {
         if (GM.CS == handle)
             GM.CS = null;
@@ -118,7 +142,7 @@ public class GameManager : MonoBehaviour {
             GM.CS = handle;
     }
 
-    LevelInfos LI = null;
+    public LevelInfos LI = null;
     public static void RegistLvlInfos(LevelInfos handle) {
         if (GM.LI == handle)
             GM.LI = null;
@@ -150,8 +174,7 @@ public class GameManager : MonoBehaviour {
             return true;
         }
         if (GM.EnemyCount <= 0) {
-            LogSystem.LogOnFile("===== Game Won =====");// ----- ----- LOG ----- -----
-            GM.StartMainMenu();
+            EndGame(true);
             return true;
         }
         if (GM.UIM != null) {
@@ -216,25 +239,45 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
-    public static void SetHammerDelay(float delay) {
-        GM.HammerDelay = delay;
+    public static void StartBeats(float beats, float nullTime) { //beats = abstand zweiter beats in secunden, nullTime = zeitpunkt des nullten beats abLeveltime
+        GM.BeatSeconds = beats;
+        GM.BeatCount = -(int)(nullTime/beats);
+        GM.BeatTimeAtStart = GameManager.GetTime() + nullTime;
+        print("lets go:" + (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds));
+        GM.beatTime = GM.BeatSeconds - (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds);
+        //GM.StartCoroutine(GM.TriggerBPMUpdate());
+        //GM.Invoke("TriggerBPMUpdate", (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time);
     }
 
     //===== ===== Library ===== =====
-    public static void EndGame() {
-        LogSystem.LogOnFile("===== Game failed =====");// ----- ----- LOG ----- -----
-        GM.StartGameOver();
-    }
-    public static float GetTime() {
-        return Time.time - GM.LevelTimeAtStart;
+    private IEnumerator TriggerBPMUpdate() {
+        print("BPM: " + GM.BeatCount);
+        GM.BPMUpdate(GM.BeatCount);
+        GM.BeatCount++;
+        yield return new WaitForSeconds((GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time);
+        if(Scene > 2)
+            StartCoroutine(TriggerBPMUpdate());
     }
 
-    public static float GetHammerTime() {
-        if(GM.LI == null) {
-            LogSystem.LogOnConsole("no Level Infos available");// ----- ----- LOG ----- -----
-            return -1;
+    public static void EndGame(bool won = false) {
+        if (won) {
+            LogSystem.LogOnFile("===== Game Won =====");// ----- ----- LOG ----- -----
+            GM.StartMainMenu();
+        } else {
+            LogSystem.LogOnFile("===== Game failed =====");// ----- ----- LOG ----- -----
+            GM.StartGameOver();
         }
-        return (Time.time - GM.LevelTimeAtStart - GM.HammerDelay) / GM.LI.GetHammerFrequenz();
+        GM.LevelTime.Stop();
+        //GM.CancelInvoke("TriggerBPMUpdate");
+    }
+    public static float GetTime() {
+        //print(GM.LevelTime.ElapsedMilliseconds);
+        return (float)GM.LevelTime.ElapsedMilliseconds/1000;
+        //return Time.time - GM.LevelTimeAtStart;
+    }
+
+    public static float GetBeatSeconds() {
+        return GM.BeatSeconds;
     }
 
     public static bool GetDebugMode() {

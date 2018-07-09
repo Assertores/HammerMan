@@ -8,12 +8,13 @@ public class MusicSync : MonoBehaviour {
     float delayToFirstBeatInFile = 0.0f;
     [SerializeField]
     float delayToFirstHammerHitInGame = 0.0f;
-
-    bool StartSuccessful = false;
+    [SerializeField]
+    float BPM = 0;
 
     public void Start() {
-        Play(delayToFirstHammerHitInGame - delayToFirstBeatInFile);
-        GameManager.SetHammerDelay(delayToFirstHammerHitInGame);
+        print(GameManager.GetTime() + "================");
+        Play(delayToFirstHammerHitInGame - delayToFirstBeatInFile - GameManager.GetTime());
+        GameManager.StartBeats(60/ BPM, delayToFirstHammerHitInGame);
     }
 
     private void Play(float skip = 0.0f) {
