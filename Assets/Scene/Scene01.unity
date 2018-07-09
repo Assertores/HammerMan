@@ -13126,6 +13126,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1193621982}
     m_Modifications:
+    - target: {fileID: 114100635604056726, guid: 2905c1d75efd8744595c1974d975e30d,
+        type: 2}
+      propertyPath: HitSound.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4651663534908124, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
       propertyPath: m_LocalPosition.x
       value: -36
