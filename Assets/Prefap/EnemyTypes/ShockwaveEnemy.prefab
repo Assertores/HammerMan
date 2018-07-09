@@ -117,7 +117,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 0.9}
+  m_Size: {x: 0.9, y: 0.85}
   m_EdgeRadius: 0.05
 --- !u!95 &95203897626334760
 Animator:
@@ -176,6 +176,7 @@ MonoBehaviour:
   EnemyDamageOnExit: 1
   TurningDistance: 0.6
   Invulnerable: 1
+  DistancePerLoop: 0.25
   ChangeDirectionAt:
     serializedVersion: 2
     m_Bits: 2560
