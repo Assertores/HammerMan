@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum PlayerState {
-    Idle,
+    Idle = 0,
     Moving,
     Climbing,
     Jumping,
@@ -37,6 +37,8 @@ public class PlayerMovment : MonoBehaviour {
     bool InControle = false;
     bool PlayerIsInGround = false;
     float oldGravityScale;
+    Animator anim;
+    //int onBeatTrigger;
 
     private void OnDestroy() {
         GameManager.RegistPlayer(this);
@@ -57,21 +59,20 @@ public class PlayerMovment : MonoBehaviour {
         LogSystem.LogOnConsole("i'm here. Player: " + this);// ----- ----- LOG ----- -----
         GameManager.RegistPlayer(this);
 
-        Animator anim = GetComponentInChildren<Animator>();
+        anim = GetComponentInChildren<Animator>();
         if (!anim) {
-            throw new System.Exception("No Animation vor hammerman. Player");
+            throw new System.Exception("No Animation for hammerman. Player");
         }
-        anim.speed = anim.GetCurrentAnimatorStateInfo(0).length / GameManager.GetBeatSeconds();
-        GameManager.GM.BPMUpdate += StartAnim;
+
+        //onBeatTrigger = anim.GetInteger("OnBeat");
+        anim.speed = anim.GetCurrentAnimatorStateInfo(0).length / (GameManager.GetBeatSeconds()*2);
+        GameManager.GM.BPMUpdate += BPMUpdate;
     }
 
-    void StartAnim(int i) {
-        Animator anim = GetComponentInChildren<Animator>();
-        if (!anim) {
-            throw new System.Exception("No Animation vor hammerman. Player");
-        }
-        anim.Play(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
-        GameManager.GM.BPMUpdate -= StartAnim;
+    void BPMUpdate(int i) {
+        anim.SetTrigger("OnBeat");
+        //anim.Play(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
+        //GameManager.GM.BPMUpdate -= StartAnim;
     }
 
     void Update() {
@@ -191,7 +192,9 @@ public class PlayerMovment : MonoBehaviour {
             break;
         }
 
+        anim.SetInteger("PrevState", (int)State);
         State = newState;
+        anim.SetInteger("State", (int)State);
 
         switch (State) { //finite state machine: bei betreten des states
         case PlayerState.Idle:
