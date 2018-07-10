@@ -36,7 +36,8 @@ public class CameraIntroScript : MonoBehaviour {
         for(int i = 1; i < ShowElements.Length; i++) {//blendet alle elemente aus
             ShowElements[i].Element.SetActive(false);
         }
-        ShowElements[0].Element.SetActive(true);
+        if(ShowElements.Length > 0)
+            ShowElements[0].Element.SetActive(true);
         GameManager.GM.BPMUpdate += BPMUpdate;
     }
 
