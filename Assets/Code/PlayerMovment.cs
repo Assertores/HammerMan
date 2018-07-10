@@ -114,7 +114,7 @@ public class PlayerMovment : MonoBehaviour {
             case PlayerState.Falling:
                 //print("================================" + InputControler.DownCount);
                 if (DistToGround <= HoverHight && InputControler.DownCount <= 0)
-                    ChangeState(PlayerState.Landing);
+                    ChangeState(PlayerState.Idle);
                 break;
             case PlayerState.Landing:
                 //if (GameManager.GetHammerTime() % 1 > 0.9)
