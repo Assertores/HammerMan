@@ -25,14 +25,12 @@ public class GeneratorScript : MonoBehaviour {
         CurrentLife = MaxLife;
         LifeBar.fillAmount = 1;
 
-        if (!GameManager.ChangeEnemyCount(100)) {
-            LogSystem.LogOnConsole("Spawner konnte nicht den enemyCount erhöhen");
-        }
+        GameManager.ChangeGeneratorCount(1);
     }
 	
 	// Update is called once per frame
 	void OnDestroy () {
-        GameManager.ChangeEnemyCount(-100);
+        GameManager.ChangeGeneratorCount(-1);
     }
 
     private void OnTriggerEnter2D(Collider2D col) {//macht dass es getroffen werden kann

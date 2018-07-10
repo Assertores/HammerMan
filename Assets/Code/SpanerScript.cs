@@ -40,11 +40,13 @@ public class SpanerScript : MonoBehaviour {
     }
 	
 	void Update () {
-        switch (UseFunction) {
+        if (GameManager.GM.GeneratorAlive) {
+            switch (UseFunction) {
             case 0: SpawnBehavior0(); break;
             case 1: SpawnBehavior1(); break;
             case 2: SpawnBehavior2(); break;
             case 3: SpawnBehavior3(); break;
+            }
         }
     }
 

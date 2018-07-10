@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour {
     public int EnemyCount = 0;
     float beatTime = 0;
 
+    int GeneratorCount = 0;
+    public bool GeneratorAlive { get; private set; }
+
     public int Scene = 0;
 
     //===== ===== Singelton ===== =====
@@ -84,6 +87,7 @@ public class GameManager : MonoBehaviour {
 
     public void StartLevel(int level) {
         //GM.LevelTimeAtStart = Time.time;
+        GM.GeneratorAlive = true;
         GM.LevelTime.Start();
         LogSystem.LogOnFile("===== LevelStart =====");// ----- ----- LOG ----- -----
         GM.EnemyCount = 0;
@@ -182,6 +186,12 @@ public class GameManager : MonoBehaviour {
             GM.UIM.UpdateEnemyCount(GM.EnemyCount);
         }
         return true;
+    }
+
+    public static void ChangeGeneratorCount(int count = 1) {
+        GM.GeneratorCount += count;
+        if (GM.GeneratorCount <= 0)
+            GM.GeneratorAlive = false;
     }
 
     public static bool CameraEffectOnEnemyDeath() {
