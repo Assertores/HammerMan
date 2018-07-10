@@ -122,15 +122,17 @@ public class EnemyBehavior : MonoBehaviour {
             rb.bodyType = RigidbodyType2D.Static;
             GetComponent<BoxCollider2D>().enabled = false;
             int temp = Random.Range(0, DeathSound.Length); //welcher sound soll für den tod verwendet werden
-            if (DeathSound.Length != 0) {//fügt audioclip hinzu
-                AudioSource audio = GetComponent<AudioSource>();
-                audio.clip = DeathSound[temp];
-                GameManager.GM.BPMUpdate += Play;
-            }
+
             //animator auf death animation wechseln
             Animator anim = GetComponentInChildren<Animator>();
             if (anim) {
                 anim.SetBool("Dead", true);
+            }
+
+            if (DeathSound.Length != 0) {//fügt audioclip hinzu
+                AudioSource audio = GetComponent<AudioSource>();
+                audio.clip = DeathSound[temp];
+                GameManager.GM.BPMUpdate += Play;
             }
             GameObject.Destroy(this.transform.gameObject, 1.0f);
             break;
