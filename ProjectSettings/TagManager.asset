@@ -21,9 +21,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - TerrainGround
+  - Background
   - TerrainSprite
+  - TerrainGround
   - Enemy
   - Player
   - Furniture
