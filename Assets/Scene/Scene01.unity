@@ -11037,8 +11037,13 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1645232364038476, guid: fac54b95d37295840ba9d4467d651ad9, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114539104836010754, guid: fac54b95d37295840ba9d4467d651ad9,
+        type: 2}
+      propertyPath: Enemy
+      value: 
+      objectReference: {fileID: 1896384119}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fac54b95d37295840ba9d4467d651ad9, type: 2}
   m_IsPrefabParent: 0
@@ -15098,31 +15103,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 70331933390291352, guid: e059c6e2a478e24428b5c9821d2dbb2d,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 61148559614148044, guid: e059c6e2a478e24428b5c9821d2dbb2d,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 61148559614148044, guid: e059c6e2a478e24428b5c9821d2dbb2d,
-        type: 2}
-      propertyPath: m_Offset.x
-      value: -0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 82233182450575562, guid: e059c6e2a478e24428b5c9821d2dbb2d,
-        type: 2}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: f3401d0ff7cd61445bb893e27264be00, type: 3}
-    - target: {fileID: 114935631411381980, guid: e059c6e2a478e24428b5c9821d2dbb2d,
-        type: 2}
-      propertyPath: HammerOnEnd
-      value: 0.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e059c6e2a478e24428b5c9821d2dbb2d, type: 2}
   m_IsPrefabParent: 0
@@ -15803,6 +15783,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 11e75df86cc56f74684061c82f706e2e, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1896384119 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114002300873903658, guid: fac54b95d37295840ba9d4467d651ad9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1527257504}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &1899027092
 Prefab:
   m_ObjectHideFlags: 0

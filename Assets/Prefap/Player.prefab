@@ -226,7 +226,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 677a5fe27f6bdc7469e1cfd067b3ee1c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f3401d0ff7cd61445bb893e27264be00, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -358,7 +358,7 @@ MonoBehaviour:
   FallThroughBoost: 10
   FallLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1024
   HoverHight: 0.1
   JumpStrength: 10
   State: 0
@@ -373,8 +373,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014918a4d7bd62d48bc1fa3d876746c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HammerOnBeginning: 0
-  HammerOnEnd: 0.25
+  HammerOnBeginning: 0.9
+  HammerOnEnd: 1
 --- !u!212 &212207553440241022
 SpriteRenderer:
   m_ObjectHideFlags: 1
