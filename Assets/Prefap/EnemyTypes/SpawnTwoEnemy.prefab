@@ -180,7 +180,7 @@ MonoBehaviour:
   Invulnerable: 1
   ChangeDirectionAt:
     serializedVersion: 2
-    m_Bits: 2560
+    m_Bits: 3072
   State: 0
   DirRight: 1
 --- !u!212 &212100763763248674

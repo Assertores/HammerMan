@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4651663534908124}
   - component: {fileID: 61484014238186522}
   - component: {fileID: 114100635604056726}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 223326052997482508}
   - component: {fileID: 114635845961693878}
   - component: {fileID: 114391370730204666}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: SpawnerCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 224331013607208008}
   - component: {fileID: 222046747403833678}
   - component: {fileID: 114516782951851560}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1144896226500246}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -27.34, y: 13, z: 0}
+  m_LocalPosition: {x: -27.5, y: 13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4748057411195298}
@@ -162,8 +162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3abebbdbaf444c847a45b36124887e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitSound: []
-  DeathSound: {fileID: 8300000, guid: 17c4c93aa79fb05418f769df26497195, type: 3}
+  HitSound:
+  - {fileID: 8300000, guid: 17c4c93aa79fb05418f769df26497195, type: 3}
+  DeathSound: {fileID: 8300000, guid: 1e647064a3c92534b94fab4f4276d406, type: 3}
   LifeBar: {fileID: 114516782951851560}
   MaxLife: 10
   Creaps:
@@ -175,11 +176,11 @@ MonoBehaviour:
     Ratio: 1
   - Creap: {fileID: 1720267005446818, guid: d96b0e860e9793c44844fd85d2c48864, type: 2}
     Ratio: 1
-  SpawnRate: 2.5
-  WaveLength: 5
-  GapLength: 0
+  SpawnRate: 2
+  WaveLength: 6
+  GapLength: 1
   Factor: 1
-  MaximumGapLength: 12
+  MaximumGapLength: 3
   UseFunction: 1
   SpawnHitParticle: {fileID: 1781884187228386, guid: c4ef661beeb58314bbc89f56c961b771,
     type: 2}
