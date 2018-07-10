@@ -251,8 +251,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 95ab47b836481a44b8fc4449d12f0217, type: 3}
   - {fileID: 8300000, guid: bc61cc7ad6925134fb36628789ee3349, type: 3}
   - {fileID: 8300000, guid: 967f1acab6776ed408aa7b5c307a85da, type: 3}
-  InvoceOnEnemyDeath:
-  - {fileID: 1789330704175232, guid: b547a133ff30ead4eacf51c4d6cec4c9, type: 2}
+  InvoceOnEnemyDeath: []
   Name: Normal
   AbleToHitFrom: 0
   EnemySpeed: 2
