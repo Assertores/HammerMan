@@ -26,9 +26,13 @@ public class SpanerScript : MonoBehaviour {
 
     float NextSpawn;
     int WaveCount = 0;
+    Animator anim;
 
 	void Start () {
-        
+        anim = GetComponentInChildren<Animator>();
+        if (!anim) {
+            new System.Exception("animator not found. Spawner");
+        }
         NextSpawn = GameManager.GetTime();
         Creap1 = new List<GameObject>();
         Creap1.Clear();
@@ -48,6 +52,10 @@ public class SpanerScript : MonoBehaviour {
             case 3: SpawnBehavior3(); break;
             }
         }
+    }
+
+    void FixedUpdate() {
+        anim.SetBool("Alive", GameManager.GM.GeneratorAlive);
     }
 
     void SpawnBehavior0() {//spawnt gegner wenn es zeit dafür ist
