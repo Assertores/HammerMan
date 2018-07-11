@@ -177,10 +177,6 @@ public class GameManager : MonoBehaviour {
             EndGame(true);
             return true;
         }
-        if (GM.UIM != null) {
-            GM.UIM.UpdateLife(GM.CurrentLife / (float)GM.LI.GetLife());
-            GM.UIM.UpdateEnemyCount(GM.EnemyCount);
-        }
         return true;
     }
 
