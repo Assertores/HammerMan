@@ -34,6 +34,9 @@ public class EnemyBehavior : MonoBehaviour {
     float TurningDistance = 10;
     [SerializeField]
     float Invulnerable = 1; //time
+    [SerializeField]
+    [Tooltip("the travel distance per animation loop in unity units")]
+    float DistancePerLoop = 1;
     public LayerMask ChangeDirectionAt;
 
     Rigidbody2D rb;
@@ -54,6 +57,12 @@ public class EnemyBehavior : MonoBehaviour {
         if (!DirRight) {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
+
+        Animator anim = GetComponentInChildren<Animator>();
+        if (!anim) {
+            throw new System.Exception("No Animation. Enemy");
+        }
+        anim.speed = anim.GetCurrentAnimatorStateInfo(0).length / (DistancePerLoop / EnemySpeed);
     }
     private void OnDestroy() {
         LogSystem.LogOnFile(Name + " Enemy died");// ----- ----- LOG ----- -----
