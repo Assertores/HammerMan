@@ -18275,7 +18275,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelLife: 3
-  HammerBPM: 140
 --- !u!114 &114176632105315476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -18553,10 +18552,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3abebbdbaf444c847a45b36124887e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitSound: []
-  DeathSound: {fileID: 8300000, guid: 17c4c93aa79fb05418f769df26497195, type: 3}
-  LifeBar: {fileID: 114774625354981978}
-  MaxLife: 10
   Creaps:
   - Creap: {fileID: 1720267005446818, guid: 1bf1460173a30f14bb65cb44cbaec3cc, type: 2}
     Ratio: 1
@@ -18574,8 +18569,6 @@ MonoBehaviour:
   Factor: 1
   MaximumGapLength: 12
   UseFunction: 1
-  SpawnHitParticle: {fileID: 1781884187228386, guid: c4ef661beeb58314bbc89f56c961b771,
-    type: 2}
 --- !u!114 &114922761301157846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -18603,10 +18596,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3abebbdbaf444c847a45b36124887e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitSound: []
-  DeathSound: {fileID: 8300000, guid: 17c4c93aa79fb05418f769df26497195, type: 3}
-  LifeBar: {fileID: 114490838830324450}
-  MaxLife: 10
   Creaps:
   - Creap: {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
     Ratio: 1
@@ -18616,8 +18605,6 @@ MonoBehaviour:
   Factor: 1
   MaximumGapLength: 12
   UseFunction: 1
-  SpawnHitParticle: {fileID: 1781884187228386, guid: c4ef661beeb58314bbc89f56c961b771,
-    type: 2}
 --- !u!212 &212006539464548146
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -19963,7 +19950,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -27883,7 +27870,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
