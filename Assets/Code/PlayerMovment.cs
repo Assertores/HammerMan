@@ -42,6 +42,7 @@ public class PlayerMovment : MonoBehaviour {
 
     private void OnDestroy() {
         GameManager.RegistPlayer(this);
+        GameManager.GM.BPMUpdate -= BPMUpdate;
     }
 
     void Start() {
@@ -65,12 +66,13 @@ public class PlayerMovment : MonoBehaviour {
         }
 
         //onBeatTrigger = anim.GetInteger("OnBeat");
-        anim.speed = anim.GetCurrentAnimatorStateInfo(0).length / (GameManager.GetBeatSeconds()*2);
+        anim.speed = anim.GetCurrentAnimatorStateInfo(0).length / (GameManager.GetBeatSeconds()*2);//jeden zweiten beat
         GameManager.GM.BPMUpdate += BPMUpdate;
     }
 
     void BPMUpdate(int i) {
-        anim.SetTrigger("OnBeat");
+        if(i%2 == 0)//jeden zweiten beat
+            anim.SetTrigger("OnBeat");
         //anim.Play(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
         //GameManager.GM.BPMUpdate -= StartAnim;
     }
