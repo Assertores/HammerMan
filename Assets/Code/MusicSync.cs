@@ -12,7 +12,6 @@ public class MusicSync : MonoBehaviour {
     float BPM = 0;
 
     public void Start() {
-        print(GameManager.GetTime() + "================");
         Play(delayToFirstHammerHitInGame - delayToFirstBeatInFile - GameManager.GetTime());
         GameManager.StartBeats(60/ BPM, delayToFirstHammerHitInGame);
     }

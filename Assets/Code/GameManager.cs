@@ -61,8 +61,8 @@ public class GameManager : MonoBehaviour {
 
             if (GM.Scene == 0) {
                 StopExe();
-            } else if (GM.Scene <= 2) {
-                StartMainMenu();
+            } else if (GM.Scene >= 2) {
+                EndGame(false);
             } else if (Time.timeScale != 0) {
                 GM.FreezeGame();
             } else {
@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour {
 
     public void StartLevel(int level) {
         //GM.LevelTimeAtStart = Time.time;
+        GM.LevelTime.Reset();
         GM.LevelTime.Start();
         LogSystem.LogOnFile("===== LevelStart =====");// ----- ----- LOG ----- -----
         GM.EnemyCount = 0;
@@ -255,15 +256,20 @@ public class GameManager : MonoBehaviour {
 
     public static void EndGame(bool won = false) {
         GM.LevelTime.Stop();
+        GM.BeatTimeAtStart = 0;
+        GM.BeatSeconds = 0;
+        GM.BeatCount = 0;
         if (won) {
             LogSystem.LogOnFile("===== Game Won =====");// ----- ----- LOG ----- -----
             GM.NextLevel = GM.Scene - 1;
             GM.StartMainMenu();
         } else {
             LogSystem.LogOnFile("===== Game failed =====");// ----- ----- LOG ----- -----
+            GM.NextLevel = GM.Scene - 2;
             GM.StartGameOver();
         }
-        
+        GM.CurrentLife = 0;
+        GM.EnemyCount = 0;
         //GM.CancelInvoke("TriggerBPMUpdate");
     }
     public static float GetTime() {
