@@ -26,6 +26,7 @@ public class InputControler : MonoBehaviour {//liest input aus und macht ihn glo
     }
 
     void Update () {
+        //code
         Horizontal = Input.GetAxis(StringCollection.HORIZONTAL);
         Vertical = Input.GetAxis(StringCollection.VERTICAL);
         if((Vertical > 0 && LastVertical < Vertical) || Vertical == 1) {
@@ -48,32 +49,16 @@ public class InputControler : MonoBehaviour {//liest input aus und macht ihn glo
         }
         LastVertical = Vertical;
 
-        if (Input.GetAxis(StringCollection.JUMP) > 0) {
-            if(!Jump)
-                Jump = true;
-        }else if (Jump) {
-            Jump = false;
+        Jump = Input.GetButton(StringCollection.JUMP);
+
+        if (Input.GetButtonDown(StringCollection.CROUCH)) {
+            DownCount++;
         }
 
-        if(Input.GetAxis(StringCollection.CROUCH) > 0) {
-            if (!DownCountOn) {
-                DownCountOn = true;
-                DownCount++;
-                print("test2");
-            }
-        }else if (DownCountOn) {
-            DownCountOn = false;
+        if (Input.GetButtonDown(StringCollection.CANCEL)) {
+            ExitCount++;
         }
-
-        if(Input.GetAxis(StringCollection.CANCEL) > 0) {
-            if (!ExitCountOn) {
-                ExitCountOn = true;
-                ExitCount++;
-            }else if (ExitCountOn) {
-                ExitCountOn = false;
-            }
-        }
-	}
+    }
 
     public static void ChangeDown(int i) {
         DownCount += i;
