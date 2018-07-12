@@ -73,8 +73,7 @@ public class PlayerMovment : MonoBehaviour {
     }
 
     void BPMUpdate(int i) {
-        if(i%2 == 0)//jeden zweiten beat
-            anim.SetTrigger("OnBeat");
+        anim.SetTrigger("OnBeat");
         if(i == -20) {
             anim.SetFloat("IdleSpeed", 1 / (GameManager.GetBeatSeconds() * 1));
             anim.SetFloat("MovingSpeed", 1 / (GameManager.GetBeatSeconds() * 1));
