@@ -9,10 +9,8 @@ public class InputControler : MonoBehaviour {//liest input aus und macht ihn glo
     float LastVertical = 0.0f;
     public static bool Up { get; private set; }
     public static int DownCount { get; private set; }
-    bool DownCountOn = false;
     public bool Down { get; private set; }
     public static int ExitCount { get; private set; }
-    bool ExitCountOn = false;
     public static bool Jump { get; private set; }
 
     private void Awake() {
