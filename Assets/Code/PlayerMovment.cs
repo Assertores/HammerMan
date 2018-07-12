@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum PlayerState {
-    Idle,
+    Idle = 0,
     Moving,
     Climbing,
     Jumping,
@@ -37,9 +37,12 @@ public class PlayerMovment : MonoBehaviour {
     bool InControle = false;
     bool PlayerIsInGround = false;
     float oldGravityScale;
+    Animator anim;
+    //int onBeatTrigger;
 
     private void OnDestroy() {
         GameManager.RegistPlayer(this);
+        GameManager.GM.BPMUpdate -= BPMUpdate;
     }
 
     void Start() {
@@ -57,21 +60,28 @@ public class PlayerMovment : MonoBehaviour {
         LogSystem.LogOnConsole("i'm here. Player: " + this);// ----- ----- LOG ----- -----
         GameManager.RegistPlayer(this);
 
-        Animator anim = GetComponentInChildren<Animator>();
+        anim = GetComponentInChildren<Animator>();
         if (!anim) {
-            throw new System.Exception("No Animation vor hammerman. Player");
+            throw new System.Exception("No Animation for hammerman. Player");
         }
-        anim.speed = anim.GetCurrentAnimatorStateInfo(0).length / GameManager.GetBeatSeconds();
-        GameManager.GM.BPMUpdate += StartAnim;
+
+        //onBeatTrigger = anim.GetInteger("OnBeat");
+        //anim.GetCurrentAnimatorClipInfo(0)[Animator.StringToHash("idle")].clip.length / (GameManager.GetBeatSeconds() * 2)
+        //setzt den speed der animation des states "Idle" sodass es zum beat passt
+        //jeden zweiten beat
+        GameManager.GM.BPMUpdate += BPMUpdate;
     }
 
-    void StartAnim(int i) {
-        Animator anim = GetComponentInChildren<Animator>();
-        if (!anim) {
-            throw new System.Exception("No Animation vor hammerman. Player");
+    void BPMUpdate(int i) {
+        if(i%2 == 0)//jeden zweiten beat
+            anim.SetTrigger("OnBeat");
+        if(i == -20) {
+            anim.SetFloat("IdleSpeed", 1 / (GameManager.GetBeatSeconds() * 1));
+            anim.SetFloat("MovingSpeed", 1 / (GameManager.GetBeatSeconds() * 1));
         }
-        anim.Play(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
-        GameManager.GM.BPMUpdate -= StartAnim;
+        
+        //anim.Play(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
+        //GameManager.GM.BPMUpdate -= StartAnim;
     }
 
     void Update() {
@@ -113,7 +123,7 @@ public class PlayerMovment : MonoBehaviour {
             case PlayerState.Falling:
                 //print("================================" + InputControler.DownCount);
                 if (DistToGround <= HoverHight && InputControler.DownCount <= 0)
-                    ChangeState(PlayerState.Landing);
+                    ChangeState(PlayerState.Idle);
                 break;
             case PlayerState.Landing:
                 //if (GameManager.GetHammerTime() % 1 > 0.9)
@@ -191,7 +201,10 @@ public class PlayerMovment : MonoBehaviour {
             break;
         }
 
+        anim.SetInteger("PrevState", (int)State);
         State = newState;
+        anim.SetInteger("State", (int)State);
+
 
         switch (State) { //finite state machine: bei betreten des states
         case PlayerState.Idle:
