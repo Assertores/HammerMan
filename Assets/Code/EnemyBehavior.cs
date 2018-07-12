@@ -225,7 +225,7 @@ public class EnemyBehavior : MonoBehaviour {
         } else {
             Die.GetComponent<ParticleKiller>().PlayStart(); //started partikel und audio
         }*/
-        if (InvoceOnEnemyDeath.Length != 0) {//erzeugt gameobjekts bei tot
+        if (!HealingFlag && InvoceOnEnemyDeath.Length != 0) {//erzeugt gameobjekts bei tot
             for (int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
                 Instantiate(InvoceOnEnemyDeath[i]).transform.position = this.transform.position;
             }
@@ -245,7 +245,7 @@ public class EnemyBehavior : MonoBehaviour {
         } else {
             Die.GetComponent<ParticleKiller>().PlayStart(); //started partikel und audio
         }*/
-        if (InvoceOnEnemyDeath.Length != 0) {//erzeugt gameobjekts bei tot durch hammer
+        if (!HealingFlag && InvoceOnEnemyDeath.Length != 0) {//erzeugt gameobjekts bei tot durch hammer
             for(int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
                 Instantiate(InvoceOnEnemyDeath[i]).transform.position = this.transform.position;
             }
@@ -254,6 +254,13 @@ public class EnemyBehavior : MonoBehaviour {
 
     void DieByExit() {
         ChangeState(EnemyState.Dead);
+        if (HealingFlag) {
+            if (InvoceOnEnemyDeath.Length != 0) {//erzeugt gameobjekts bei tot durch hammer
+                for (int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
+                    Instantiate(InvoceOnEnemyDeath[i]).transform.position = this.transform.position;
+                }
+            }
+        }
         GameManager.CameraEffectOnEnemyExit();
     }
 
