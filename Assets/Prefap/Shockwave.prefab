@@ -106,7 +106,7 @@ Animator:
   m_GameObject: {fileID: 1295130780940516}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4ccfd24b36aebe147aea947fdd8add03, type: 2}
+  m_Controller: {fileID: 9100000, guid: dd9dc8a0cd06a724cbfe407152720d20, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -133,7 +133,7 @@ SpriteRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1295130780940516}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
