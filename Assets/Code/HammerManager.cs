@@ -12,6 +12,8 @@ public class HammerManager : MonoBehaviour {
     [Range(0.0f, 1.0f)]
     [Tooltip("Ende des Hammerschlags als prozentzahl der frequenzzeit")]
     float HammerOnEnd;
+    [SerializeField]
+    int HammerEveryXBeat = 2;
 
     bool DoHammer = true;
 
