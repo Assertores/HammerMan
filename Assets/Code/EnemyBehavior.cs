@@ -186,7 +186,7 @@ public class EnemyBehavior : MonoBehaviour {
             }
             break;
         case StringCollection.EXIT://wen nach drausen leuft
-            col.GetComponent<ExitControler>().Hit(EnemyDamageOnExit); //macht ausgang kaputt
+            //col.GetComponent<ExitControler>().Hit(EnemyDamageOnExit); //macht ausgang kaputt
             DieByExit();
             break;
         case StringCollection.TRAP:
@@ -196,6 +196,12 @@ public class EnemyBehavior : MonoBehaviour {
             break;
         default:
             break;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col) {
+        if(col.transform.gameObject.tag == StringCollection.EXIT) {
+            DieByExit();
         }
     }
 

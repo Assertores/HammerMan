@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ExitControler : MonoBehaviour {
 
-    [SerializeField]
+    /*[SerializeField]
     int Life = 3;
     int maxLife;
     [SerializeField]
@@ -23,5 +23,9 @@ public class ExitControler : MonoBehaviour {
             GameManager.EndGame();
         }
         Door.fillAmount = (Life-1)/((float)maxLife-1);
+    }*/
+
+    void OnCollisionEnter2D(Collision2D col) {
+        GameManager.EndGame();
     }
 }
