@@ -35,6 +35,7 @@ public class FurnitureBehavior : MonoBehaviour {
     void Throw(int i) {
         LogSystem.LogOnConsole("furiture got hit");// ----- ----- LOG ----- -----
         rb.velocity = new Vector2(Random.Range(-2f, 2f), Random.Range(7.0f, 10.0f));
+        rb.angularVelocity = Random.Range(-500f, 500f);
         destroyed = true;
         GameManager.GM.BPMUpdate -= Throw;
     }
