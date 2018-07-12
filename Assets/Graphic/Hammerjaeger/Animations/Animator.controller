@@ -5,7 +5,7 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Animator
+  m_Name: Sprite
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: State
@@ -381,7 +381,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: c2326a5d87fa2e74cb2e4c4106522f13, type: 2}
+  m_Motion: {fileID: 7400000, guid: 6427e2c126cc9cf46912172262aab741, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -464,7 +464,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: bbb9c5d14aaff0543b27af6e0398e069, type: 2}
+  m_Motion: {fileID: 7400000, guid: ee0b4338baed0ff488d93084c37c33e9, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -483,7 +483,7 @@ AnimatorStateMachine:
     m_Position: {x: 564, y: 156, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102840272912249156}
-    m_Position: {x: 108, y: 48, z: 0}
+    m_Position: {x: 120, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102982923857545410}
     m_Position: {x: 348, y: 12, z: 0}
