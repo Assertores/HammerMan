@@ -45,7 +45,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1778355639595186
 GameObject:
   m_ObjectHideFlags: 1
@@ -162,11 +162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3abebbdbaf444c847a45b36124887e2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitSound:
-  - {fileID: 8300000, guid: 17c4c93aa79fb05418f769df26497195, type: 3}
-  DeathSound: {fileID: 8300000, guid: 1e647064a3c92534b94fab4f4276d406, type: 3}
-  LifeBar: {fileID: 114516782951851560}
-  MaxLife: 1
   Creaps:
   - Creap: {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
     Ratio: 1
@@ -182,7 +177,6 @@ MonoBehaviour:
   Factor: 1
   MaximumGapLength: 3
   UseFunction: 1
-  SpawnHitParticle: {fileID: 0}
 --- !u!114 &114391370730204666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -287,7 +281,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

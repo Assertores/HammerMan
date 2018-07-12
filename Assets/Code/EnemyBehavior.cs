@@ -13,6 +13,8 @@ public enum EnemyState {
 [RequireComponent(typeof(AudioSource))]
 public class EnemyBehavior : MonoBehaviour {
 
+    public bool HealingFlag { get; private set; }
+
     [Header("Death")]
     [SerializeField]
     GameObject EnemyDieParticle;
@@ -52,6 +54,12 @@ public class EnemyBehavior : MonoBehaviour {
         if (!rb) {
             throw new System.Exception("Rigitbody not found. Enemy");
         }
+
+        if (EnemyDamageOnExit < 0)
+            HealingFlag = true;
+        else
+            HealingFlag = false;
+
         //randam direction
         DirRight = (Random.value > 0.5f);
         if (!DirRight) {
@@ -186,7 +194,7 @@ public class EnemyBehavior : MonoBehaviour {
             }
             break;
         case StringCollection.EXIT://wen nach drausen leuft
-            col.GetComponent<ExitControler>().Hit(EnemyDamageOnExit); //macht ausgang kaputt
+            //col.GetComponent<ExitControler>().Hit(EnemyDamageOnExit); //macht ausgang kaputt
             DieByExit();
             break;
         case StringCollection.TRAP:
@@ -196,6 +204,12 @@ public class EnemyBehavior : MonoBehaviour {
             break;
         default:
             break;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col) {
+        if(col.transform.gameObject.tag == StringCollection.EXIT) {
+            DieByExit();
         }
     }
 
@@ -211,7 +225,7 @@ public class EnemyBehavior : MonoBehaviour {
         } else {
             Die.GetComponent<ParticleKiller>().PlayStart(); //started partikel und audio
         }*/
-        if (InvoceOnEnemyDeath.Length != 0) {//erzeugt gameobjekts bei tot
+        if (!HealingFlag && InvoceOnEnemyDeath.Length != 0) {//erzeugt gameobjekts bei tot
             for (int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
                 Instantiate(InvoceOnEnemyDeath[i]).transform.position = this.transform.position;
             }
@@ -231,7 +245,7 @@ public class EnemyBehavior : MonoBehaviour {
         } else {
             Die.GetComponent<ParticleKiller>().PlayStart(); //started partikel und audio
         }*/
-        if (InvoceOnEnemyDeath.Length != 0) {//erzeugt gameobjekts bei tot durch hammer
+        if (!HealingFlag && InvoceOnEnemyDeath.Length != 0) {//erzeugt gameobjekts bei tot durch hammer
             for(int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
                 Instantiate(InvoceOnEnemyDeath[i]).transform.position = this.transform.position;
             }
@@ -240,6 +254,13 @@ public class EnemyBehavior : MonoBehaviour {
 
     void DieByExit() {
         ChangeState(EnemyState.Dead);
+        if (HealingFlag) {
+            if (InvoceOnEnemyDeath.Length != 0) {//erzeugt gameobjekts bei tot durch hammer
+                for (int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
+                    Instantiate(InvoceOnEnemyDeath[i]).transform.position = this.transform.position;
+                }
+            }
+        }
         GameManager.CameraEffectOnEnemyExit();
     }
 
