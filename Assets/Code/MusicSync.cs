@@ -5,25 +5,26 @@ using UnityEngine;
 public class MusicSync : MonoBehaviour {
 
     [SerializeField]
-    float delayToFirstBeat = 0.0f;
+    float delayToFirstBeatInFile = 0.0f;
     [SerializeField]
-    float BPM = 0.0f;
+    float delayToFirstHammerHitInGame = 0.0f;
+    [SerializeField]
+    float BPM = 0;
 
-    bool StartSuccessful = false;
-
-    public void Update() { //started das lied vom code aus gesynct mit dem hammer
-        if (!StartSuccessful) {
-            float nextBeat = GameManager.StartMusic();
-            if(nextBeat >= 0) {
-                StartSuccessful = true;
-                Invoke("Play", nextBeat + (BPM / 60 - delayToFirstBeat));
-            } 
-        }
+    public void Start() {
+        Play(delayToFirstHammerHitInGame - delayToFirstBeatInFile - GameManager.GetTime());
+        GameManager.StartBeats(60/ BPM, delayToFirstHammerHitInGame);
     }
-    private void Play() {
+
+    private void Play(float skip = 0.0f) {
         AudioSource audio = GetComponent<AudioSource>();
         if (audio) {
-            audio.Play();
+            if (skip >= 0) {
+                audio.PlayDelayed(skip);
+            } else {
+                audio.Play();
+                audio.time = -skip;
+            }
         }
     }
 }

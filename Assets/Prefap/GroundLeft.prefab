@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4776331564845264}
   - component: {fileID: 61335220913226498}
   - component: {fileID: 251231068420360978}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: GroundLeft
   m_TagString: Level
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4055465787891262}
   - component: {fileID: 212730801819795928}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

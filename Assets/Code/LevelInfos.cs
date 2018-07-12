@@ -6,8 +6,6 @@ public class LevelInfos : MonoBehaviour {
 
     [SerializeField]
     int LevelLife;
-    [SerializeField]
-    float HammerFrequenz;
     
     //meldet sich beim gamemanager an und ab
     void Start () {
@@ -19,9 +17,5 @@ public class LevelInfos : MonoBehaviour {
 
     public int GetLife() {
         return LevelLife;
-    }
-
-    public float GetHammerFrequenz() {
-        return HammerFrequenz;
     }
 }

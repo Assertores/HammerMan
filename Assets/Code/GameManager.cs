@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Diagnostics;
 
 public class GameManager : MonoBehaviour {
 
@@ -11,12 +12,23 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     bool DebugMode = false;
 
-    //===== ===== Inner Variables ===== =====
-    float LevelTimeAtStart = 0;
-    int CurrentLife = 0;
-    int EnemyCount = 0;
+    public System.Action<int> BPMUpdate;
 
-    int Scene = 0;
+    [Header("Debug Infos")]
+
+    //===== ===== Inner Variables ===== =====
+    public float LevelTimeAtStart = 0;
+    Stopwatch LevelTime = null;
+    public float BeatTimeAtStart = 0;
+    public float BeatSeconds = 0;
+    public int BeatCount = 0;
+    public int CurrentLife = 0;
+    public int EnemyCount = 0;
+    float beatTime = 0;
+
+    public int Scene = 0;
+
+    int NextLevel = 0;
 
     //===== ===== Singelton ===== =====
     public static GameManager GM = null;
@@ -34,6 +46,7 @@ public class GameManager : MonoBehaviour {
 
     //===== ===== Starting of ===== =====
     void Start() {
+        LevelTime = new Stopwatch();
         if (!StartingInLevel) {
             StartMainMenu();
         } else {
@@ -46,17 +59,24 @@ public class GameManager : MonoBehaviour {
         if (InputControler.ExitCount > 0) {//kümmert sich um exit behavior
             InputControler.PopExit();
 
-            if (Scene == 0) {
-                Application.Quit();
-            } else if (Scene <= 2) {
-                StartMainMenu();
+            if (GM.Scene == 0) {
+                StopExe();
+            } else if (GM.Scene >= 2) {
+                EndGame(false);
             } else if (Time.timeScale != 0) {
                 GM.FreezeGame();
             } else {
                 StartMainMenu();
             }
         }
-
+        //beatTime += Time.deltaTime;
+        //if (beatTime >= BeatSeconds)
+        if(GM.BPMUpdate != null && BeatSeconds != 0 && GameManager.GetTime() >= BeatTimeAtStart + BeatCount * BeatSeconds) {
+            print("test");
+            beatTime -= BeatSeconds;
+            GM.BPMUpdate(GM.BeatCount);
+            GM.BeatCount++;
+        }
     }
 
     public void StartMainMenu() {
@@ -65,17 +85,22 @@ public class GameManager : MonoBehaviour {
     }
 
     public void StartLevel(int level) {
-        GM.LevelTimeAtStart = Time.time;
+        //GM.LevelTimeAtStart = Time.time;
+        GM.LevelTime.Reset();
+        GM.LevelTime.Start();
+        LogSystem.LogOnFile("===== LevelStart =====");// ----- ----- LOG ----- -----
         GM.EnemyCount = 0;
         if (!GM.StartingInLevel) {
             switch (level) {//wählt level aus
             case 1:
-                SceneManager.LoadScene(StringCollection.SCENE01, LoadSceneMode.Single);
+                SceneManager.LoadScene(StringCollection.SCENE01);
                 break;
             default:
                 LogSystem.LogOnConsole("Level not found");// ----- ----- LOG ----- -----
                 break;
             }
+        } else {
+            level = 1;
         }
         GM.Scene = level + 2;
     }
@@ -90,8 +115,12 @@ public class GameManager : MonoBehaviour {
         GM.Scene = 2;
     }
 
+    public void StopExe() {
+        Application.Quit();
+    }
+
     //===== ===== Registration ===== =====
-    UIManager UIM = null;
+    public UIManager UIM = null;
     public static void RegistUI(UIManager handle) {
         if (GM.UIM == handle)
             GM.UIM = null;
@@ -99,17 +128,16 @@ public class GameManager : MonoBehaviour {
             GM.UIM = handle;
     }
 
-    PlayerMovment PM = null;
+    public PlayerMovment PM = null;
     public static void RegistPlayer(PlayerMovment handle) {
         LogSystem.LogOnConsole("GameManager got: " + handle);// ----- ----- LOG ----- -----
-        //LogSystem.LogOnConsole("GameManager is: " + GM.name);// ----- ----- LOG ----- -----
         if (GM.PM == handle)
             GM.PM = null;
         else
             GM.PM = handle;
     }
 
-    CameraShake CS = null;
+    public CameraShake CS = null;
     public static void RegistCamera(CameraShake handle) {
         if (GM.CS == handle)
             GM.CS = null;
@@ -117,7 +145,7 @@ public class GameManager : MonoBehaviour {
             GM.CS = handle;
     }
 
-    LevelInfos LI = null;
+    public LevelInfos LI = null;
     public static void RegistLvlInfos(LevelInfos handle) {
         if (GM.LI == handle)
             GM.LI = null;
@@ -135,6 +163,7 @@ public class GameManager : MonoBehaviour {
             return false;
         }
         GM.EnemyCount += count;
+        LogSystem.LogOnFile("now the enemycount is " + GM.EnemyCount.ToString());// ----- ----- LOG ----- -----
         if (GM.LI == null) {
             LogSystem.LogOnConsole("no Level Infos available");// ----- ----- LOG ----- -----
             return false;
@@ -148,12 +177,8 @@ public class GameManager : MonoBehaviour {
             return true;
         }
         if (GM.EnemyCount <= 0) {
-            GM.StartMainMenu();
+            EndGame(true);
             return true;
-        }
-        if (GM.UIM != null) {
-            GM.UIM.UpdateLife(GM.CurrentLife / (float)GM.LI.GetLife());
-            GM.UIM.UpdateEnemyCount(GM.EnemyCount);
         }
         return true;
     }
@@ -213,39 +238,61 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
-    //===== ===== Library ===== =====
-    public static void EndGame() {
-        GM.StartGameOver();
-    }
-    public static float GetTime() {
-        return Time.time - GM.LevelTimeAtStart;
+    public static void StartBeats(float beats, float nullTime) { //beats = abstand zweiter beats in secunden, nullTime = zeitpunkt des nullten beats abLeveltime
+        GM.BeatSeconds = beats;
+        GM.BeatCount = -(int)(nullTime/beats);
+        GM.BeatTimeAtStart = GameManager.GetTime() + nullTime;
+        print("lets go:" + (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds));
+        GM.beatTime = GM.BeatSeconds - (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds);
+        //GM.StartCoroutine(GM.TriggerBPMUpdate());
+        //GM.Invoke("TriggerBPMUpdate", (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time);
     }
 
-    public static float GetHammerTime() {
-        if(GM.LI == null) {
-            LogSystem.LogOnConsole("no Level Infos available");// ----- ----- LOG ----- -----
-            return -1;
+    //===== ===== Library ===== =====
+
+    public static void EndGame(bool won = false) {
+        GM.LevelTime.Stop();
+        GM.BeatTimeAtStart = 0;
+        GM.BeatSeconds = 0;
+        GM.BeatCount = 0;
+        if (won) {
+            LogSystem.LogOnFile("===== Game Won =====");// ----- ----- LOG ----- -----
+            GM.NextLevel = GM.Scene - 1;
+            GM.StartMainMenu();
+        } else {
+            LogSystem.LogOnFile("===== Game failed =====");// ----- ----- LOG ----- -----
+            GM.NextLevel = GM.Scene - 2;
+            GM.StartGameOver();
         }
-        return (Time.time - GM.LevelTimeAtStart) / GM.LI.GetHammerFrequenz();
+        GM.CurrentLife = 0;
+        GM.EnemyCount = 0;
+        //GM.CancelInvoke("TriggerBPMUpdate");
+    }
+    public static float GetTime() {
+        //print(GM.LevelTime.ElapsedMilliseconds);
+        return (float)GM.LevelTime.ElapsedMilliseconds/1000;
+        //return Time.time - GM.LevelTimeAtStart;
+    }
+
+    public static float GetBeatSeconds() {
+        return GM.BeatSeconds;
     }
 
     public static bool GetDebugMode() {
         return GM.DebugMode;
     }
 
+    public static int GetNextLevel() {
+        return GM.NextLevel;
+    }
+
     public void FreezeGame() {
         if (Time.timeScale != 0) {
             Time.timeScale = 0;
+            //TODO: find alle audiosorces and pause them
         } else {
             Time.timeScale = 1;
+            //TODO: find all audiosorces and unpause them
         }
-    }
-
-    public static float StartMusic() {
-        if (GM.LI == null) {
-            LogSystem.LogOnConsole("no Level Infos available");// ----- ----- LOG ----- -----
-            return -1;
-        }
-        return (GetHammerTime() % 1) * GM.LI.GetHammerFrequenz();
     }
 }

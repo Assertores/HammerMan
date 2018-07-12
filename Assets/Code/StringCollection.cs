@@ -19,6 +19,7 @@ public class StringCollection {
     public const string LEVEL = "Level";
     public const string LADDER = "Ladder";
     public const string HAMMER = "Hammer";
+    public const string TRAP = "Trap";
     public const string EXIT = "Exit";
     public const string UI = "UI";
 

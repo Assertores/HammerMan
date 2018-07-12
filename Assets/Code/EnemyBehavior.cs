@@ -4,9 +4,13 @@ using UnityEngine;
 
 public enum EnemyState {
     Moving,
-    Falling
+    Falling,
+    Dead
 }
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(AudioSource))]
 public class EnemyBehavior : MonoBehaviour {
 
     [Header("Death")]
@@ -16,8 +20,10 @@ public class EnemyBehavior : MonoBehaviour {
     AudioClip[] DeathSound;
     [SerializeField]
     GameObject[] InvoceOnEnemyDeath;
-    [SerializeField]
     [Header("Generel")]
+    [SerializeField]
+    string Name;
+    [SerializeField]
     [Tooltip("0 = boath direktion, 1 only front, 2 = only back")]
     int AbleToHitFrom = 0;
     [SerializeField]
@@ -28,6 +34,9 @@ public class EnemyBehavior : MonoBehaviour {
     float TurningDistance = 10;
     [SerializeField]
     float Invulnerable = 1; //time
+    [SerializeField]
+    [Tooltip("the travel distance per animation loop in unity units")]
+    float DistancePerLoop = 1;
     public LayerMask ChangeDirectionAt;
 
     Rigidbody2D rb;
@@ -36,6 +45,7 @@ public class EnemyBehavior : MonoBehaviour {
     public bool DirRight = true;
 
     void Start() {
+        LogSystem.LogOnFile(Name + " Enemy got spawned");// ----- ----- LOG ----- -----
         GameManager.ChangeEnemyCount(1);
         Invulnerable += GameManager.GetTime();
         rb = GetComponent<Rigidbody2D>();
@@ -47,8 +57,15 @@ public class EnemyBehavior : MonoBehaviour {
         if (!DirRight) {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
+
+        Animator anim = GetComponentInChildren<Animator>();
+        if (!anim) {
+            throw new System.Exception("No Animation. Enemy");
+        }
+        anim.speed = anim.GetCurrentAnimatorStateInfo(0).length / (DistancePerLoop / EnemySpeed);
     }
     private void OnDestroy() {
+        LogSystem.LogOnFile(Name + " Enemy died");// ----- ----- LOG ----- -----
         GameManager.ChangeEnemyCount(-1);
     }
 
@@ -72,14 +89,13 @@ public class EnemyBehavior : MonoBehaviour {
         //umdrehen?
         RaycastHit2D hit = Physics2D.Raycast(new Vector3(this.transform.position.x + (DirRight ? 0.6f : -0.6f), this.transform.position.y, this.transform.position.z),
                                                 this.transform.right * rb.velocity.x, TurningDistance - 0.6f, ChangeDirectionAt);
-
-        if (hit.collider != null)
-        {
-            ChangeDir(!DirRight);
-        }
+        
         switch (State) { //finite state machine: während diesem state
         case EnemyState.Moving:
-                rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
+            rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
+            if (hit.collider != null) {
+                ChangeDir(!DirRight);
+            }
             break;
         case EnemyState.Falling:
             break;
@@ -111,10 +127,33 @@ public class EnemyBehavior : MonoBehaviour {
         case EnemyState.Falling:
             ChangeDir(Random.value > 0.5f);
             break;
+        case EnemyState.Dead:
+            rb.bodyType = RigidbodyType2D.Static;
+            GetComponent<BoxCollider2D>().enabled = false;
+
+            //animator auf death animation wechseln
+            Animator anim = GetComponentInChildren<Animator>();
+            if (anim) {
+                anim.SetBool("Dead", true);
+            }
+
+            int temp = Random.Range(0, DeathSound.Length); //welcher sound soll für den tod verwendet werden
+            if (DeathSound.Length != 0) {//fügt audioclip hinzu
+                AudioSource audio = GetComponent<AudioSource>();
+                audio.clip = DeathSound[temp];
+                GameManager.GM.BPMUpdate += Play;
+            }
+            GameObject.Destroy(this.transform.gameObject, 1.0f);
+            break;
         default:
             StateMachine_EnterState01();
             break;
         }
+    }
+
+    void Play(int i) {
+        GetComponent<AudioSource>().Play();
+        GameManager.GM.BPMUpdate -= Play;
     }
 
     //----- ----- für vererbung ----- -----
@@ -150,33 +189,58 @@ public class EnemyBehavior : MonoBehaviour {
             col.GetComponent<ExitControler>().Hit(EnemyDamageOnExit); //macht ausgang kaputt
             DieByExit();
             break;
+        case StringCollection.TRAP:
+            if (Invulnerable < GameManager.GetTime()) {//wenn nichtmehr unverwundbar
+                DieByTrap();
+            }
+            break;
         default:
             break;
         }
     }
 
-    void DieByHammer() {
+    void DieByTrap() {
+        ChangeState(EnemyState.Dead);
+        /*
         int temp = Random.Range(0, DeathSound.Length); //welcher sound soll für den tod verwendet werden
-        GameManager.CameraEffectOnEnemyDeath();
         GameObject Die = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation); //macht partikel
-        if(DeathSound.Length != 0)//fügt audioclip hinzu
+        if (DeathSound.Length != 0)//fügt audioclip hinzu
             Die.GetComponent<AudioSource>().clip = DeathSound[temp];
+        if (Die.GetComponent<ParticleKiller>() == null) {
+            print("ParticalKillerScript kann nicht gefunden werden.");
+        } else {
+            Die.GetComponent<ParticleKiller>().PlayStart(); //started partikel und audio
+        }*/
+        if (InvoceOnEnemyDeath.Length != 0) {//erzeugt gameobjekts bei tot
+            for (int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
+                Instantiate(InvoceOnEnemyDeath[i]).transform.position = this.transform.position;
+            }
+        }
+    }
+
+    void DieByHammer() {
+        ChangeState(EnemyState.Dead);
+        GameManager.CameraEffectOnEnemyDeath();
+        /*
+        
+        
+        GameObject Die = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation); //macht partikel
+        
         if(Die.GetComponent<ParticleKiller>() == null) {
             print("ParticalKillerScript kann nicht gefunden werden.");
         } else {
             Die.GetComponent<ParticleKiller>().PlayStart(); //started partikel und audio
-        }
-        if (InvoceOnEnemyDeath.Length != 0) {//macht gameobjekts bei tot durch hammer
+        }*/
+        if (InvoceOnEnemyDeath.Length != 0) {//erzeugt gameobjekts bei tot durch hammer
             for(int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
                 Instantiate(InvoceOnEnemyDeath[i]).transform.position = this.transform.position;
             }
         }
-        GameObject.Destroy(this.transform.gameObject);
     }
 
     void DieByExit() {
+        ChangeState(EnemyState.Dead);
         GameManager.CameraEffectOnEnemyExit();
-        GameObject.Destroy(this.transform.gameObject);
     }
 
     void ChangeDir(bool right) { //kümmert sich ums umdrehen

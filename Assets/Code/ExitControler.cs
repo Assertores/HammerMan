@@ -17,6 +17,8 @@ public class ExitControler : MonoBehaviour {
 
     public void Hit(int hit) { //wird von gegnern aufgerufen, wenn sie die tür berühren
         Life -= hit;
+        if (Life > maxLife)
+            Life = maxLife;
         if(Life <= 0) {
             GameManager.EndGame();
         }

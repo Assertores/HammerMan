@@ -16,24 +16,44 @@ public class HammerManager : MonoBehaviour {
     bool DoHammer = true;
 
     BoxCollider2D HammerCol;
+    new AudioSource audio;
     
     void Start () {
         HammerCol = GetComponent<BoxCollider2D>();
         if (!HammerCol) {
             throw new System.Exception("Hammer Collider not found. Hammer");
         }
-    }
-	
-	void Update () {
-        if (DoHammer) {
-            float time = GameManager.GetHammerTime() % 1;//mach zeit zwischen den beats
-            if (time > HammerOnBeginning && time < HammerOnEnd) {
-                HammerCol.enabled = true;
-            } else if (HammerCol.enabled == true) {
-                HammerCol.enabled = false;
-            }
+        HammerCol.enabled = false;
+        audio = GetComponent<AudioSource>();
+        if (!audio) {
+            throw new System.Exception("Audio Sorce not found. Hammer");
         }
-	}
+
+        GameManager.GM.BPMUpdate += BPMUpdate;
+    }
+    
+    void OnDestroy() {
+        GameManager.GM.BPMUpdate -= BPMUpdate;
+        CancelInvoke();
+    }
+
+    void BPMUpdate(int count) {
+        if(count >= 0) {
+            if(audio)
+                audio.Play();
+            Invoke("DoHammerOn", HammerOnBeginning * GameManager.GetBeatSeconds());
+            Invoke("DoHammerOff", HammerOnEnd * GameManager.GetBeatSeconds());
+        }
+    }
+
+    void DoHammerOn() {
+        if (DoHammer)
+            HammerCol.enabled = true;
+    }
+
+    void DoHammerOff() {
+        HammerCol.enabled = false;
+    }
 
     public void SetHammer(bool on) { //wird vom spieler aufgerufen
         DoHammer = on;
