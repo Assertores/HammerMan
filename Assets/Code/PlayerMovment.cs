@@ -66,13 +66,20 @@ public class PlayerMovment : MonoBehaviour {
         }
 
         //onBeatTrigger = anim.GetInteger("OnBeat");
-        anim.speed = anim.GetCurrentAnimatorStateInfo(0).length / (GameManager.GetBeatSeconds()*2);//jeden zweiten beat
+        //anim.GetCurrentAnimatorClipInfo(0)[Animator.StringToHash("idle")].clip.length / (GameManager.GetBeatSeconds() * 2)
+        //setzt den speed der animation des states "Idle" sodass es zum beat passt
+        //jeden zweiten beat
         GameManager.GM.BPMUpdate += BPMUpdate;
     }
 
     void BPMUpdate(int i) {
         if(i%2 == 0)//jeden zweiten beat
             anim.SetTrigger("OnBeat");
+        if(i == -20) {
+            anim.SetFloat("IdleSpeed", 1 / (GameManager.GetBeatSeconds() * 1));
+            anim.SetFloat("MovingSpeed", 1 / (GameManager.GetBeatSeconds() * 1));
+        }
+        
         //anim.Play(anim.GetCurrentAnimatorStateInfo(0).fullPathHash);
         //GameManager.GM.BPMUpdate -= StartAnim;
     }
@@ -197,6 +204,7 @@ public class PlayerMovment : MonoBehaviour {
         anim.SetInteger("PrevState", (int)State);
         State = newState;
         anim.SetInteger("State", (int)State);
+
 
         switch (State) { //finite state machine: bei betreten des states
         case PlayerState.Idle:

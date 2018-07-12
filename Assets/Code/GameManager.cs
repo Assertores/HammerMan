@@ -20,11 +20,11 @@ public class GameManager : MonoBehaviour {
     public float LevelTimeAtStart = 0;
     Stopwatch LevelTime = null;
     public float BeatTimeAtStart = 0;
-    public float BeatSeconds = 0;
+    public double BeatSeconds = 0;
     public int BeatCount = 0;
     public int CurrentLife = 0;
     public int EnemyCount = 0;
-    float beatTime = 0;
+    double beatTime = 0;
 
     public int Scene = 0;
 
@@ -250,14 +250,6 @@ public class GameManager : MonoBehaviour {
     }
 
     //===== ===== Library ===== =====
-    private IEnumerator TriggerBPMUpdate() {
-        print("BPM: " + GM.BeatCount);
-        GM.BPMUpdate(GM.BeatCount);
-        GM.BeatCount++;
-        yield return new WaitForSeconds((GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time);
-        if(Scene > 2)
-            StartCoroutine(TriggerBPMUpdate());
-    }
 
     public static void EndGame(bool won = false) {
         if (won) {
@@ -277,7 +269,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public static float GetBeatSeconds() {
-        return GM.BeatSeconds;
+        return (float)GM.BeatSeconds;
     }
 
     public static bool GetDebugMode() {
