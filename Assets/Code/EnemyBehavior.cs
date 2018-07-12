@@ -13,6 +13,8 @@ public enum EnemyState {
 [RequireComponent(typeof(AudioSource))]
 public class EnemyBehavior : MonoBehaviour {
 
+    public bool HealingFlag { get; private set; }
+
     [Header("Death")]
     [SerializeField]
     GameObject EnemyDieParticle;
@@ -52,6 +54,12 @@ public class EnemyBehavior : MonoBehaviour {
         if (!rb) {
             throw new System.Exception("Rigitbody not found. Enemy");
         }
+
+        if (EnemyDamageOnExit < 0)
+            HealingFlag = true;
+        else
+            HealingFlag = false;
+
         //randam direction
         DirRight = (Random.value > 0.5f);
         if (!DirRight) {

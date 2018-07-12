@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class Boxen : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col) {
-        Destroy(this.gameObject);
+        if(col.transform.gameObject.tag == StringCollection.EXIT && !col.gameObject.GetComponent<EnemyBehavior>().HealingFlag)
+            Destroy(this.gameObject);
     }
 }

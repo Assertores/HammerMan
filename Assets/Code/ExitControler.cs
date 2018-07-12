@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class ExitControler : MonoBehaviour {
 
     /*[SerializeField]
@@ -26,6 +27,7 @@ public class ExitControler : MonoBehaviour {
     }*/
 
     void OnCollisionEnter2D(Collision2D col) {
-        GameManager.EndGame();
+        if (col.transform.gameObject.tag == StringCollection.EXIT && !col.gameObject.GetComponent<EnemyBehavior>().HealingFlag)
+            GameManager.EndGame();
     }
 }
