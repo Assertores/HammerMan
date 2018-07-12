@@ -272,7 +272,7 @@ MonoBehaviour:
   EnemyDamageOnExit: 1
   TurningDistance: 0.6
   Invulnerable: 1
-  DistancePerLoop: 0.25
+  DistancePerLoop: 1
   ChangeDirectionAt:
     serializedVersion: 2
     m_Bits: 2147486720
