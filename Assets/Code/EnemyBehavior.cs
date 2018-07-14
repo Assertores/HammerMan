@@ -4,10 +4,16 @@ using UnityEngine;
 
 public enum EnemyState {
     Moving,
-    Falling
+    Falling,
+    Dead
 }
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(AudioSource))]
 public class EnemyBehavior : MonoBehaviour {
+
+    public bool HealingFlag { get; private set; }
 
     [Header("Death")]
     [SerializeField]
@@ -16,10 +22,12 @@ public class EnemyBehavior : MonoBehaviour {
     AudioClip[] DeathSound;
     [SerializeField]
     GameObject[] InvoceOnEnemyDeath;
+    [Header("Generel")]
+    [SerializeField]
+    string Name;
     [SerializeField]
     [Tooltip("0 = boath direktion, 1 only front, 2 = only back")]
     int AbleToHitFrom = 0;
-    [Header("Generel")]
     [SerializeField]
     float EnemySpeed = 10;
     [SerializeField]
@@ -27,17 +35,19 @@ public class EnemyBehavior : MonoBehaviour {
     [SerializeField]
     float TurningDistance = 10;
     [SerializeField]
-    float Invulnerable = 1;
+    float Invulnerable = 1; //time
+    [SerializeField]
+    [Tooltip("the travel distance per animation loop in unity units")]
+    float DistancePerLoop = 1;
     public LayerMask ChangeDirectionAt;
-    public LayerMask FallLayers;
 
     Rigidbody2D rb;
 
     public EnemyState State = EnemyState.Moving;
     public bool DirRight = true;
-    float DistToGround = 0.0f;
 
     void Start() {
+        LogSystem.LogOnFile(Name + " Enemy got spawned");// ----- ----- LOG ----- -----
         GameManager.ChangeEnemyCount(1);
         Invulnerable += GameManager.GetTime();
         rb = GetComponent<Rigidbody2D>();
@@ -45,20 +55,31 @@ public class EnemyBehavior : MonoBehaviour {
             throw new System.Exception("Rigitbody not found. Enemy");
         }
 
+        if (EnemyDamageOnExit < 0)
+            HealingFlag = true;
+        else
+            HealingFlag = false;
+
+        //randam direction
         DirRight = (Random.value > 0.5f);
         if (!DirRight) {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
+
+        Animator anim = GetComponentInChildren<Animator>();
+        if (!anim) {
+            throw new System.Exception("No Animation. Enemy");
+        }
+        anim.speed = anim.GetCurrentAnimatorStateInfo(0).length / (DistancePerLoop / EnemySpeed);
+    }
+    private void OnDestroy() {
+        LogSystem.LogOnFile(Name + " Enemy died");// ----- ----- LOG ----- -----
+        GameManager.ChangeEnemyCount(-1);
     }
 
-    void Update() {
-
-        //DistToGround = Physics2D.Raycast(this.transform.position, -this.transform.up, 1000, FallLayers).distance;
-        //LogSystem.LogOnConsole(State.ToString());// ----- ----- LOG ----- -----
+    void Update() { //finite state machine: übergänge von states
         switch (State) {
         case EnemyState.Moving:
-            /*if (DistToGround > 0.5f)//triggert zu früh
-                ChangeState(EnemyState.Falling);*/
             if (rb.velocity.y < -1.5f)
                 ChangeState(EnemyState.Falling);
             break;
@@ -73,16 +94,16 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     private void FixedUpdate() {
+        //umdrehen?
         RaycastHit2D hit = Physics2D.Raycast(new Vector3(this.transform.position.x + (DirRight ? 0.6f : -0.6f), this.transform.position.y, this.transform.position.z),
                                                 this.transform.right * rb.velocity.x, TurningDistance - 0.6f, ChangeDirectionAt);
-
-        if (hit.collider != null)
-        {
-            ChangeDir(!DirRight);
-        }
-        switch (State) {
+        
+        switch (State) { //finite state machine: während diesem state
         case EnemyState.Moving:
-                rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
+            rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
+            if (hit.collider != null) {
+                ChangeDir(!DirRight);
+            }
             break;
         case EnemyState.Falling:
             break;
@@ -93,10 +114,10 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     void ChangeState(EnemyState newState) {
-        if (State == newState)
+        if (State == newState) //stellt sicher, dass es einen übergang giebt
             return;
 
-        switch (State) {
+        switch (State) { //finite state machine: bei verlassen des states
         case EnemyState.Moving:
             break;
         case EnemyState.Falling:
@@ -108,11 +129,29 @@ public class EnemyBehavior : MonoBehaviour {
 
         State = newState;
 
-        switch (State) {
+        switch (State) { //finite state machine: bei betreten des states
         case EnemyState.Moving:
             break;
         case EnemyState.Falling:
             ChangeDir(Random.value > 0.5f);
+            break;
+        case EnemyState.Dead:
+            rb.bodyType = RigidbodyType2D.Static;
+            GetComponent<BoxCollider2D>().enabled = false;
+
+            //animator auf death animation wechseln
+            Animator anim = GetComponentInChildren<Animator>();
+            if (anim) {
+                anim.SetBool("Dead", true);
+            }
+
+            int temp = Random.Range(0, DeathSound.Length); //welcher sound soll für den tod verwendet werden
+            if (DeathSound.Length != 0) {//fügt audioclip hinzu
+                AudioSource audio = GetComponent<AudioSource>();
+                audio.clip = DeathSound[temp];
+                GameManager.GM.BPMUpdate += Play;
+            }
+            GameObject.Destroy(this.transform.gameObject, 1.0f);
             break;
         default:
             StateMachine_EnterState01();
@@ -120,6 +159,12 @@ public class EnemyBehavior : MonoBehaviour {
         }
     }
 
+    void Play(int i) {
+        GetComponent<AudioSource>().Play();
+        GameManager.GM.BPMUpdate -= Play;
+    }
+
+    //----- ----- für vererbung ----- -----
     void StateMachine_Transition01() {
 
     }
@@ -138,9 +183,9 @@ public class EnemyBehavior : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D col) {
         switch (col.transform.gameObject.tag) {
-        case StringCollection.HAMMER:
-            if(Invulnerable < GameManager.GetTime()) {
-                float dist = GameManager.GetPlayerPosition().x - this.transform.position.x;
+        case StringCollection.HAMMER://wenn mit hammer kolidiert
+            if(Invulnerable < GameManager.GetTime()) {//wenn nichtmehr unverwundbar
+                float dist = GameManager.GetPlayerPosition().x - this.transform.position.x; //für nur von einer seite aus tötbar
                 if (!DirRight)
                     dist *= -1;
                 if (AbleToHitFrom == 0 || (AbleToHitFrom == 1 && dist > 0) || (AbleToHitFrom == 2 && dist < 0)) {
@@ -148,42 +193,78 @@ public class EnemyBehavior : MonoBehaviour {
                 }
             }
             break;
-        case StringCollection.EXIT:
-            col.GetComponent<ExitControler>().Hit(EnemyDamageOnExit);
+        case StringCollection.EXIT://wen nach drausen leuft
+            //col.GetComponent<ExitControler>().Hit(EnemyDamageOnExit); //macht ausgang kaputt
             DieByExit();
+            break;
+        case StringCollection.TRAP:
+            if (Invulnerable < GameManager.GetTime()) {//wenn nichtmehr unverwundbar
+                DieByTrap();
+            }
             break;
         default:
             break;
         }
     }
 
-    void DieByHammer() {
-        int temp = Random.Range(0, DeathSound.Length);
-        GameManager.CameraEffectOnEnemyDeath();
-        GameObject Die = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation);
-        if(DeathSound.Length != 0)
+    void OnCollisionEnter2D(Collision2D col) {
+        if(col.transform.gameObject.tag == StringCollection.EXIT) {
+            DieByExit();
+        }
+    }
+
+    void DieByTrap() {
+        ChangeState(EnemyState.Dead);
+        /*
+        int temp = Random.Range(0, DeathSound.Length); //welcher sound soll für den tod verwendet werden
+        GameObject Die = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation); //macht partikel
+        if (DeathSound.Length != 0)//fügt audioclip hinzu
             Die.GetComponent<AudioSource>().clip = DeathSound[temp];
+        if (Die.GetComponent<ParticleKiller>() == null) {
+            print("ParticalKillerScript kann nicht gefunden werden.");
+        } else {
+            Die.GetComponent<ParticleKiller>().PlayStart(); //started partikel und audio
+        }*/
+        if (!HealingFlag && InvoceOnEnemyDeath.Length != 0) {//erzeugt gameobjekts bei tot
+            for (int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
+                Instantiate(InvoceOnEnemyDeath[i]).transform.position = this.transform.position;
+            }
+        }
+    }
+
+    void DieByHammer() {
+        ChangeState(EnemyState.Dead);
+        GameManager.CameraEffectOnEnemyDeath();
+        /*
+        
+        
+        GameObject Die = Instantiate(EnemyDieParticle, this.transform.position, this.transform.rotation); //macht partikel
+        
         if(Die.GetComponent<ParticleKiller>() == null) {
             print("ParticalKillerScript kann nicht gefunden werden.");
         } else {
-            Die.GetComponent<ParticleKiller>().PlayStart();
-        }
-        if (InvoceOnEnemyDeath.Length != 0) {
+            Die.GetComponent<ParticleKiller>().PlayStart(); //started partikel und audio
+        }*/
+        if (!HealingFlag && InvoceOnEnemyDeath.Length != 0) {//erzeugt gameobjekts bei tot durch hammer
             for(int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
                 Instantiate(InvoceOnEnemyDeath[i]).transform.position = this.transform.position;
             }
         }
-        GameManager.ChangeEnemyCount(-1);
-        GameObject.Destroy(this.transform.gameObject);
     }
 
     void DieByExit() {
+        ChangeState(EnemyState.Dead);
+        if (HealingFlag) {
+            if (InvoceOnEnemyDeath.Length != 0) {//erzeugt gameobjekts bei tot durch hammer
+                for (int i = 0; i < InvoceOnEnemyDeath.Length; i++) {
+                    Instantiate(InvoceOnEnemyDeath[i]).transform.position = this.transform.position;
+                }
+            }
+        }
         GameManager.CameraEffectOnEnemyExit();
-        GameManager.ChangeEnemyCount(-1);
-        GameObject.Destroy(this.transform.gameObject);
     }
 
-    void ChangeDir(bool right) {
+    void ChangeDir(bool right) { //kümmert sich ums umdrehen
         if (right != DirRight) {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }

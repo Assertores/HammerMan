@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputControler : MonoBehaviour {
+public class InputControler : MonoBehaviour {//liest input aus und macht ihn global verfügbar
 
     public static float Horizontal { get; private set; }
     public static float Vertical { get; private set; }
     float LastVertical = 0.0f;
     public static bool Up { get; private set; }
     public static int DownCount { get; private set; }
-    bool DownCountOn = false;
     public bool Down { get; private set; }
     public static int ExitCount { get; private set; }
-    bool ExitCountOn = false;
     public static bool Jump { get; private set; }
 
     private void Awake() {
@@ -26,6 +24,7 @@ public class InputControler : MonoBehaviour {
     }
 
     void Update () {
+        //code
         Horizontal = Input.GetAxis(StringCollection.HORIZONTAL);
         Vertical = Input.GetAxis(StringCollection.VERTICAL);
         if((Vertical > 0 && LastVertical < Vertical) || Vertical == 1) {
@@ -41,36 +40,22 @@ public class InputControler : MonoBehaviour {
                 DownCount++;
             }
         } else {
-            if (Down)
+            if (Down) {
                 Down = false;
+            }
         }
         LastVertical = Vertical;
 
-        if (Input.GetAxis(StringCollection.JUMP) > 0) {
-            if(!Jump)
-                Jump = true;
-        }else if (Jump) {
-            Jump = false;
+        Jump = Input.GetButton(StringCollection.JUMP);
+
+        if (Input.GetButtonDown(StringCollection.CROUCH)) {
+            DownCount++;
         }
 
-        if(Input.GetAxis(StringCollection.CROUCH) > 0) {
-            if (!DownCountOn) {
-                DownCountOn = true;
-                DownCount++;
-            }
-        }else if (DownCountOn) {
-            DownCountOn = false;
+        if (Input.GetButtonDown(StringCollection.CANCEL)) {
+            ExitCount++;
         }
-
-        if(Input.GetAxis(StringCollection.CANCEL) > 0) {
-            if (!ExitCountOn) {
-                ExitCountOn = true;
-                ExitCount++;
-            }else if (ExitCountOn) {
-                ExitCountOn = false;
-            }
-        }
-	}
+    }
 
     public static void ChangeDown(int i) {
         DownCount += i;

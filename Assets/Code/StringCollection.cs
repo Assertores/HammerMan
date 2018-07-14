@@ -12,14 +12,17 @@ public class StringCollection {
     public const string CANCEL = "Cancel";
     public const string JUMP = "Jump";
     public const string CROUCH = "Crouch";
+
     //TAGS
     public const string PLAYER = "Player";
     public const string ENEMY = "Enemy";
     public const string LEVEL = "Level";
     public const string LADDER = "Ladder";
     public const string HAMMER = "Hammer";
+    public const string TRAP = "Trap";
     public const string EXIT = "Exit";
     public const string UI = "UI";
+
     //Sceens
     public const string MAINMENU = "MainMenu";
     public const string GAMEOVER = "GameOver";

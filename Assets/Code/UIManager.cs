@@ -3,36 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour {
+public class UIManager : MonoBehaviour {//ist veralltet wird nicht mehr verwendet
 
     [SerializeField]
-    Image Life;
-    [SerializeField]
-    Text Enemy;
+    Text Timer;
 
     private void OnDestroy() {
         GameManager.RegistUI(this);
     }
-
-    // Use this for initialization
+    
     void Start () {
-        if (!Life) {
-            throw new System.Exception("Life Image not assinght. UI");
-        }
-        if (!Enemy) {
+        if (!Timer) {
             throw new System.Exception("Enemy text not assinght. UI");
         }
         GameManager.RegistUI(this);
-        Life.fillAmount = 1.0f;
-	}
-	
-	// Update is called once per frame
-	public void UpdateLife (float LifeRatio) {
-        Life.fillAmount = LifeRatio;
 	}
 
-    public void UpdateEnemyCount(int EnemyCount) {
-        Enemy.text = EnemyCount.ToString();
+    void Update () {
+        float time = GameManager.GetTime();
+        Timer.text = ((int)(time/60)).ToString("D2") + ":" + ((int)time%60).ToString("D2") + ":" + ((int)(time*100)%100).ToString("D2");
     }
-
 }

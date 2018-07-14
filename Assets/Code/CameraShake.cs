@@ -5,17 +5,19 @@ using UnityEngine;
 public class CameraShake : MonoBehaviour {
 
     [SerializeField]
-    GameObject Position = null;
-    float ShakeY = 0.8f;
-    float ShakeYSpeed = 0.8f;
+    GameObject Position = null; //standardposition
+    float ShakeY = 0.8f; //max magnitude am anfang
+    float ShakeYSpeed = 0.8f; // wie schnell die magnitude abnehmen soll
+    bool dirY = true; //richtung des camera shakes
+    float stopShaking = 0; //zu welcher zeit er aufhöhren soll zu shaken
+
+    //globale varialben
     Vector3 initialPosition;
     bool shakeIt = false;
-    float stopShaking = 0;
-    bool dirY = true;
 
     private void Start() {
         GameManager.RegistCamera(this);
-
+        //setzt die position
         if (Position == null)
             initialPosition = transform.position;
         else
@@ -28,18 +30,18 @@ public class CameraShake : MonoBehaviour {
     private void Update() {
         if (shakeIt) {
             Vector3 _newPosition;
-            if (dirY) {
+            if (dirY) { //entscheidet die richtung
                 _newPosition = new Vector3(0, ShakeY, 0);
             } else {
                 _newPosition = new Vector3(ShakeY, 0, 0);
             }
             
-            if (ShakeY < 0) {
+            if (ShakeY < 0) { //rechnet wert für nächstes Update
                 ShakeY *= ShakeYSpeed;
             }
             ShakeY = -ShakeY;
             transform.Translate(_newPosition, Space.Self);
-            if (GameManager.GetTime() >= stopShaking)
+            if (GameManager.GetTime() >= stopShaking) //wenn es am ende angekommen ist.
                 StopShaking();
         }
     }

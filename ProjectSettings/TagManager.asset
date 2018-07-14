@@ -11,6 +11,7 @@ TagManager:
   - Exit
   - UI
   - Wall
+  - Trap
   layers:
   - Default
   - TransparentFX
@@ -20,9 +21,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - TerrainGround
+  - Background
   - TerrainSprite
+  - TerrainGround
   - Enemy
   - Player
   - Furniture

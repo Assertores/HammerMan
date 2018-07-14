@@ -18,19 +18,25 @@ public class FurnitureBehavior : MonoBehaviour {
         }
 	}
 	
-	void Update () {
+	void Update () {//macht dass der stuff nicht mehr berechnet wird wenn er auf dem boden liegt
 		if(!resolfed && destroyed && rb.velocity.magnitude <= 0) {
             rb.bodyType = RigidbodyType2D.Static;
             resolfed = true;
         }
 	}
 
-    private void OnTriggerEnter2D(Collider2D col) {
+    private void OnTriggerEnter2D(Collider2D col) { //started die animation
         LogSystem.LogOnConsole("some kollision has acurded");// ----- ----- LOG ----- -----
         if (!destroyed && col.transform.gameObject.tag == StringCollection.HAMMER) {
-            LogSystem.LogOnConsole("furiture got hit");// ----- ----- LOG ----- -----
-            rb.velocity = new Vector2(Random.Range(-2f, 2f), Random.Range(7.0f, 10.0f));
-            destroyed = true;
+            GameManager.GM.BPMUpdate += Throw;
         }
+    }
+
+    void Throw(int i) {
+        LogSystem.LogOnConsole("furiture got hit");// ----- ----- LOG ----- -----
+        rb.velocity = new Vector2(Random.Range(-2f, 2f), Random.Range(7.0f, 10.0f));
+        rb.angularVelocity = Random.Range(-500f, 500f);
+        destroyed = true;
+        GameManager.GM.BPMUpdate -= Throw;
     }
 }
