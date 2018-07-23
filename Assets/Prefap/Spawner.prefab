@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4651663534908124}
   - component: {fileID: 61484014238186522}
   - component: {fileID: 114100635604056726}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 4748057411195298}
   - component: {fileID: 212526604502501446}
   - component: {fileID: 95906758315802522}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1144896226500246}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -36, y: 13, z: 0}
+  m_LocalPosition: {x: -34.75, y: 18.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4748057411195298}
@@ -172,10 +172,10 @@ MonoBehaviour:
   - Creap: {fileID: 1720267005446818, guid: d96b0e860e9793c44844fd85d2c48864, type: 2}
     Ratio: 1
   SpawnRate: 2
-  WaveLength: 6
+  WaveLength: 4
   GapLength: 1
   Factor: 1
-  MaximumGapLength: 3
+  MaximumGapLength: 4
   UseFunction: 1
 --- !u!114 &114391370730204666
 MonoBehaviour:
