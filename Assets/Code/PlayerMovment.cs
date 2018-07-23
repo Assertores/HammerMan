@@ -59,7 +59,7 @@ public class PlayerMovment : MonoBehaviour {
 
         animState = GetComponent<AnimationMashine>();
         if (!animState) {
-            throw new System.Exception("Animation Machine not found. Player");
+            GameManager.GM.BPMUpdate += BPMUpdate;
         }
 
         oldGravityScale = rb.gravityScale;
@@ -75,7 +75,7 @@ public class PlayerMovment : MonoBehaviour {
         //anim.GetCurrentAnimatorClipInfo(0)[Animator.StringToHash("idle")].clip.length / (GameManager.GetBeatSeconds() * 2)
         //setzt den speed der animation des states "Idle" sodass es zum beat passt
         //jeden zweiten beat
-        GameManager.GM.BPMUpdate += BPMUpdate;
+        
     }
 
     void BPMUpdate(int i) {
@@ -206,10 +206,15 @@ public class PlayerMovment : MonoBehaviour {
             break;
         }
 
-        anim.SetInteger("PrevState", (int)State);
+        if (animState)
+            animState.ChangeState(newState);
+        else {
+            anim.SetInteger("PrevState", (int)State);
+            anim.SetInteger("State", (int)newState);
+
+        }
         State = newState;
-        anim.SetInteger("State", (int)State);
-        animState.ChangeState(State);
+        
 
         switch (State) { //finite state machine: bei betreten des states
         case PlayerState.Idle:
