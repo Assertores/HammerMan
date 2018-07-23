@@ -38,6 +38,7 @@ public class PlayerMovment : MonoBehaviour {
     bool PlayerIsInGround = false;
     float oldGravityScale;
     Animator anim;
+    AnimationMashine animState;
     //int onBeatTrigger;
 
     private void OnDestroy() {
@@ -54,6 +55,11 @@ public class PlayerMovment : MonoBehaviour {
         Hammer = GetComponentInChildren<HammerManager>();
         if (!Hammer) {
             throw new System.Exception("Hammer not found. Player");
+        }
+
+        animState = GetComponent<AnimationMashine>();
+        if (!animState) {
+            throw new System.Exception("Animation Machine not found. Player");
         }
 
         oldGravityScale = rb.gravityScale;
@@ -203,7 +209,7 @@ public class PlayerMovment : MonoBehaviour {
         anim.SetInteger("PrevState", (int)State);
         State = newState;
         anim.SetInteger("State", (int)State);
-
+        animState.ChangeState(State);
 
         switch (State) { //finite state machine: bei betreten des states
         case PlayerState.Idle:
