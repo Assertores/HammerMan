@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50658330816677058}
   - component: {fileID: 114632483830809346}
   - component: {fileID: 114448255479069076}
+  - component: {fileID: 114903376147955430}
   m_Layer: 12
   m_Name: Player
   m_TagString: Player
@@ -41,7 +42,7 @@ GameObject:
   - component: {fileID: 212207553440241022}
   - component: {fileID: 95796956746197282}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: PlayerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,7 +100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1070262402266944}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -32.06, y: -0.01, z: 0}
+  m_LocalPosition: {x: -32.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4007859476036420}
@@ -289,7 +290,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1524114037785640}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 6242195d4601eed4b9a92286877ba067, type: 2}
   m_CullingMode: 0
@@ -331,6 +332,43 @@ MonoBehaviour:
     m_Bits: 1024
   HoverHight: 0.1
   JumpStrength: 10
+  State: 0
+--- !u!114 &114903376147955430
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1070262402266944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 267c44b00e8667e438701b718caa3139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Renderer: {fileID: 212207553440241022}
+  Animations:
+  - State: 0
+    CyklusPerBeat: 0
+    Sprites:
+    - {fileID: 21300002, guid: 9c44002dd33feae4e9f941b53c3d5ff7, type: 3}
+    - {fileID: 21300004, guid: 9c44002dd33feae4e9f941b53c3d5ff7, type: 3}
+    - {fileID: 21300006, guid: 9c44002dd33feae4e9f941b53c3d5ff7, type: 3}
+    - {fileID: 21300000, guid: 9c44002dd33feae4e9f941b53c3d5ff7, type: 3}
+  - State: 1
+    CyklusPerBeat: 0
+    Sprites:
+    - {fileID: 21300004, guid: ef0512d867f2bb84abec8faea14286be, type: 3}
+    - {fileID: 21300006, guid: ef0512d867f2bb84abec8faea14286be, type: 3}
+    - {fileID: 21300000, guid: ef0512d867f2bb84abec8faea14286be, type: 3}
+    - {fileID: 21300002, guid: ef0512d867f2bb84abec8faea14286be, type: 3}
+  - State: 2
+    CyklusPerBeat: 0
+    Sprites:
+    - {fileID: 21300000, guid: b1a89a4f2473b384082de900bf75617f, type: 3}
+    - {fileID: 21300002, guid: b1a89a4f2473b384082de900bf75617f, type: 3}
+  - State: 4
+    CyklusPerBeat: 0
+    Sprites:
+    - {fileID: 21300000, guid: 59c1a8cd9b3528a458ed3a3958ec5ae7, type: 3}
   State: 0
 --- !u!114 &114935631411381980
 MonoBehaviour:
@@ -380,8 +418,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 5d4e94b81f272b14998aec42653210f9, type: 3}
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 21300000, guid: f7f0af85730ae114090b6e682a550b47, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0

@@ -18,6 +18,7 @@ public class AnimationMashine : MonoBehaviour {
 
     Dictionary<PlayerState, int> Assign;
     int AnimationFrame = 0;
+    float ReferencBeat;
 
     private void Start() {
         Assign = new Dictionary<PlayerState, int>();
@@ -28,21 +29,20 @@ public class AnimationMashine : MonoBehaviour {
         }
     }
     private void Update() {
-        float time = GameManager.GetTimeSinceLastBeat();
-        //print(!(AnimationFrame == 0 && time > GameManager.GetBeatSeconds()/2) + " because TimeSinceLastBeat is: " + time + " and next frame is " + AnimationFrame);
-        //print((time >= (GameManager.GetBeatSeconds() / (Animations[Assign[State]].CyklusPerBeat * Animations[Assign[State]].Sprites.Length)) * AnimationFrame) + " its breater than " + ((GameManager.GetBeatSeconds() / (Animations[Assign[State]].CyklusPerBeat * Animations[Assign[State]].Sprites.Length)) * AnimationFrame));
-        if (!(AnimationFrame == 0 && time > GameManager.GetBeatSeconds()/2) && time >= (GameManager.GetBeatSeconds() / (Animations[Assign[State]].CyklusPerBeat * Animations[Assign[State]].Sprites.Length)) * AnimationFrame) {
-            //print(time + " is greater than " + (GameManager.GetBeatSeconds() / (Animations[Assign[State]].CyklusPerBeat * Animations[Assign[State]].Sprites.Length)) * AnimationFrame);
+        if (ReferencBeat == 0)
+            ReferencBeat = GameManager.GetTimeOfLastBeat();
+
+        if (GameManager.GetTime() >= ReferencBeat + AnimationFrame * (GameManager.GetBeatSeconds()/ (Animations[Assign[State]].CyklusPerBeat * Animations[Assign[State]].Sprites.Length))) {
             Render();
         }
     }
 
     public void ChangeState(PlayerState newState) {
         State = newState;
-        AnimationFrame = (int)((GameManager.GetTimeSinceLastBeat()/GameManager.GetBeatSeconds())
+        ReferencBeat = GameManager.GetTimeOfLastBeat();
+        AnimationFrame = (int)(((GameManager.GetTime()-ReferencBeat)/GameManager.GetBeatSeconds())
                             *(Animations[Assign[State]].CyklusPerBeat * Animations[Assign[State]].Sprites.Length));
 
-        AnimationFrame %= Animations[Assign[State]].Sprites.Length;
         Render();
     }
 
@@ -50,9 +50,10 @@ public class AnimationMashine : MonoBehaviour {
         if (!Assign.ContainsKey(State))
             return;
 
-        Renderer.sprite = Animations[Assign[State]].Sprites[AnimationFrame];
+        Renderer.sprite = Animations[Assign[State]].Sprites[AnimationFrame % Animations[Assign[State]].Sprites.Length];
+        if (AnimationFrame % Animations[Assign[State]].Sprites.Length == 0)
+            print(GameManager.GetTime() - GameManager.GetTimeOfLastBeat());
         AnimationFrame++;
-        AnimationFrame %= Animations[Assign[State]].Sprites.Length;
     }
 
 }
