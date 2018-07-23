@@ -288,6 +288,10 @@ public class GameManager : MonoBehaviour {
         return (float)GM.BeatSeconds;
     }
 
+    public static float GetTimeSinceLastBeat() {
+        return GetTime() - (float)(GM.BeatTimeAtStart + (GM.BeatCount - 1) * GM.BeatSeconds);
+    }
+
     public static bool GetDebugMode() {
         return GM.DebugMode;
     }
