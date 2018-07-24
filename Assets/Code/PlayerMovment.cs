@@ -38,6 +38,7 @@ public class PlayerMovment : MonoBehaviour {
     bool PlayerIsInGround = false;
     float oldGravityScale;
     Animator anim;
+    AnimationMashine animState;
     //int onBeatTrigger;
 
     private void OnDestroy() {
@@ -56,6 +57,11 @@ public class PlayerMovment : MonoBehaviour {
             throw new System.Exception("Hammer not found. Player");
         }
 
+        animState = GetComponent<AnimationMashine>();
+        if (!animState) {
+            GameManager.GM.BPMUpdate += BPMUpdate;
+        }
+
         oldGravityScale = rb.gravityScale;
         LogSystem.LogOnConsole("i'm here. Player: " + this);// ----- ----- LOG ----- -----
         GameManager.RegistPlayer(this);
@@ -69,7 +75,7 @@ public class PlayerMovment : MonoBehaviour {
         //anim.GetCurrentAnimatorClipInfo(0)[Animator.StringToHash("idle")].clip.length / (GameManager.GetBeatSeconds() * 2)
         //setzt den speed der animation des states "Idle" sodass es zum beat passt
         //jeden zweiten beat
-        GameManager.GM.BPMUpdate += BPMUpdate;
+        
     }
 
     void BPMUpdate(int i) {
@@ -200,10 +206,15 @@ public class PlayerMovment : MonoBehaviour {
             break;
         }
 
-        anim.SetInteger("PrevState", (int)State);
-        State = newState;
-        anim.SetInteger("State", (int)State);
+        if (animState)
+            animState.ChangeState(newState);
+        else {
+            anim.SetInteger("PrevState", (int)State);
+            anim.SetInteger("State", (int)newState);
 
+        }
+        State = newState;
+        
 
         switch (State) { //finite state machine: bei betreten des states
         case PlayerState.Idle:

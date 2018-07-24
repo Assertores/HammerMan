@@ -262,6 +262,7 @@ public class GameManager : MonoBehaviour {
 
     public static void EndGame(bool won = false) {
         GM.LevelTime.Stop();
+        GM.BPMUpdate = null;
         GM.BeatTimeAtStart = 0;
         GM.BeatSeconds = 0;
         GM.BeatCount = 0;
@@ -286,6 +287,10 @@ public class GameManager : MonoBehaviour {
 
     public static float GetBeatSeconds() {
         return (float)GM.BeatSeconds;
+    }
+
+    public static float GetTimeOfLastBeat() {
+        return (float)(GM.BeatTimeAtStart + (GM.BeatCount - 1) * GM.BeatSeconds);
     }
 
     public static bool GetDebugMode() {

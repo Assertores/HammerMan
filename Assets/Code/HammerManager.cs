@@ -12,8 +12,6 @@ public class HammerManager : MonoBehaviour {
     [Range(0.0f, 1.0f)]
     [Tooltip("Ende des Hammerschlags als prozentzahl der frequenzzeit")]
     float HammerOnEnd;
-    [SerializeField]
-    int HammerEveryXBeat = 2;
 
     bool DoHammer = true;
 
@@ -41,6 +39,7 @@ public class HammerManager : MonoBehaviour {
 
     void BPMUpdate(int count) {
         if(count >= 0) {
+            print("Hammer: " + (GameManager.GetTime() - GameManager.GetTimeOfLastBeat()));
             if(audio)
                 audio.Play();
             Invoke("DoHammerOn", HammerOnBeginning * GameManager.GetBeatSeconds());
