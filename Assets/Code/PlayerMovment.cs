@@ -184,6 +184,8 @@ public class PlayerMovment : MonoBehaviour {
         case PlayerState.Climbing:
             rb.gravityScale = oldGravityScale;
             rb.velocity = new Vector2(rb.velocity.x, 0);
+            if (transform.position.y > Ladder.y + 2.7f)
+                transform.position = new Vector3(Ladder.x, Ladder.y + 3.5f, 0);
             InputControler.SetDown(0);
             break;
         case PlayerState.Jumping:
