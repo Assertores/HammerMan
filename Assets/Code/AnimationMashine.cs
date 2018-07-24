@@ -14,7 +14,7 @@ public class AnimationMashine : MonoBehaviour {
     [SerializeField] SpriteRenderer Renderer;
     [SerializeField] _Animation[] Animations = null;
 
-    public PlayerState State = PlayerState.Idle;
+    PlayerState State = PlayerState.Idle;
 
     Dictionary<PlayerState, int> Assign;
     int AnimationFrame = 0;
