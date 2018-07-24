@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: b1a89a4f2473b384082de900bf75617f
+guid: ac66cff0e7dc7ca4b980e307e9767047
 TextureImporter:
   fileIDToRecycleName:
-    21300000: ClimbingAnimationHammerjaeger_0
-    21300002: ClimbingAnimationHammerjaeger_1
+    21300000: KlimbingAnimation_0
+    21300002: KlimbingAnimation_1
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -84,13 +84,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ClimbingAnimationHammerjaeger_0
+      name: KlimbingAnimation_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 44
-        height: 72
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -98,19 +98,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e0ea06b2e7439074fb9adadbce4917d1
+      spriteID: 221551f90e9b3d240961362d3f353c61
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ClimbingAnimationHammerjaeger_1
+      name: KlimbingAnimation_1
       rect:
         serializedVersion: 2
-        x: 44
+        x: 96
         y: 0
-        width: 44
-        height: 72
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,7 +118,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a59e6ac109dbac48b066279b73074d7
+      spriteID: 9b1b03942a77c9c488c8629195ced948
       vertices: []
       indices: 
       edges: []
@@ -126,7 +126,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: a0789858dd596dd4d9c88a69ea77d04f
+    spriteID: 99c6377505493ff47bb4b7ebf4a7b51c
     vertices: []
     indices: 
     edges: []
