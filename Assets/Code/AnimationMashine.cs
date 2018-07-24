@@ -50,7 +50,7 @@ public class AnimationMashine : MonoBehaviour {
         if (!Assign.ContainsKey(State))
             return;
 
-        Renderer.sprite = Animations[Assign[State]].Sprites[AnimationFrame % Animations[Assign[State]].Sprites.Length];
+        Renderer.sprite = Animations[Assign[State]].Sprites[AnimationFrame % Animations[Assign[State]].Sprites.Length];//sucht die richtige animation im Animations Array raus und hohlt sich dann den richtigen sprite in dessen Sprites Array
         if (AnimationFrame % Animations[Assign[State]].Sprites.Length == 0)
             print(GameManager.GetTime() - GameManager.GetTimeOfLastBeat());
         AnimationFrame++;
