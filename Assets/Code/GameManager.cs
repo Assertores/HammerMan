@@ -92,6 +92,11 @@ public class GameManager : MonoBehaviour {
         GM.GeneratorAlive = true;
         GM.LevelTime.Reset();
         GM.LevelTime.Start();
+        GM.BeatTimeAtStart = 0;
+        GM.BeatSeconds = 0;
+        GM.BeatCount = 0;
+        GM.CurrentLife = 0;
+        GM.EnemyCount = 0;
         LogSystem.LogOnFile("===== LevelStart =====");// ----- ----- LOG ----- -----
         GM.EnemyCount = 0;
         if (!GM.StartingInLevel) {
@@ -107,11 +112,6 @@ public class GameManager : MonoBehaviour {
             level = 1;
         }
         GM.Scene = level + 2;
-    }
-
-    public void StartGameOver() {
-        SceneManager.LoadScene(StringCollection.GAMEOVER, LoadSceneMode.Single);
-        GM.Scene = 1;
     }
 
     public void StartCreadits() {
@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour {
         //LogSystem.LogOnConsole("Current Life is: " + GM.CurrentLife);// ----- ----- LOG ----- -----
 
         if (GM.CurrentLife <= 0) {
-            GM.StartGameOver();
+            EndGame(false);
             return true;
         }
         if (GM.EnemyCount <= 0) {
@@ -261,21 +261,20 @@ public class GameManager : MonoBehaviour {
     //===== ===== Library ===== =====
 
     public static void EndGame(bool won = false) {
-        GM.LevelTime.Stop();
-        GM.BeatTimeAtStart = 0;
-        GM.BeatSeconds = 0;
-        GM.BeatCount = 0;
+        
         if (won) {
             LogSystem.LogOnFile("===== Game Won =====");// ----- ----- LOG ----- -----
             GM.NextLevel = GM.Scene - 1;
-            GM.StartMainMenu();
+            //GM.StartMainMenu();
         } else {
             LogSystem.LogOnFile("===== Game failed =====");// ----- ----- LOG ----- -----
             GM.NextLevel = GM.Scene - 2;
-            GM.StartGameOver();
+            GM.PM.SetPlayerControl(false);
+            //GM.StartGameOver();
         }
-        GM.CurrentLife = 0;
-        GM.EnemyCount = 0;
+        if(GM.UIM)
+            GM.UIM.GameEnds(won);
+        
         //GM.CancelInvoke("TriggerBPMUpdate");
     }
     public static float GetTime() {
