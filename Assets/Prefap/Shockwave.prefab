@@ -126,9 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8200ff5f5acdaf343a4907e04c3222e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShockDuration: 0.8
+  ShockDuration: 0.7
   KillZoneStart: 0.3
-  KillZoneEnd: 0.6
+  KillZoneEnd: 0.5
 --- !u!212 &212487287034529636
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -163,14 +163,14 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 21300000, guid: 4710b410b3930b34199168c48ec4a613, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.28, y: 1.28}
+  m_Size: {x: 56, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
