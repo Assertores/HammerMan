@@ -87,7 +87,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1144896226500246}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -27.75, y: 18.5, z: 0}
+  m_LocalPosition: {x: -34.75, y: 18.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4748057411195298}
@@ -164,13 +164,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Creaps:
   - Creap: {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
-    Ratio: 2
+    Ratio: 4
   - Creap: {fileID: 1720267005446818, guid: a613bc1583b1be040a60477ddfe100bb, type: 2}
     Ratio: 1
   - Creap: {fileID: 1720267005446818, guid: 1bf1460173a30f14bb65cb44cbaec3cc, type: 2}
-    Ratio: 2
+    Ratio: 3
   - Creap: {fileID: 1720267005446818, guid: d96b0e860e9793c44844fd85d2c48864, type: 2}
-    Ratio: 2
+    Ratio: 4
   SpawnRate: 1.5
   WaveLength: 4.5
   GapLength: 1
