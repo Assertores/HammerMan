@@ -164,15 +164,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Creaps:
   - Creap: {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
-    Ratio: 4
+    Ratio: 200
   - Creap: {fileID: 1720267005446818, guid: a613bc1583b1be040a60477ddfe100bb, type: 2}
     Ratio: 1
   - Creap: {fileID: 1720267005446818, guid: 1bf1460173a30f14bb65cb44cbaec3cc, type: 2}
     Ratio: 3
   - Creap: {fileID: 1720267005446818, guid: d96b0e860e9793c44844fd85d2c48864, type: 2}
     Ratio: 4
-  SpawnRate: 1.5
-  WaveLength: 4.5
+  SpawnRate: 2
+  WaveLength: 4
   GapLength: 1
   Factor: 0.5
   MaximumGapLength: 3
