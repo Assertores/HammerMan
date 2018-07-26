@@ -95,6 +95,14 @@ public class PlayerMovment : MonoBehaviour {
             InputControler.SetDown(0);
             ChangeState(PlayerState.Idle);
         }
+
+        if(this.transform.position.x > -20) {
+            this.transform.position = new Vector3(-20, this.transform.position.y, this.transform.position.z);
+        }
+        if (this.transform.position.x < -48) {
+            this.transform.position = new Vector3(-48, this.transform.position.y, this.transform.position.z);
+        }
+
         if (InControle) {
             DistToGround = Physics2D.Raycast(this.transform.position, -this.transform.up, 1000, FallLayers).distance;
             switch (State) { //finite state machine: übergänge von states
