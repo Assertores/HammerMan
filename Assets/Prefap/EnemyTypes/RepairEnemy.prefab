@@ -259,16 +259,12 @@ MonoBehaviour:
   EnemyDieParticle: {fileID: 1146176289402804, guid: a2b6bf90712fd9048b588eced2d76d74,
     type: 2}
   DeathSound:
-  - {fileID: 8300000, guid: 97eedd7c3a4a0764cbdc39b618c7d90f, type: 3}
-  - {fileID: 8300000, guid: 96597f7107dd7104cb4a81da741ead66, type: 3}
-  - {fileID: 8300000, guid: 95ab47b836481a44b8fc4449d12f0217, type: 3}
-  - {fileID: 8300000, guid: bc61cc7ad6925134fb36628789ee3349, type: 3}
-  - {fileID: 8300000, guid: 967f1acab6776ed408aa7b5c307a85da, type: 3}
+  - {fileID: 8300000, guid: 20a034ded96260c44ac140cda1c6c623, type: 3}
   InvoceOnEnemyDeath:
   - {fileID: 1223183495799532, guid: 5224217b9245b024ab8f05205b0d9187, type: 2}
   Name: Repair
   AbleToHitFrom: 0
-  EnemySpeed: 4
+  EnemySpeed: 3
   EnemyDamageOnExit: -1
   TurningDistance: 0.6
   Invulnerable: 1
