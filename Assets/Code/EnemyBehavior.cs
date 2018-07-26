@@ -35,11 +35,14 @@ public class EnemyBehavior : MonoBehaviour {
     [SerializeField]
     float TurningDistance = 10;
     [SerializeField]
+    float FleeDistance = 0;
+    [SerializeField]
     float Invulnerable = 1; //time
     [SerializeField]
     [Tooltip("the travel distance per animation loop in unity units")]
     float DistancePerLoop = 1;
     public LayerMask ChangeDirectionAt;
+    public LayerMask PlayerLayer;
 
     Rigidbody2D rb;
 
@@ -97,7 +100,12 @@ public class EnemyBehavior : MonoBehaviour {
         //umdrehen?
         RaycastHit2D hit = Physics2D.Raycast(new Vector3(this.transform.position.x + (DirRight ? 0.6f : -0.6f), this.transform.position.y, this.transform.position.z),
                                                 this.transform.right * rb.velocity.x, TurningDistance - 0.6f, ChangeDirectionAt);
-        
+        if (Physics2D.Raycast(new Vector3(this.transform.position.x + (DirRight ? 0.6f : -0.6f), this.transform.position.y, this.transform.position.z),
+                                               this.transform.right * rb.velocity.x, FleeDistance - 0.6f, PlayerLayer).collider != null)
+            ChangeDir(!DirRight);
+
+
+
         switch (State) { //finite state machine: während diesem state
         case EnemyState.Moving:
             rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);

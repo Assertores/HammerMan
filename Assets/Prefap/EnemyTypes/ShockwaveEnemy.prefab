@@ -271,11 +271,15 @@ MonoBehaviour:
   EnemySpeed: 3
   EnemyDamageOnExit: 1
   TurningDistance: 0.6
+  FleeDistance: 2
   Invulnerable: 1
   DistancePerLoop: 1
   ChangeDirectionAt:
     serializedVersion: 2
     m_Bits: 2147486720
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 4096
   State: 0
   DirRight: 1
 --- !u!212 &212127519759165522
