@@ -168,14 +168,14 @@ MonoBehaviour:
   - Creap: {fileID: 1720267005446818, guid: a613bc1583b1be040a60477ddfe100bb, type: 2}
     Ratio: 1
   - Creap: {fileID: 1720267005446818, guid: 1bf1460173a30f14bb65cb44cbaec3cc, type: 2}
-    Ratio: 3
+    Ratio: 4
   - Creap: {fileID: 1720267005446818, guid: d96b0e860e9793c44844fd85d2c48864, type: 2}
     Ratio: 4
   SpawnRate: 1.5
   WaveLength: 3
   GapLength: 3
   Factor: 1
-  MaximumGapLength: 6
+  MaximumGapLength: 5
   UseFunction: 1
 --- !u!114 &114391370730204666
 MonoBehaviour:
