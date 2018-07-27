@@ -358,7 +358,7 @@ MonoBehaviour:
   m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 1
 --- !u!114 &114943828034298894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -374,7 +374,7 @@ MonoBehaviour:
   Shield: {fileID: 114895107566001190}
   MaxShieldLife: 15
   RegDelay: 5
-  RegRate: 1
+  RegRate: 2
   MaxLife: 10
   SpawnHitParticle: {fileID: 1781884187228386, guid: c4ef661beeb58314bbc89f56c961b771,
     type: 2}

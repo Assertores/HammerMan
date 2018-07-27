@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShockDuration: 0.7
   KillZoneStart: 0
-  KillZoneEnd: 0.2
+  KillZoneEnd: 1
 --- !u!212 &212487287034529636
 SpriteRenderer:
   m_ObjectHideFlags: 1
