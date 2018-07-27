@@ -172,12 +172,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 2.1066196}
-      - {x: -0.22413254, y: 1.9324026}
-      - {x: -0.71375275, y: 0.05}
-      - {x: 0.053546906, y: 0}
-      - {x: 0.8333092, y: 0.05}
-      - {x: 0.23298645, y: 1.9526007}
+    - - {x: 0.2, y: 2}
+      - {x: -0, y: 2}
+      - {x: -0.2, y: 2}
+      - {x: -1, y: 0}
+      - {x: 1, y: -0}
 --- !u!61 &61148559614148044
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -362,28 +361,28 @@ MonoBehaviour:
   Renderer: {fileID: 212207553440241022}
   Animations:
   - State: 0
-    CyklusPerBeat: 0
+    CyklusPerBeat: 1
     Sprites:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300002, guid: ded063ed4b4fcd84f9578a8a4186b5f8, type: 3}
+    - {fileID: 21300004, guid: ded063ed4b4fcd84f9578a8a4186b5f8, type: 3}
+    - {fileID: 21300006, guid: ded063ed4b4fcd84f9578a8a4186b5f8, type: 3}
+    - {fileID: 21300000, guid: ded063ed4b4fcd84f9578a8a4186b5f8, type: 3}
   - State: 1
-    CyklusPerBeat: 0
+    CyklusPerBeat: 1
     Sprites:
     - {fileID: 21300004, guid: ef0512d867f2bb84abec8faea14286be, type: 3}
     - {fileID: 21300006, guid: ef0512d867f2bb84abec8faea14286be, type: 3}
     - {fileID: 21300000, guid: ef0512d867f2bb84abec8faea14286be, type: 3}
     - {fileID: 21300002, guid: ef0512d867f2bb84abec8faea14286be, type: 3}
   - State: 2
-    CyklusPerBeat: 0
+    CyklusPerBeat: 1
     Sprites:
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 21300000, guid: ac66cff0e7dc7ca4b980e307e9767047, type: 3}
+    - {fileID: 21300002, guid: ac66cff0e7dc7ca4b980e307e9767047, type: 3}
   - State: 4
-    CyklusPerBeat: 0
+    CyklusPerBeat: 1
     Sprites:
-    - {fileID: 0}
+    - {fileID: 21300000, guid: 3f9ddba04a15f2046b1399651194bdf1, type: 3}
 --- !u!114 &114935631411381980
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -395,7 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014918a4d7bd62d48bc1fa3d876746c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HammerOnBeginning: 0.9
+  HammerOnBeginning: 0.8
   HammerOnEnd: 1
 --- !u!212 &212207553440241022
 SpriteRenderer:
