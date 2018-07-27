@@ -169,7 +169,8 @@ public class PlayerMovment : MonoBehaviour {
             case PlayerState.Idle:
                 break;
             case PlayerState.Moving:
-                rb.velocity = new Vector2(InputControler.Horizontal * PlayerSpeed, rb.velocity.y);
+                if(InputControler.Horizontal != 0)
+                    rb.velocity = new Vector2(InputControler.Horizontal * PlayerSpeed, rb.velocity.y);
                 if ((InputControler.Horizontal < 0 && DirRight) || (InputControler.Horizontal > 0 && !DirRight)) {
                     ChangeDir(!DirRight);
                 }
@@ -179,7 +180,7 @@ public class PlayerMovment : MonoBehaviour {
                 this.transform.position = new Vector3(Ladder.x, this.transform.position.y, this.transform.position.z);
                 break;
             case PlayerState.Jumping:
-                break;
+                goto case PlayerState.Moving;
             case PlayerState.Falling:
                 goto case PlayerState.Moving;
             /*case PlayerState.Landing:
