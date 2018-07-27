@@ -1,9 +1,8 @@
 fileFormatVersion: 2
-guid: 151feeef27091c549aab86f22c0855de
+guid: 1ee38f0d627dd8747855f0357238168e
 TextureImporter:
   fileIDToRecycleName:
-    21300000: GeneratorShield_0
-    21300002: GeneratorShield_1
+    21300000: GeneratorShield-1_0
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -84,27 +83,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GeneratorShield_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 128
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7504da2bafed6784e819e7693ee258fe
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GeneratorShield_1
+      name: GeneratorShield-1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,7 +97,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 985fa112fe835be4ba50b9ab13a95ee5
+      spriteID: da61296243b40a44fad6369f3499b3f6
       vertices: []
       indices: 
       edges: []
@@ -126,7 +105,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: fbf0ad3f609299f4fa7db5735f82cfad
+    spriteID: 8e3bcf538d550154ab197e4b1ef5745b
     vertices: []
     indices: 
     edges: []
