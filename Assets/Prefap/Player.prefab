@@ -173,10 +173,11 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0.2, y: 2}
-      - {x: -0, y: 2}
+      - {x: 0.2, y: 2}
       - {x: -0.2, y: 2}
-      - {x: -1, y: 0}
-      - {x: 1, y: -0}
+      - {x: -0.4, y: 0.05}
+      - {x: 0, y: 0}
+      - {x: 0.5, y: 0.05}
 --- !u!61 &61148559614148044
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -346,6 +347,7 @@ MonoBehaviour:
     m_Bits: 1024
   HoverHight: 0.1
   JumpStrength: 15
+  DistBetweenLeggs: 1
   State: 0
 --- !u!114 &114903376147955430
 MonoBehaviour:
@@ -394,7 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014918a4d7bd62d48bc1fa3d876746c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HammerOnBeginning: 0.8
+  HammerOnBeginning: 0.25
   HammerOnEnd: 1
 --- !u!212 &212207553440241022
 SpriteRenderer:
