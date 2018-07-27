@@ -276,8 +276,10 @@ MonoBehaviour:
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 0
+  EnemyLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   State: 0
-  DirRight: 1
 --- !u!212 &212261094553874262
 SpriteRenderer:
   m_ObjectHideFlags: 1

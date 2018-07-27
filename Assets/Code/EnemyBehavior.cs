@@ -43,11 +43,12 @@ public class EnemyBehavior : MonoBehaviour {
     float DistancePerLoop = 1;
     public LayerMask ChangeDirectionAt;
     public LayerMask PlayerLayer;
+    public LayerMask EnemyLayer;
 
     Rigidbody2D rb;
 
     public EnemyState State = EnemyState.Moving;
-    public bool DirRight = true;
+    public bool DirRight { get; private set; }
 
     void Start() {
         LogSystem.LogOnFile(Name + " Enemy got spawned");// ----- ----- LOG ----- -----
@@ -63,6 +64,7 @@ public class EnemyBehavior : MonoBehaviour {
         else
             HealingFlag = false;
 
+        DirRight = true;
         //randam direction
         /*DirRight = (Random.value > 0.5f);
         if (!DirRight) {
@@ -97,21 +99,31 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        //umdrehen?
         RaycastHit2D hit = Physics2D.Raycast(new Vector3(this.transform.position.x + (DirRight ? 0.6f : -0.6f), this.transform.position.y, this.transform.position.z),
                                                 this.transform.right * rb.velocity.x, TurningDistance - 0.6f, ChangeDirectionAt);
         if (Physics2D.Raycast(new Vector3(this.transform.position.x + (DirRight ? 0.6f : -0.6f), this.transform.position.y, this.transform.position.z),
                                                this.transform.right * rb.velocity.x, FleeDistance - 0.6f, PlayerLayer).collider != null)
             ChangeDir(!DirRight);
+        Collider2D[] hitDown = Physics2D.OverlapBoxAll(new Vector2(transform.position.x, transform.position.y - 1),new Vector2(1f, 0.5f),0,EnemyLayer);
 
-
+        
+        
+        int hitDownFlag = -1;
+        for(int i = 0; hitDownFlag == -1 && i < hitDown.Length; i++) {
+            if(hitDown[i] != GetComponent<Collider2D>()) {
+                hitDownFlag = i;
+            }
+        }
 
         switch (State) { //finite state machine: während diesem state
         case EnemyState.Moving:
-            rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
-            if (hit.collider != null) {
+
+            if(hitDownFlag != -1) {
+                ChangeDir(!hitDown[hitDownFlag].GetComponent<EnemyBehavior>().DirRight);
+            }else if (hit.collider != null) {
                 ChangeDir(!DirRight);
             }
+            rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
             break;
         case EnemyState.Falling:
             break;
