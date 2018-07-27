@@ -265,7 +265,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bc61cc7ad6925134fb36628789ee3349, type: 3}
   - {fileID: 8300000, guid: 967f1acab6776ed408aa7b5c307a85da, type: 3}
   InvoceOnEnemyDeath:
-  - {fileID: 1968961311111864, guid: 1a0fc9cfc34b5924da5fe6f0dafad51e, type: 2}
+  - {fileID: 1233365605200796, guid: a3fa3b77b364b0843b4f0a36d1680b8c, type: 2}
   Name: Shock
   AbleToHitFrom: 0
   EnemySpeed: 3
