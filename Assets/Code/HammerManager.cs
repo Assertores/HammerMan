@@ -39,7 +39,7 @@ public class HammerManager : MonoBehaviour {
 
     void BPMUpdate(int count) {
         if(count >= 0) {
-            print("Hammer: " + (GameManager.GetTime() - GameManager.GetTimeOfLastBeat()));
+            //print("Hammer: " + (GameManager.GetTime() - GameManager.GetTimeOfLastBeat()));
             if(audio)
                 audio.Play();
             Invoke("DoHammerOn", HammerOnBeginning * GameManager.GetBeatSeconds());

@@ -25,9 +25,12 @@ public class PlayerMovment : MonoBehaviour {
     float HoverHight = 1.0f;
     [SerializeField]
     float JumpStrength = 1.0f;
+    [SerializeField]
+    float DistBetweenLeggs = 1;
 
     public PlayerState State = PlayerState.Idle;
-    float DistToGround = 0;
+    float DistToGroundRHS = 0;
+    float DistToGroundLHS = 0;
 
     Rigidbody2D rb;
     HammerManager Hammer;
@@ -104,12 +107,14 @@ public class PlayerMovment : MonoBehaviour {
         }
 
         if (InControle) {
-            DistToGround = Physics2D.Raycast(this.transform.position, -this.transform.up, 1000, FallLayers).distance;
+            DistToGroundRHS = Physics2D.Raycast(new Vector3(this.transform.position.x + DistBetweenLeggs / 2, this.transform.position.y, this.transform.position.z), -this.transform.up, 1000, FallLayers).distance;
+            DistToGroundLHS = Physics2D.Raycast(new Vector3(this.transform.position.x - DistBetweenLeggs / 2, this.transform.position.y, this.transform.position.z), -this.transform.up, 1000, FallLayers).distance;
+
             switch (State) { //finite state machine: übergänge von states
             case PlayerState.Idle:
                 goto case PlayerState.Moving;
             case PlayerState.Moving:
-                if (DistToGround > HoverHight || InputControler.DownCount > 0)
+                if ((DistToGroundRHS > HoverHight && DistToGroundLHS > HoverHight) || InputControler.DownCount > 0)
                     ChangeState(PlayerState.Falling);
                 else if (InputControler.Vertical > 0 && isUpPossible)
                     ChangeState(PlayerState.Climbing);
@@ -135,7 +140,7 @@ public class PlayerMovment : MonoBehaviour {
                 break;
             case PlayerState.Falling:
                 //print("================================" + InputControler.DownCount);
-                if (DistToGround <= HoverHight && InputControler.DownCount <= 0) {
+                if ((DistToGroundRHS <= HoverHight || DistToGroundLHS <= HoverHight) && InputControler.DownCount <= 0) {
                     if (InputControler.Horizontal == 0)
                         ChangeState(PlayerState.Idle);
                     else {
