@@ -301,6 +301,10 @@ public class GameManager : MonoBehaviour {
         return GM.NextLevel;
     }
 
+    public static int GetBeatCount() {
+        return GM.BeatCount;
+    }
+
     public void FreezeGame() {
         if (Time.timeScale != 0) {
             Time.timeScale = 0;
