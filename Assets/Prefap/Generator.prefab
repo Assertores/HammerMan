@@ -372,10 +372,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LifeBar: {fileID: 114059771636187272}
   Shield: {fileID: 114895107566001190}
-  MaxShieldLife: 3
-  RegDelay: 1
+  MaxShieldLife: 15
+  RegDelay: 5
   RegRate: 1
-  MaxLife: 25
+  MaxLife: 10
   SpawnHitParticle: {fileID: 1781884187228386, guid: c4ef661beeb58314bbc89f56c961b771,
     type: 2}
   HitSound:
