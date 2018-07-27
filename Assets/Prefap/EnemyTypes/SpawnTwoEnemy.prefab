@@ -270,7 +270,7 @@ MonoBehaviour:
   - {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
   Name: Spawn
   AbleToHitFrom: 0
-  EnemySpeed: 2
+  EnemySpeed: 2.5
   EnemyDamageOnExit: 1
   TurningDistance: 0.6
   FleeDistance: 2

@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 9c44002dd33feae4e9f941b53c3d5ff7
+guid: 3f9ddba04a15f2046b1399651194bdf1
 TextureImporter:
   fileIDToRecycleName:
-    21300000: IdleAnimationHammerjeagerV2_0
-    21300002: IdleAnimationHammerjeagerV2_1
-    21300004: IdleAnimationHammerjeagerV2_2
-    21300006: IdleAnimationHammerjeagerV2_3
+    21300000: HammerjeagerFallingAnimationSprite_0
+    21300002: HammerjeagerFallingAnimationSprite_1
   externalObjects: {}
   serializedVersion: 5
   mipmaps:
@@ -33,7 +31,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -1
     wrapU: 1
@@ -86,13 +84,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IdleAnimationHammerjeagerV2_0
+      name: HammerjeagerFallingAnimationSprite_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 90
-        width: 85
-        height: 90
+        y: 96
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -100,39 +98,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aa5ae48cdf204a44ea732ddfb00216ce
+      spriteID: 59af6505f745f014bba507c4ba0c16dc
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: IdleAnimationHammerjeagerV2_1
-      rect:
-        serializedVersion: 2
-        x: 85
-        y: 90
-        width: 85
-        height: 90
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 372e534f080b71b41b46d44bf097e269
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: IdleAnimationHammerjeagerV2_2
+      name: HammerjeagerFallingAnimationSprite_1
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 85
-        height: 90
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,27 +118,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 47841f832f340754689c1b8e4c01bc8d
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: IdleAnimationHammerjeagerV2_3
-      rect:
-        serializedVersion: 2
-        x: 85
-        y: 0
-        width: 85
-        height: 90
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ec1b0494d278bdb4f9ea9da129a91629
+      spriteID: 20bb45bc03ae7df458992ca171af5765
       vertices: []
       indices: 
       edges: []
@@ -168,7 +126,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 7ab48c655e5d2ce469ccec50682c5c73
+    spriteID: 726542096215d2e44b45495cbdc632e1
     vertices: []
     indices: 
     edges: []

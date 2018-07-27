@@ -35,9 +35,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4142660636659974}
-  - component: {fileID: 61752044941852282}
   - component: {fileID: 50592365706607810}
   - component: {fileID: 114955234935063442}
+  - component: {fileID: 60630441004006640}
   m_Layer: 13
   m_Name: ChairRight
   m_TagString: Untagged
@@ -65,7 +65,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1789330704175232}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -40.176052, y: 1.0030544, z: 0}
+  m_LocalPosition: {x: -28.640001, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4054523658105442}
@@ -92,8 +92,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61752044941852282
-BoxCollider2D:
+--- !u!60 &60630441004006640
+PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -104,7 +104,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.011751175, y: -0.45825768}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -114,9 +114,15 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.61616135, y: 1.1175022}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.18691635, y: 0.10844469}
+      - {x: -0.3047886, y: 0.11102915}
+      - {x: -0.22500992, y: -0.5256026}
+      - {x: -0.21486473, y: -1.0140724}
+      - {x: 0.30744553, y: -1.0129786}
+      - {x: 0.29823494, y: -0.43310928}
+      - {x: -0.057495117, y: -0.41426802}
 --- !u!114 &114955234935063442
 MonoBehaviour:
   m_ObjectHideFlags: 1

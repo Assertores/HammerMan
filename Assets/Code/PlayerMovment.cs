@@ -158,9 +158,9 @@ public class PlayerMovment : MonoBehaviour {
     void FixedUpdate() {
         if (InControle) {
 
-            if (Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && !PlayerIsInGround) {//macht dass man durch die richtige anzahl an ebenen durchfällt
+            if (Physics2D.IsTouchingLayers(GetComponent<PolygonCollider2D>(), FallLayers) && !PlayerIsInGround) {//macht dass man durch die richtige anzahl an ebenen durchfällt
                 PlayerIsInGround = true;
-            } else if (!Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && PlayerIsInGround) {
+            } else if (!Physics2D.IsTouchingLayers(GetComponent<PolygonCollider2D>(), FallLayers) && PlayerIsInGround) {
                 PlayerIsInGround = false;
                 InputControler.ChangeDown(-1);
             }
@@ -204,12 +204,14 @@ public class PlayerMovment : MonoBehaviour {
         case PlayerState.Climbing:
             rb.gravityScale = oldGravityScale;
             rb.velocity = new Vector2(rb.velocity.x, 0);
+            if (transform.position.y > Ladder.y + 2.7f)
+                transform.position = new Vector3(Ladder.x, Ladder.y + 3.5f, 0);
             InputControler.SetDown(0);
             break;
         case PlayerState.Jumping:
             break;
         case PlayerState.Falling:
-            GetComponent<CapsuleCollider2D>().isTrigger = false;
+            GetComponent<PolygonCollider2D>().isTrigger = false;
             break;
         /*case PlayerState.Landing:
             rb.gravityScale = oldGravityScale;
@@ -250,7 +252,7 @@ public class PlayerMovment : MonoBehaviour {
             break;
         case PlayerState.Falling:
             Hammer.SetHammer(false);
-            GetComponent<CapsuleCollider2D>().isTrigger = true;
+            GetComponent<PolygonCollider2D>().isTrigger = true;
             rb.velocity = new Vector2(rb.velocity.x, -FallThroughBoost);
             break;
         /*case PlayerState.Landing:

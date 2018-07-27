@@ -64,10 +64,10 @@ public class EnemyBehavior : MonoBehaviour {
             HealingFlag = false;
 
         //randam direction
-        DirRight = (Random.value > 0.5f);
+        /*DirRight = (Random.value > 0.5f);
         if (!DirRight) {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-        }
+        }*/
 
         Animator anim = GetComponentInChildren<Animator>();
         if (!anim) {
