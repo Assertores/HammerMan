@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114632483830809346}
   - component: {fileID: 114448255479069076}
   - component: {fileID: 60900680941937074}
+  - component: {fileID: 114903376147955430}
   m_Layer: 12
   m_Name: Player
   m_TagString: Player
@@ -41,7 +42,7 @@ GameObject:
   - component: {fileID: 212207553440241022}
   - component: {fileID: 95796956746197282}
   m_Layer: 12
-  m_Name: Sprite
+  m_Name: PlayerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,7 +100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1070262402266944}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35, y: 0, z: 0}
+  m_LocalPosition: {x: -36.91, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4007859476036420}
@@ -213,7 +214,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f3401d0ff7cd61445bb893e27264be00, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -339,7 +340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerSpeed: 12
-  ClimbSpeed: 2.5
+  ClimbSpeed: 5
   FallThroughBoost: 10
   FallLayers:
     serializedVersion: 2
@@ -363,10 +364,10 @@ MonoBehaviour:
   - State: 0
     CyklusPerBeat: 0
     Sprites:
-    - {fileID: 21300002, guid: 9c44002dd33feae4e9f941b53c3d5ff7, type: 3}
-    - {fileID: 21300004, guid: 9c44002dd33feae4e9f941b53c3d5ff7, type: 3}
-    - {fileID: 21300006, guid: 9c44002dd33feae4e9f941b53c3d5ff7, type: 3}
-    - {fileID: 21300000, guid: 9c44002dd33feae4e9f941b53c3d5ff7, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
   - State: 1
     CyklusPerBeat: 0
     Sprites:
@@ -377,13 +378,12 @@ MonoBehaviour:
   - State: 2
     CyklusPerBeat: 0
     Sprites:
-    - {fileID: 21300000, guid: b1a89a4f2473b384082de900bf75617f, type: 3}
-    - {fileID: 21300002, guid: b1a89a4f2473b384082de900bf75617f, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
   - State: 4
     CyklusPerBeat: 0
     Sprites:
-    - {fileID: 21300000, guid: 59c1a8cd9b3528a458ed3a3958ec5ae7, type: 3}
-  State: 0
+    - {fileID: 0}
 --- !u!114 &114935631411381980
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -397,7 +397,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HammerOnBeginning: 0.9
   HammerOnEnd: 1
-  HammerEveryXBeat: 2
 --- !u!212 &212207553440241022
 SpriteRenderer:
   m_ObjectHideFlags: 1
