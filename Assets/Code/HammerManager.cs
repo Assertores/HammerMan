@@ -14,6 +14,7 @@ public class HammerManager : MonoBehaviour {
     float HammerOnEnd;
 
     bool DoHammer = true;
+    int LastBeat = 0;
 
     BoxCollider2D HammerCol;
     new AudioSource audio;
@@ -29,12 +30,23 @@ public class HammerManager : MonoBehaviour {
             throw new System.Exception("Audio Sorce not found. Hammer");
         }
 
-        GameManager.GM.BPMUpdate += BPMUpdate;
+        //GameManager.GM.BPMUpdate += BPMUpdate;
     }
     
     void OnDestroy() {
-        GameManager.GM.BPMUpdate -= BPMUpdate;
+        //GameManager.GM.BPMUpdate -= BPMUpdate;
         CancelInvoke();
+    }
+
+    private void Update() {
+        if(LastBeat < GameManager.GetBeatCount()) {
+            LastBeat = GameManager.GetBeatCount();
+            if (audio)
+                audio.Play();
+            Invoke("DoHammerOn", HammerOnBeginning * GameManager.GetBeatSeconds());
+            Invoke("DoHammerOff", HammerOnEnd * GameManager.GetBeatSeconds());
+            //print("Hammer: " + (GameManager.GetTime() - GameManager.GetTimeOfLastBeat()));
+        }
     }
 
     void BPMUpdate(int count) {
