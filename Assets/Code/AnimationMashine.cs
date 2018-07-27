@@ -38,6 +38,11 @@ public class AnimationMashine : MonoBehaviour {
     }
 
     public void ChangeState(PlayerState newState) {
+        int i = 0;
+        for (; i < Animations.Length && Animations[i].State != newState; i++) ;
+        if (i >= Animations.Length)
+                return;
+
         State = newState;
         ReferencBeat = GameManager.GetTimeOfLastBeat();
         AnimationFrame = (int)(((GameManager.GetTime()-ReferencBeat)/GameManager.GetBeatSeconds())
@@ -51,8 +56,6 @@ public class AnimationMashine : MonoBehaviour {
             return;
 
         Renderer.sprite = Animations[Assign[State]].Sprites[AnimationFrame % Animations[Assign[State]].Sprites.Length];//sucht die richtige animation im Animations Array raus und hohlt sich dann den richtigen sprite in dessen Sprites Array
-        if (AnimationFrame % Animations[Assign[State]].Sprites.Length == 0)
-            print(GameManager.GetTime() - GameManager.GetTimeOfLastBeat());
         AnimationFrame++;
     }
 
