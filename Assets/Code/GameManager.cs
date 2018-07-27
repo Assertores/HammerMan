@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour {
             GM.StartGameOver();
             return true;
         }
-        if (GM.EnemyCount <= 0) {
+        if (GM.EnemyCount <= 0 && GM.GeneratorAlive == false) {
             EndGame(true);
             return true;
         }
