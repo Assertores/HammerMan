@@ -6,21 +6,31 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour {//ist veralltet wird nicht mehr verwendet
 
     [SerializeField]
-    Text Timer;
+    GameObject WinScreen;
+    [SerializeField]
+    GameObject LossScreen;
+    [SerializeField]
+    GameObject GrayOut;
 
     private void OnDestroy() {
         GameManager.RegistUI(this);
     }
     
     void Start () {
-        if (!Timer) {
-            throw new System.Exception("Enemy text not assinght. UI");
-        }
+        if (!WinScreen || !LossScreen || !GrayOut)
+            new System.Exception("Win/Loss or Grayout Screen not found. UI");
+
+        WinScreen.SetActive(false);
+        LossScreen.SetActive(false);
+        GrayOut.SetActive(false);
         GameManager.RegistUI(this);
 	}
 
-    void Update () {
-        float time = GameManager.GetTime();
-        Timer.text = ((int)(time/60)).ToString("D2") + ":" + ((int)time%60).ToString("D2") + ":" + ((int)(time*100)%100).ToString("D2");
+    public void GameEnds(bool Won) {
+        if (Won)
+            WinScreen.SetActive(true);
+        else
+            LossScreen.SetActive(true);
+        GrayOut.SetActive(true);
     }
 }
