@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class GeneratorScript : MonoBehaviour {
 
     [SerializeField]
@@ -23,9 +24,13 @@ public class GeneratorScript : MonoBehaviour {
     [SerializeField]
     GameObject SpawnHitParticle;
     [SerializeField]
+    AudioClip[] ShieldHitSounds;
+    [SerializeField]
     AudioClip[] HitSound;
     [SerializeField]
     AudioClip DeathSound;
+
+    AudioSource ShieldAudio;
 
     // Use this for initialization
     void Start () {
@@ -36,6 +41,8 @@ public class GeneratorScript : MonoBehaviour {
         Shield.fillAmount = 1;
         CurrentLife = MaxLife;
         LifeBar.fillAmount = 1;
+
+        ShieldAudio = GetComponent<AudioSource>();
 
         GameManager.ChangeGeneratorCount(1);
     }
@@ -54,23 +61,31 @@ public class GeneratorScript : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D col) {//macht dass es getroffen werden kann
         if (col.transform.gameObject.tag == StringCollection.HAMMER) {
-            Hit();
+            LastHit = GameManager.GetTime();
+            if (CurrentShieldLife > 0)
+                HitShield();
+            else
+                Hit();
+        }
+    }
+
+    private void HitShield (int damage = 1) {
+        CurrentShieldLife -= damage;
+        Shield.fillAmount = CurrentShieldLife / MaxShieldLife;
+        if(ShieldHitSounds.Length > 0) {
+            ShieldAudio.clip = ShieldHitSounds[Random.Range(0,ShieldHitSounds.Length-1)];
+            ShieldAudio.Play();
         }
     }
 
     private void Hit(int damage = 1) {//TODO: Überarbeiten
-        GameObject handle;
-        if (CurrentShieldLife > 0)
-            CurrentShieldLife -= damage;
-        else
-            CurrentLife -= damage;
-        LastHit = GameManager.GetTime();
-        Shield.fillAmount = CurrentShieldLife / MaxShieldLife;
+        CurrentLife -= damage;
         LifeBar.fillAmount = CurrentLife / (float)MaxLife;
 
         if (CurrentShieldLife < 0)
             CurrentShieldLife = 0;
 
+        GameObject handle;
         if (CurrentLife <= 0) {
             LogSystem.LogOnConsole("Spawner is dead");// ----- ----- LOG ----- -----
             handle = Instantiate(SpawnHitParticle, this.transform.position, this.transform.rotation);
@@ -88,7 +103,7 @@ public class GeneratorScript : MonoBehaviour {
 
         handle = Instantiate(SpawnHitParticle, this.transform.position, this.transform.rotation);
         if (HitSound.Length > 0) {//kümmert sich um particel
-            int temp = Random.Range(0, HitSound.Length);
+            int temp = Random.Range(0, HitSound.Length-1);
             handle.GetComponent<AudioSource>().clip = HitSound[temp];
         }
         if (handle.GetComponent<ParticleKiller>() == null) {
