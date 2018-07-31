@@ -18722,7 +18722,7 @@ Prefab:
     - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
         type: 2}
       propertyPath: ShowElements.Array.data[1].Stop
-      value: -15
+      value: -13
       objectReference: {fileID: 0}
     - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
         type: 2}
@@ -18732,17 +18732,17 @@ Prefab:
     - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
         type: 2}
       propertyPath: ShowElements.Array.data[2].Stop
-      value: -10
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
         type: 2}
       propertyPath: ShowElements.Array.data[3].Start
-      value: -10
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
         type: 2}
       propertyPath: ShowElements.Array.data[3].Stop
-      value: -8
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 114490410429319466, guid: c54b5a4d135130146988dfc5e2fb94bc,
         type: 2}
