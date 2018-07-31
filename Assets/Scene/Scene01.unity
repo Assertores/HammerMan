@@ -2363,7 +2363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &252880273
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9541,7 +9541,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &962855536
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9741,7 +9741,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &969038890
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10213,7 +10213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &997686156
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12208,7 +12208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1198356213
 RectTransform:
   m_ObjectHideFlags: 0
@@ -34093,7 +34093,21 @@ Prefab:
     - target: {fileID: 114935631411381980, guid: e059c6e2a478e24428b5c9821d2dbb2d,
         type: 2}
       propertyPath: HammerOnBeginning
-      value: 0.97
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139094534830290, guid: e059c6e2a478e24428b5c9821d2dbb2d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 212207553440241022, guid: e059c6e2a478e24428b5c9821d2dbb2d,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300002, guid: ded063ed4b4fcd84f9578a8a4186b5f8,
+        type: 3}
+    - target: {fileID: 4139094534830290, guid: e059c6e2a478e24428b5c9821d2dbb2d, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e059c6e2a478e24428b5c9821d2dbb2d, type: 2}
@@ -34304,7 +34318,7 @@ Prefab:
     - target: {fileID: 82798935967307138, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0,
         type: 2}
       propertyPath: m_Volume
-      value: 0.2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 114084384804812090, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0,
         type: 2}
