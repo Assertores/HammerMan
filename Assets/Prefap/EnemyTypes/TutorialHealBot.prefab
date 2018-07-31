@@ -266,7 +266,7 @@ MonoBehaviour:
   AbleToHitFrom: 0
   EnemySpeed: 2.2
   EnemyDamageOnExit: -1
-  TurningDistance: 0.6
+  TurningDistance: 1
   FleeDistance: 0
   Invulnerable: 1
   DistancePerLoop: 1
