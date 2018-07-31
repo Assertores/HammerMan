@@ -169,7 +169,7 @@ public class EnemyBehavior : MonoBehaviour {
             if (DeathSound.Length != 0) {//fügt audioclip hinzu
                 AudioSource audio = GetComponent<AudioSource>();
                 audio.clip = DeathSound[temp];
-                GameManager.GM.BPMUpdate += Play;
+                Invoke("Play", GameManager.GetBeatSeconds() - (GameManager.GetTime() - GameManager.GetTimeOfLastBeat()));
             }
             GameObject.Destroy(this.transform.gameObject, 1.0f);
             break;
@@ -179,9 +179,9 @@ public class EnemyBehavior : MonoBehaviour {
         }
     }
 
-    void Play(int i) {
+    void Play() {
+        //print("Enemy: " + gameObject.name + " " + (GameManager.GetTime() - GameManager.GetTimeOfLastBeat()));
         GetComponent<AudioSource>().Play();
-        GameManager.GM.BPMUpdate -= Play;
     }
 
     //----- ----- für vererbung ----- -----
