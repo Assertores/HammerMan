@@ -33,7 +33,7 @@ public class CameraIntroScript : MonoBehaviour {
             GameManager.EndOfIntro();
             finished = true;
         }
-        for(int i = 1; i < ShowElements.Length; i++) {//blendet alle elemente aus
+        for(int i = 0; i < ShowElements.Length; i++) {//blendet alle elemente aus
             ShowElements[i].Element.SetActive(false);
         }
         if(ShowElements.Length > 0)
