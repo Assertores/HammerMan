@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224318267622636240}
   - component: {fileID: 222550072033585356}
   - component: {fileID: 114059771636187272}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Filling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4252032300817946}
   - component: {fileID: 212181293953080938}
   - component: {fileID: 95812935834850534}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 223589568651374246}
   - component: {fileID: 114005675173454214}
   - component: {fileID: 114764867611381906}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 223239857343951036}
   - component: {fileID: 114711682712603224}
   - component: {fileID: 114181953930946528}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 114943828034298894}
   - component: {fileID: 61674506620755174}
   - component: {fileID: 82655894689819902}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: Generator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 224046032409063894}
   - component: {fileID: 222434758175415188}
   - component: {fileID: 114668643047296778}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 224828261445560068}
   - component: {fileID: 222506737758517566}
   - component: {fileID: 114895107566001190}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,7 +153,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1721555308042588}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -21.75, y: 12, z: 0}
+  m_LocalPosition: {x: -24.26, y: 12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224416054900273020}
@@ -580,7 +580,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 11
   m_TargetDisplay: 0
 --- !u!224 &224046032409063894
 RectTransform:
