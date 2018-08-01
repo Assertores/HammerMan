@@ -59,7 +59,7 @@ public class GeneratorScript : MonoBehaviour {
         }
     }
 
-    private void OnTriggerExit2D(Collider2D col) {//macht dass es getroffen werden kann
+    private void OnTriggerEnter2D(Collider2D col) {//macht dass es getroffen werden kann
         if (col.transform.gameObject.tag == StringCollection.HAMMER) {
             LastHit = GameManager.GetTime();
             if (CurrentShieldLife > 0)
@@ -74,7 +74,7 @@ public class GeneratorScript : MonoBehaviour {
         Shield.fillAmount = CurrentShieldLife / MaxShieldLife;
         if(ShieldHitSounds.Length > 0) {
             ShieldAudio.clip = ShieldHitSounds[Random.Range(0,ShieldHitSounds.Length-1)];
-            ShieldAudio.Play();
+            Invoke("Play", GameManager.GetBeatSeconds() - (GameManager.GetTime() - GameManager.GetTimeOfLastBeat()));
         }
     }
 
@@ -104,7 +104,8 @@ public class GeneratorScript : MonoBehaviour {
         handle = Instantiate(SpawnHitParticle, this.transform.position, this.transform.rotation);
         if (HitSound.Length > 0) {//kümmert sich um particel
             ShieldAudio.clip = HitSound[Random.Range(0, HitSound.Length - 1)];
-            ShieldAudio.Play(); }/*
+            Invoke("Play", GameManager.GetBeatSeconds() - (GameManager.GetTime() - GameManager.GetTimeOfLastBeat()));
+        }/*
             int temp = Random.Range(0, HitSound.Length-1);
             handle.GetComponent<AudioSource>().clip = HitSound[temp];
         }
@@ -113,5 +114,9 @@ public class GeneratorScript : MonoBehaviour {
         } else {
             handle.GetComponent<ParticleKiller>().PlayStart();
         }*/
+    }
+
+    void Play() {
+        ShieldAudio.Play();
     }
 }
