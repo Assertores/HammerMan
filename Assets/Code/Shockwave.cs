@@ -13,6 +13,12 @@ public class Shockwave : MonoBehaviour {
     [SerializeField]
     [Range(0.0f, 1.0f)]
     float KillZoneEnd = 1;
+    [SerializeField]
+    GameObject MultyKillObj = null;
+    [SerializeField]
+    int MultyKillThreshold = 2;
+
+    int KillCount = 0;
 
     BoxCollider2D col;
 
@@ -40,6 +46,15 @@ public class Shockwave : MonoBehaviour {
             col.enabled = true;
         } else {
             col.enabled = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if(collision.gameObject.tag == StringCollection.ENEMY) {
+            KillCount++;
+            if(KillCount == MultyKillThreshold) {
+                Instantiate(MultyKillObj);
+            }
         }
     }
 }
