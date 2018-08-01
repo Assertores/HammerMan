@@ -153,7 +153,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1721555308042588}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -46.5, y: 12, z: 0}
+  m_LocalPosition: {x: -21.75, y: 12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224416054900273020}
@@ -478,7 +478,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f2a9b02c874c21c44abff568d87ece36, type: 3}
   HitSound:
   - {fileID: 8300000, guid: 32cd3e1fdc017e94c81e8815c4c712ce, type: 3}
-  - {fileID: 8300000, guid: 32cd3e1fdc017e94c81e8815c4c712ce, type: 3}
   DeathSound: {fileID: 8300000, guid: 5b6dcb943667e2144878b2d359af22a6, type: 3}
 --- !u!212 &212181293953080938
 SpriteRenderer:
@@ -636,8 +635,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 0.9957}
+  m_SizeDelta: {x: 100, y: 116.3048}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224703017744694716
 RectTransform:
@@ -655,8 +654,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 1.0319}
+  m_SizeDelta: {x: 100, y: 113.9943}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224828261445560068
 RectTransform:
