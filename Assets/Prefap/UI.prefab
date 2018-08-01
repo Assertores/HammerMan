@@ -109,7 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e06755a9b23f5ca469a01cffe36f8164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Timer: {fileID: 0}
+  WinScreen: {fileID: 0}
+  LossScreen: {fileID: 0}
+  GrayOut: {fileID: 0}
 --- !u!114 &114720577146835600
 MonoBehaviour:
   m_ObjectHideFlags: 1
