@@ -30,6 +30,7 @@ public class GeneratorScript : MonoBehaviour {
     [SerializeField]
     AudioClip DeathSound;
 
+    BoxCollider2D GenCol;
     AudioSource ShieldAudio;
 
     // Use this for initialization
@@ -42,6 +43,7 @@ public class GeneratorScript : MonoBehaviour {
         CurrentLife = MaxLife;
         LifeBar.fillAmount = 1;
 
+        GenCol = GetComponent<BoxCollider2D>();
         ShieldAudio = GetComponent<AudioSource>();
 
         GameManager.ChangeGeneratorCount(1);
@@ -59,7 +61,36 @@ public class GeneratorScript : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D col) {//macht dass es getroffen werden kann
+    private void FixedUpdate() {
+        BetterTriggerEnter();
+    }
+
+    bool IsEntert = false;
+    void BetterTriggerEnter() {
+
+        Collider2D col = null;
+        foreach(Collider2D it in Physics2D.OverlapBoxAll((Vector2)transform.position + GenCol.offset, GenCol.size, 0)) {
+            if (it.tag == StringCollection.HAMMER) {
+                col = it;
+                break;
+            }
+        }
+
+        if (col != null) {
+            if (!IsEntert) {
+                IsEntert = true;
+                LastHit = GameManager.GetTime();
+                if (CurrentShieldLife > 0)
+                    HitShield();
+                else
+                    Hit();
+            }
+        } else {
+            IsEntert = false;
+        }
+    }
+
+    /*private void OnTriggerEnter2D(Collider2D col) {//macht dass es getroffen werden kann
         if (col.transform.gameObject.tag == StringCollection.HAMMER) {
             LastHit = GameManager.GetTime();
             if (CurrentShieldLife > 0)
@@ -67,7 +98,7 @@ public class GeneratorScript : MonoBehaviour {
             else
                 Hit();
         }
-    }
+    }*/
 
     private void HitShield (int damage = 1) {
         CurrentShieldLife -= damage;
