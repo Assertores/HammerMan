@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour {
             if (GM.Scene == 0) {
                 StopExe();
             } else if (GM.Scene >= 2) {
-                EndGame(false);
+                StartMainMenu();
             } else if (Time.timeScale != 0) {
                 GM.FreezeGame();
             } else {
