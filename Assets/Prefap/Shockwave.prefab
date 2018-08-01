@@ -129,6 +129,9 @@ MonoBehaviour:
   ShockDuration: 0.7
   KillZoneStart: 0
   KillZoneEnd: 1
+  MultyKillObj: {fileID: 1042563951700918, guid: 5fe22f599a22794478cdfda14208b338,
+    type: 2}
+  MultyKillThreshold: 2
 --- !u!212 &212487287034529636
 SpriteRenderer:
   m_ObjectHideFlags: 1
