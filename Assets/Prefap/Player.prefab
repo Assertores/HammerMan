@@ -365,10 +365,10 @@ MonoBehaviour:
   - State: 0
     CyklusPerBeat: 1
     Sprites:
+    - {fileID: 21300000, guid: ded063ed4b4fcd84f9578a8a4186b5f8, type: 3}
     - {fileID: 21300002, guid: ded063ed4b4fcd84f9578a8a4186b5f8, type: 3}
     - {fileID: 21300004, guid: ded063ed4b4fcd84f9578a8a4186b5f8, type: 3}
     - {fileID: 21300006, guid: ded063ed4b4fcd84f9578a8a4186b5f8, type: 3}
-    - {fileID: 21300000, guid: ded063ed4b4fcd84f9578a8a4186b5f8, type: 3}
   - State: 1
     CyklusPerBeat: 1
     Sprites:

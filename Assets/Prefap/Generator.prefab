@@ -294,7 +294,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: c91513760fa0740448ba35399ef6eb17, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -511,9 +511,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingLayerID: 1466770165
+  m_SortingLayer: 8
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: bcb10d3871e2ccc4396a21dbf968975e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -559,8 +559,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 4
+  m_SortingLayerID: 1466770165
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!223 &223589568651374246
 Canvas:
@@ -579,8 +579,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 11
+  m_SortingLayerID: -1593624261
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &224046032409063894
 RectTransform:

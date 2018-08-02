@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4409524891122206}
   - component: {fileID: 61201329790735882}
-  - component: {fileID: 114400877620725714}
+  - component: {fileID: 114323663001353422}
   m_Layer: 0
   m_Name: ExitRight
   m_TagString: Exit
@@ -96,7 +96,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.25, y: 2.3}
   m_EdgeRadius: 0
---- !u!114 &114400877620725714
+--- !u!114 &114323663001353422
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1578495112414656}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05b77790ecd46de4f80a76e8e2c7edda, type: 3}
+  m_Script: {fileID: 11500000, guid: 23a85635bcb41f24398098b49207e7ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212142814609099762
@@ -139,8 +139,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1352489013
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6e7866ff08ef1d74da3eb5daed432c1b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
