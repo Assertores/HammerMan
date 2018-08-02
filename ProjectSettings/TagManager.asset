@@ -67,7 +67,7 @@ TagManager:
   - name: Boxes
     uniqueID: 1607396405
     locked: 0
-  - name: Walls/Doors
+  - name: Walls and Doors
     uniqueID: 2942478283
     locked: 0
   - name: Generators
