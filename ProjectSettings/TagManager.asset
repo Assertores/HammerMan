@@ -49,3 +49,45 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Wallpaper
+    uniqueID: 804290763
+    locked: 0
+  - name: Cables
+    uniqueID: 1754332797
+    locked: 0
+  - name: Support Beams
+    uniqueID: 2966051959
+    locked: 0
+  - name: Ground Tiles
+    uniqueID: 4097481065
+    locked: 0
+  - name: Furniture
+    uniqueID: 3702592339
+    locked: 0
+  - name: Boxes
+    uniqueID: 1607396405
+    locked: 0
+  - name: Walls and Doors
+    uniqueID: 2942478283
+    locked: 0
+  - name: Generators
+    uniqueID: 1466770165
+    locked: 0
+  - name: Enemies
+    uniqueID: 909716399
+    locked: 0
+  - name: Ladders
+    uniqueID: 4242184347
+    locked: 0
+  - name: Player
+    uniqueID: 2262460281
+    locked: 0
+  - name: Generator Shield
+    uniqueID: 2701343035
+    locked: 0
+  - name: GrayOut
+    uniqueID: 1231982209
+    locked: 0
+  - name: UI
+    uniqueID: 2471885527
+    locked: 0
