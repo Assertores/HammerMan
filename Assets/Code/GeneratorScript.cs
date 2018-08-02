@@ -120,8 +120,10 @@ public class GeneratorScript : MonoBehaviour {
         if (CurrentLife <= 0) {
             LogSystem.LogOnConsole("Spawner is dead");// ----- ----- LOG ----- -----
             handle = Instantiate(SpawnHitParticle, this.transform.position, this.transform.rotation);
-            if (DeathSound != null)
-                handle.GetComponent<AudioSource>().clip = DeathSound;
+            if (DeathSound != null) {
+                ShieldAudio.clip = DeathSound;
+                Invoke("Play", GameManager.GetBeatSeconds() - (GameManager.GetTime() - GameManager.GetTimeOfLastBeat()));
+            }
             if (handle.GetComponent<ParticleKiller>() == null) {
                 print("ParticalKillerScript kann nicht gefunden werden.");
             } else {
