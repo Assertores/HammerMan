@@ -146,16 +146,24 @@ MonoBehaviour:
   DeathSound: []
   InvoceOnEnemyDeath:
   - {fileID: 1899969726291124, guid: 47d101da2138a664f9eb923fbd750d6e, type: 2}
+  Name: 
   AbleToHitFrom: 0
   EnemySpeed: 2
   EnemyDamageOnExit: 1
   TurningDistance: 0.6
+  FleeDistance: 0
+  Invulnerable: 1
+  DistancePerLoop: 1
   ChangeDirectionAt:
     serializedVersion: 2
     m_Bits: 2560
-  FallLayers:
+  PlayerLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
+  EnemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  State: 0
 --- !u!212 &212127519759165522
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -55,7 +55,9 @@ MonoBehaviour:
   StartingInLevel: 1
   DebugMode: 0
   LevelTimeAtStart: 0
-  HammerDelay: 0
+  BeatTimeAtStart: 0
+  BeatSeconds: 0
+  BeatCount: 0
   CurrentLife: 0
   EnemyCount: 0
   Scene: 0

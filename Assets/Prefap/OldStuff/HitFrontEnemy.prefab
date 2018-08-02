@@ -262,7 +262,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 97eedd7c3a4a0764cbdc39b618c7d90f, type: 3}
   - {fileID: 8300000, guid: 96597f7107dd7104cb4a81da741ead66, type: 3}
   - {fileID: 8300000, guid: 95ab47b836481a44b8fc4449d12f0217, type: 3}
-  - {fileID: 8300000, guid: bc61cc7ad6925134fb36628789ee3349, type: 3}
+  - {fileID: 0}
   - {fileID: 8300000, guid: 967f1acab6776ed408aa7b5c307a85da, type: 3}
   InvoceOnEnemyDeath: []
   Name: Hit at Front

@@ -147,5 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f6831f15d5cf934d95a74abcaa95907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayToFirstBeat: 0
+  delayToFirstBeatInFile: 0
+  delayToFirstHammerHitInGame: 0
   BPM: 0
