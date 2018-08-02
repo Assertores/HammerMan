@@ -39,6 +39,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4625730870386242}
   - component: {fileID: 212664948889735254}
+  - component: {fileID: 95948875710104446}
   m_Layer: 13
   m_Name: Sprite
   m_TagString: Untagged
@@ -53,8 +54,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1407062631597528}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -24.58, y: 2.498, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 4625730870386242}
   m_Father: {fileID: 0}
@@ -133,7 +134,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.968
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -217,6 +218,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &95948875710104446
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1759779073937362}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: efa053e424cf16f418f12fee9f6d228e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114723625952367988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -229,9 +248,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HitSound:
-  - {fileID: 8300000, guid: 18dba9e55fc48114e839bb6e8bfeb32d, type: 3}
-  - {fileID: 8300000, guid: e4c86a286f5e2974d85f793d659a933f, type: 3}
-  - {fileID: 8300000, guid: 1b72cf92567d86c4e82eada19e104de7, type: 3}
+  - {fileID: 8300000, guid: 7771acb61b3ddb04e9c2df71ec25f0f8, type: 3}
+  - {fileID: 8300000, guid: e37f4b2040c7fcc408ce767fcc2eaf50, type: 3}
+  - {fileID: 8300000, guid: fd5fac23f924dd741a8bb20a963aa8d4, type: 3}
 --- !u!212 &212664948889735254
 SpriteRenderer:
   m_ObjectHideFlags: 1

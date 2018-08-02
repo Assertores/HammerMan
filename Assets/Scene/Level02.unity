@@ -400,7 +400,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1144896226500246, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
@@ -1685,25 +1685,6 @@ Prefab:
       propertyPath: m_Name
       value: TV (6)
       objectReference: {fileID: 0}
-    - target: {fileID: 114723625952367988, guid: 03f414ec3cd532047a4d25beace10501,
-        type: 2}
-      propertyPath: HitSound.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 7771acb61b3ddb04e9c2df71ec25f0f8, type: 3}
-    - target: {fileID: 114723625952367988, guid: 03f414ec3cd532047a4d25beace10501,
-        type: 2}
-      propertyPath: HitSound.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: e37f4b2040c7fcc408ce767fcc2eaf50, type: 3}
-    - target: {fileID: 114723625952367988, guid: 03f414ec3cd532047a4d25beace10501,
-        type: 2}
-      propertyPath: HitSound.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: fd5fac23f924dd741a8bb20a963aa8d4, type: 3}
-    - target: {fileID: 4257883547764172, guid: 03f414ec3cd532047a4d25beace10501, type: 2}
-      propertyPath: m_LocalScale.x
-      value: -1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 03f414ec3cd532047a4d25beace10501, type: 2}
   m_IsPrefabParent: 0
@@ -1712,29 +1693,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4257883547764172, guid: 03f414ec3cd532047a4d25beace10501,
     type: 2}
   m_PrefabInternal: {fileID: 179273247}
---- !u!1 &179273249 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1759779073937362, guid: 03f414ec3cd532047a4d25beace10501,
-    type: 2}
-  m_PrefabInternal: {fileID: 179273247}
---- !u!95 &179273250
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 179273249}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: efa053e424cf16f418f12fee9f6d228e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &181860747
 Prefab:
   m_ObjectHideFlags: 0
@@ -6152,7 +6110,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4563344632131728, guid: 019ee78dda68cfe4baa6dc0c01477983, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -17
+      value: -18.75
       objectReference: {fileID: 0}
     - target: {fileID: 4563344632131728, guid: 019ee78dda68cfe4baa6dc0c01477983, type: 2}
       propertyPath: m_LocalPosition.y
@@ -16805,7 +16763,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4563344632131728, guid: 019ee78dda68cfe4baa6dc0c01477983, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -51
+      value: -49.25
       objectReference: {fileID: 0}
     - target: {fileID: 4563344632131728, guid: 019ee78dda68cfe4baa6dc0c01477983, type: 2}
       propertyPath: m_LocalPosition.y
@@ -17340,7 +17298,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1144896226500246, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2905c1d75efd8744595c1974d975e30d, type: 2}
@@ -33366,12 +33324,12 @@ Prefab:
     - target: {fileID: 114084384804812090, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0,
         type: 2}
       propertyPath: delayToFirstBeatInFile
-      value: 5.142857
+      value: 5.165
       objectReference: {fileID: 0}
     - target: {fileID: 114084384804812090, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0,
         type: 2}
       propertyPath: delayToFirstHammerHitInGame
-      value: 6.8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114084384804812090, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0,
         type: 2}
