@@ -175,7 +175,7 @@ MonoBehaviour:
   WaveLength: 3
   GapLength: 3
   Factor: 1
-  MaximumGapLength: 5
+  MaximumGapLength: 6
   UseFunction: 1
 --- !u!114 &114391370730204666
 MonoBehaviour:
@@ -273,9 +273,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingLayerID: 1466770165
+  m_SortingLayer: 8
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 70518046df019024ba2821ec564981a6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
