@@ -477,7 +477,7 @@ MonoBehaviour:
   ShieldHitSounds:
   - {fileID: 8300000, guid: f2a9b02c874c21c44abff568d87ece36, type: 3}
   HitSound:
-  - {fileID: 8300000, guid: 32cd3e1fdc017e94c81e8815c4c712ce, type: 3}
+  - {fileID: 8300000, guid: 1e68d86c45f6b9f4984f4ada28a7ebbd, type: 3}
   DeathSound: {fileID: 8300000, guid: 5b6dcb943667e2144878b2d359af22a6, type: 3}
 --- !u!212 &212181293953080938
 SpriteRenderer:
