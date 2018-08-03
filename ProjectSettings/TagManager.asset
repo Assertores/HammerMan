@@ -49,11 +49,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Earth
+    uniqueID: 2855614445
+    locked: 0
   - name: Wallpaper
     uniqueID: 804290763
     locked: 0
   - name: Cables
     uniqueID: 1754332797
+    locked: 0
+  - name: Outdoors
+    uniqueID: 2502899487
     locked: 0
   - name: Support Beams
     uniqueID: 2966051959
@@ -81,12 +87,6 @@ TagManager:
     locked: 0
   - name: TrapDoorSpawners
     uniqueID: 4159786221
-    locked: 0
-  - name: Outdoors
-    uniqueID: 2502899487
-    locked: 0
-  - name: Earth
-    uniqueID: 2855614445
     locked: 0
   - name: Player
     uniqueID: 2262460281
