@@ -8953,26 +8953,6 @@ Prefab:
       propertyPath: m_Name
       value: TrapDoorSpawner (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 114735989461591944, guid: b99370d0952e84140b8343f7aa27b2da,
-        type: 2}
-      propertyPath: Creaps.Array.data[0].Ratio
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114735989461591944, guid: b99370d0952e84140b8343f7aa27b2da,
-        type: 2}
-      propertyPath: Creaps.Array.data[1].Ratio
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114735989461591944, guid: b99370d0952e84140b8343f7aa27b2da,
-        type: 2}
-      propertyPath: Creaps.Array.data[2].Ratio
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114735989461591944, guid: b99370d0952e84140b8343f7aa27b2da,
-        type: 2}
-      propertyPath: Creaps.Array.data[3].Ratio
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b99370d0952e84140b8343f7aa27b2da, type: 2}
   m_IsPrefabParent: 0
