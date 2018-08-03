@@ -79,6 +79,9 @@ TagManager:
   - name: Ladders
     uniqueID: 4242184347
     locked: 0
+  - name: TrapDoorSpawners
+    uniqueID: 4159786221
+    locked: 0
   - name: Player
     uniqueID: 2262460281
     locked: 0
