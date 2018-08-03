@@ -82,6 +82,12 @@ TagManager:
   - name: TrapDoorSpawners
     uniqueID: 4159786221
     locked: 0
+  - name: Outdoors
+    uniqueID: 2502899487
+    locked: 0
+  - name: Earth
+    uniqueID: 2855614445
+    locked: 0
   - name: Player
     uniqueID: 2262460281
     locked: 0
