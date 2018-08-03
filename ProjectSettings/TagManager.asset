@@ -79,11 +79,17 @@ TagManager:
   - name: Ladders
     uniqueID: 4242184347
     locked: 0
+  - name: TrapDoorSpawners
+    uniqueID: 4159786221
+    locked: 0
   - name: Player
     uniqueID: 2262460281
     locked: 0
   - name: Generator Shield
     uniqueID: 2701343035
+    locked: 0
+  - name: Shockwave
+    uniqueID: 2374652517
     locked: 0
   - name: GrayOut
     uniqueID: 1231982209

@@ -268,7 +268,7 @@ MonoBehaviour:
   EnemySpeed: 4
   EnemyDamageOnExit: -1
   TurningDistance: 0.6
-  FleeDistance: 3
+  FleeDistance: 4
   Invulnerable: 1
   DistancePerLoop: 3
   ChangeDirectionAt:
