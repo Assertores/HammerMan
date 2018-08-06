@@ -3942,7 +3942,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1294979226306586, guid: ffb3b30005522df4da9b50b7fafd6812, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1895483017599388, guid: ffb3b30005522df4da9b50b7fafd6812, type: 2}
       propertyPath: m_IsActive
@@ -3990,6 +3990,48 @@ Prefab:
     - target: {fileID: 4660150061065390, guid: ffb3b30005522df4da9b50b7fafd6812, type: 2}
       propertyPath: m_LocalPosition.x
       value: -999
+      objectReference: {fileID: 0}
+    - target: {fileID: 114179738414960654, guid: ffb3b30005522df4da9b50b7fafd6812,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1350629451}
+    - target: {fileID: 114179738414960654, guid: ffb3b30005522df4da9b50b7fafd6812,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 114527635547250288, guid: ffb3b30005522df4da9b50b7fafd6812,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1350629451}
+    - target: {fileID: 114527635547250288, guid: ffb3b30005522df4da9b50b7fafd6812,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 114098851010803642, guid: ffb3b30005522df4da9b50b7fafd6812,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 114182877329260946, guid: e96100c97b8690547b62b4b132419c05,
+        type: 2}
+    - target: {fileID: 114098851010803642, guid: ffb3b30005522df4da9b50b7fafd6812,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 114543084576127424, guid: ffb3b30005522df4da9b50b7fafd6812,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 114182877329260946, guid: e96100c97b8690547b62b4b132419c05,
+        type: 2}
+    - target: {fileID: 114543084576127424, guid: ffb3b30005522df4da9b50b7fafd6812,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartMainMenu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ffb3b30005522df4da9b50b7fafd6812, type: 2}
@@ -11303,12 +11345,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4579061441338828, guid: 9e736e09d454c9b44bda52543de04f8e,
     type: 2}
   m_PrefabInternal: {fileID: 654739806}
---- !u!114 &654853599 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114059771636187272, guid: 1df40d5599270ff40800c0e55897e5f1,
-    type: 2}
-  m_PrefabInternal: {fileID: 321200813}
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &655916899
 Prefab:
   m_ObjectHideFlags: 0
@@ -24417,8 +24453,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3849501f89640740a325094e9403640, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ps: {fileID: 1189702894}
-  lifeBar: {fileID: 654853599}
 --- !u!198 &1189702894
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -31019,6 +31053,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4579061441338828, guid: 9e736e09d454c9b44bda52543de04f8e,
     type: 2}
   m_PrefabInternal: {fileID: 1344181824}
+--- !u!114 &1350629451 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114182877329260946, guid: e96100c97b8690547b62b4b132419c05,
+    type: 2}
+  m_PrefabInternal: {fileID: 1850596289}
+  m_Script: {fileID: 11500000, guid: 3155960307be6e7479fe99e647098aa7, type: 3}
 --- !u!4 &1350769544 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4579061441338828, guid: 9e736e09d454c9b44bda52543de04f8e,
@@ -33650,7 +33690,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4982099487642026, guid: 304c03a8f433b564e984d24e8fda90f5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -31.77
+      value: -31.84
       objectReference: {fileID: 0}
     - target: {fileID: 4982099487642026, guid: 304c03a8f433b564e984d24e8fda90f5, type: 2}
       propertyPath: m_LocalPosition.y
@@ -53662,7 +53702,7 @@ Prefab:
     - target: {fileID: 114084384804812090, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0,
         type: 2}
       propertyPath: delayToFirstHammerHitInGame
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 114084384804812090, guid: e6bb6c8d6ce615e44b6e09086cc8d3e0,
         type: 2}

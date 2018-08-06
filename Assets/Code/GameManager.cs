@@ -261,14 +261,11 @@ public class GameManager : MonoBehaviour {
     //===== ===== Library ===== =====
 
     public static void EndGame(bool won = false) {
-        GM.BeatSeconds = 0;
         if (won) {
             LogSystem.LogOnFile("===== Game Won =====");// ----- ----- LOG ----- -----
-            GM.NextLevel = GM.Scene - 1;
             //GM.StartMainMenu();
         } else {
             LogSystem.LogOnFile("===== Game failed =====");// ----- ----- LOG ----- -----
-            GM.NextLevel = GM.Scene - 2;
             GM.PM.SetPlayerControl(false);
             //GM.StartGameOver();
         }
