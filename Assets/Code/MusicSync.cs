@@ -26,7 +26,7 @@ public class MusicSync : MonoBehaviour {
                 audio.PlayDelayed(delayToFirstHammerHitInGame - delayToFirstBeatInFile - GameManager.GetTime());
             } else {
                 audio.Play();
-                audio.time = -delayToFirstHammerHitInGame - delayToFirstBeatInFile - GameManager.GetTime();
+                audio.time = -(delayToFirstHammerHitInGame - delayToFirstBeatInFile - GameManager.GetTime());
             }
         }
     }
