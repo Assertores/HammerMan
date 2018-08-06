@@ -317,18 +317,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Creaps:
   - Creap: {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
-    Ratio: 5
-  - Creap: {fileID: 1720267005446818, guid: a613bc1583b1be040a60477ddfe100bb, type: 2}
     Ratio: 2
+  - Creap: {fileID: 1720267005446818, guid: a613bc1583b1be040a60477ddfe100bb, type: 2}
+    Ratio: 1
   - Creap: {fileID: 1720267005446818, guid: 1bf1460173a30f14bb65cb44cbaec3cc, type: 2}
-    Ratio: 5
+    Ratio: 2
   - Creap: {fileID: 1720267005446818, guid: d96b0e860e9793c44844fd85d2c48864, type: 2}
-    Ratio: 5
+    Ratio: 2
   SpawnRate: 2
   WaveLength: 6
   GapLength: 4
   Factor: 2
-  MaximumGapLength: 8
+  MaximumGapLength: 10
   UseFunction: 1
 --- !u!114 &114993881322214834
 MonoBehaviour:
@@ -384,7 +384,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -135181075
-  m_SortingLayer: 11
+  m_SortingLayer: 13
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300002, guid: 051f0e14423d9c54aac35d9e1d8589ae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
