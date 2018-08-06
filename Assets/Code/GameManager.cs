@@ -200,6 +200,9 @@ public class GameManager : MonoBehaviour {
     }
 
     public static void ChangeGeneratorCount(int count = 1) {
+        if (count > 0) {
+            GM.restart = false;
+        }
         if (GM.restart)
             return;
 
