@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void StartMainMenu() {
+        GM.BeatSeconds = 0;
         SceneManager.LoadScene(StringCollection.MAINMENU, LoadSceneMode.Single);
         GM.Scene = 0;
     }
@@ -250,8 +251,8 @@ public class GameManager : MonoBehaviour {
     public static void StartBeats(float beats, float nullTime) { //beats = abstand zweiter beats in secunden, nullTime = zeitpunkt des nullten beats abLeveltime
         GM.BeatSeconds = beats;
         GM.BeatCount = -(int)(nullTime/beats);
-        GM.BeatTimeAtStart = GameManager.GetTime() + nullTime;
-        print("lets go:" + (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds));
+        GM.BeatTimeAtStart = nullTime;
+        print("lets go:" + (GM.BeatTimeAtStart));
         GM.beatTime = GM.BeatSeconds - (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds);
         //GM.StartCoroutine(GM.TriggerBPMUpdate());
         //GM.Invoke("TriggerBPMUpdate", (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time);
@@ -260,7 +261,7 @@ public class GameManager : MonoBehaviour {
     //===== ===== Library ===== =====
 
     public static void EndGame(bool won = false) {
-        
+        GM.BeatSeconds = 0;
         if (won) {
             LogSystem.LogOnFile("===== Game Won =====");// ----- ----- LOG ----- -----
             GM.NextLevel = GM.Scene - 1;
