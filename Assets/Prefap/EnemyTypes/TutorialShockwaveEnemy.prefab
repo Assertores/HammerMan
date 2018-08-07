@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4077442444480478}
   - component: {fileID: 212127519759165522}
-  - component: {fileID: 95941379350059870}
+  - component: {fileID: 95203897626334760}
   m_Layer: 11
   m_Name: Sprite
   m_TagString: Untagged
@@ -39,9 +39,10 @@ GameObject:
   - component: {fileID: 61457333285938392}
   - component: {fileID: 50682961213363256}
   - component: {fileID: 114753376574924906}
-  - component: {fileID: 82463694986692758}
+  - component: {fileID: 114478710921738570}
+  - component: {fileID: 82470629225238920}
   m_Layer: 11
-  m_Name: Enemy
+  m_Name: TutorialShockwaveEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1025917008769302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4390797824022858}
@@ -67,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1720267005446818}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -55.967033, y: 8.379408, z: 0}
+  m_LocalPosition: {x: -26.126804, y: 11.091896, z: 0}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
   - {fileID: 4077442444480478}
@@ -119,7 +120,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9, y: 0.55}
   m_EdgeRadius: 0.05
---- !u!82 &82463694986692758
+--- !u!82 &82470629225238920
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -214,7 +215,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!95 &95941379350059870
+--- !u!95 &95203897626334760
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -223,7 +224,7 @@ Animator:
   m_GameObject: {fileID: 1025917008769302}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 88c59da96a31aed4da7dc87024f3d5c3, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9dd1a36ad416e144dbc7f7dcf5787452, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -232,6 +233,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114478710921738570
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1720267005446818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82d57578be2aef845aa6e4fe56925b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PPU: 32
 --- !u!114 &114753376574924906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -251,18 +264,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 95ab47b836481a44b8fc4449d12f0217, type: 3}
   - {fileID: 8300000, guid: 88c2309da3ef4e8478bfb992a352582c, type: 3}
   - {fileID: 8300000, guid: 967f1acab6776ed408aa7b5c307a85da, type: 3}
-  InvoceOnEnemyDeath: []
-  Name: Normal
+  InvoceOnEnemyDeath:
+  - {fileID: 1233365605200796, guid: 1cc48ea65e90a7642a06723841bf734d, type: 2}
+  Name: Shock
   AbleToHitFrom: 0
-  EnemySpeed: 2.75
+  EnemySpeed: 3
   EnemyDamageOnExit: 1
   TurningDistance: 0.6
   FleeDistance: 2
-  Invulnerable: 0.3
+  Invulnerable: 0.1
   DistancePerLoop: 1
   ChangeDirectionAt:
     serializedVersion: 2
-    m_Bits: 3072
+    m_Bits: 2147486720
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 4096
@@ -305,12 +319,12 @@ SpriteRenderer:
   m_SortingLayerID: 909716399
   m_SortingLayer: 11
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2014e6ddc358b924481f197db68f42b5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8a180fd93e50a1645a34ad599ac4b936, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4413833938898016}
   - component: {fileID: 212927178992550690}
   - component: {fileID: 61492429271885126}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: SideStreetTileHammerjeager
   m_TagString: Untagged
   m_Icon: {fileID: 0}

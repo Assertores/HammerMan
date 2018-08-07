@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4191475613711380}
   - component: {fileID: 212094923639757526}
   - component: {fileID: 61725221379321858}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: CurbstoneLeftTileHammerjeager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
