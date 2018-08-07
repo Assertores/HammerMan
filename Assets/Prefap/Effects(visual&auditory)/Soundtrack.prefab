@@ -35,7 +35,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1719413530874810}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -34, y: 7.5, z: 0}
+  m_LocalPosition: {x: -29, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -50,7 +50,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: babeab3a24c7cc84780d6e4f34f2de21, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 11a5f2325826622469ca2497b8162dcc, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -147,6 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f6831f15d5cf934d95a74abcaa95907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayToFirstBeatInFile: 0
-  delayToFirstHammerHitInGame: 0
-  BPM: 0
+  delayToFirstBeatInFile: 5.165
+  delayToFirstHammerHitInGame: 7
+  BPM: 140

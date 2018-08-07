@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4579061441338828}
   - component: {fileID: 212276959045574326}
   - component: {fileID: 61865799473759794}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: EarthTileHammerjeager
   m_TagString: Untagged
   m_Icon: {fileID: 0}

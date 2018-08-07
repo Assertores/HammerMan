@@ -18,3 +18,5 @@ obj/
 *.csproj
 
 LOG/
+
+Build/
