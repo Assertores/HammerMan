@@ -25,9 +25,10 @@ public class GameManager : MonoBehaviour {
     public int CurrentLife = 0;
     public int EnemyCount = 0;
     double beatTime = 0;
+    bool restart = false;
 
     int GeneratorCount = 0;
-    public bool GeneratorAlive { get; private set; }
+    public bool GeneratorAlive = true;
 
     public int Scene = 0;
 
@@ -88,8 +89,11 @@ public class GameManager : MonoBehaviour {
     }
 
     public void StartLevel(int level) {
+        restart = true;
+
         //GM.LevelTimeAtStart = Time.time;
         GM.GeneratorAlive = true;
+        GM.LevelTime.Stop();
         GM.LevelTime.Reset();
         GM.LevelTime.Start();
         GM.BeatTimeAtStart = 0;
@@ -98,11 +102,12 @@ public class GameManager : MonoBehaviour {
         GM.CurrentLife = 0;
         GM.EnemyCount = 0;
         LogSystem.LogOnFile("===== LevelStart =====");// ----- ----- LOG ----- -----
-        GM.EnemyCount = 0;
         if (!GM.StartingInLevel) {
             switch (level) {//wählt level aus
             case 1:
                 SceneManager.LoadScene(StringCollection.SCENE01);
+                GM.GeneratorAlive = true;
+                GM.EnemyCount = 0;
                 break;
             default:
                 LogSystem.LogOnConsole("Level not found");// ----- ----- LOG ----- -----
@@ -111,6 +116,8 @@ public class GameManager : MonoBehaviour {
         } else {
             level = 1;
         }
+        GM.GeneratorAlive = true;
+        GM.EnemyCount = 0;
         GM.Scene = level + 2;
     }
 
@@ -162,6 +169,11 @@ public class GameManager : MonoBehaviour {
 
     //===== ===== Comunicator ===== =====
     public static bool ChangeEnemyCount(int count = 1, int life = 0) {
+        if(count > 0) {
+            GM.restart = false;
+        }
+        if (GM.restart)
+            return false;
         if(GM == null) {
             LogSystem.LogOnConsole("Game Manager not available");// ----- ----- LOG ----- -----
             return false;
@@ -188,6 +200,12 @@ public class GameManager : MonoBehaviour {
     }
 
     public static void ChangeGeneratorCount(int count = 1) {
+        if (count > 0) {
+            GM.restart = false;
+        }
+        if (GM.restart)
+            return;
+
         GM.GeneratorCount += count;
         if (GM.GeneratorCount <= 0)
             GM.GeneratorAlive = false;
