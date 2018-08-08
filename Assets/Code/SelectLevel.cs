@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class SelectLevel : MonoBehaviour {
 
     [SerializeField]
-    Text text;
-    [SerializeField]
     Button button;
 	int Level = 1;
 
@@ -19,7 +17,6 @@ public class SelectLevel : MonoBehaviour {
         if(Level > GameManager.GetNextLevel()) {
             Level = GameManager.GetNextLevel();
         }
-        text.text = "Level " + Level;
     }
     
     public void StartLevel() {
