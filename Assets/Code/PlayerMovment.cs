@@ -25,9 +25,12 @@ public class PlayerMovment : MonoBehaviour {
     float HoverHight = 1.0f;
     [SerializeField]
     float JumpStrength = 1.0f;
+    [SerializeField]
+    float DistBetweenLeggs = 1;
 
     public PlayerState State = PlayerState.Idle;
-    float DistToGround = 0;
+    float DistToGroundRHS = 0;
+    float DistToGroundLHS = 0;
 
     Rigidbody2D rb;
     HammerManager Hammer;
@@ -38,6 +41,7 @@ public class PlayerMovment : MonoBehaviour {
     bool PlayerIsInGround = false;
     float oldGravityScale;
     Animator anim;
+    AnimationMashine animState;
     //int onBeatTrigger;
 
     private void OnDestroy() {
@@ -56,6 +60,11 @@ public class PlayerMovment : MonoBehaviour {
             throw new System.Exception("Hammer not found. Player");
         }
 
+        animState = GetComponent<AnimationMashine>();
+        if (!animState) {
+            GameManager.GM.BPMUpdate += BPMUpdate;
+        }
+
         oldGravityScale = rb.gravityScale;
         LogSystem.LogOnConsole("i'm here. Player: " + this);// ----- ----- LOG ----- -----
         GameManager.RegistPlayer(this);
@@ -69,7 +78,7 @@ public class PlayerMovment : MonoBehaviour {
         //anim.GetCurrentAnimatorClipInfo(0)[Animator.StringToHash("idle")].clip.length / (GameManager.GetBeatSeconds() * 2)
         //setzt den speed der animation des states "Idle" sodass es zum beat passt
         //jeden zweiten beat
-        GameManager.GM.BPMUpdate += BPMUpdate;
+        
     }
 
     void BPMUpdate(int i) {
@@ -89,13 +98,23 @@ public class PlayerMovment : MonoBehaviour {
             InputControler.SetDown(0);
             ChangeState(PlayerState.Idle);
         }
+
+        if(this.transform.position.x > -20) {
+            this.transform.position = new Vector3(-20, this.transform.position.y, this.transform.position.z);
+        }
+        if (this.transform.position.x < -48) {
+            this.transform.position = new Vector3(-48, this.transform.position.y, this.transform.position.z);
+        }
+
         if (InControle) {
-            DistToGround = Physics2D.Raycast(this.transform.position, -this.transform.up, 1000, FallLayers).distance;
+            DistToGroundRHS = Physics2D.Raycast(new Vector3(this.transform.position.x + DistBetweenLeggs / 2, this.transform.position.y, this.transform.position.z), -this.transform.up, 1000, FallLayers).distance;
+            DistToGroundLHS = Physics2D.Raycast(new Vector3(this.transform.position.x - DistBetweenLeggs / 2, this.transform.position.y, this.transform.position.z), -this.transform.up, 1000, FallLayers).distance;
+
             switch (State) { //finite state machine: übergänge von states
             case PlayerState.Idle:
                 goto case PlayerState.Moving;
             case PlayerState.Moving:
-                if (DistToGround > HoverHight || InputControler.DownCount > 0)
+                if ((DistToGroundRHS > HoverHight && DistToGroundLHS > HoverHight) || InputControler.DownCount > 0)
                     ChangeState(PlayerState.Falling);
                 else if (InputControler.Vertical > 0 && isUpPossible)
                     ChangeState(PlayerState.Climbing);
@@ -121,8 +140,13 @@ public class PlayerMovment : MonoBehaviour {
                 break;
             case PlayerState.Falling:
                 //print("================================" + InputControler.DownCount);
-                if (DistToGround <= HoverHight && InputControler.DownCount <= 0)
-                    ChangeState(PlayerState.Idle);
+                if ((DistToGroundRHS <= HoverHight || DistToGroundLHS <= HoverHight) && InputControler.DownCount <= 0) {
+                    if (InputControler.Horizontal == 0)
+                        ChangeState(PlayerState.Idle);
+                    else {
+                        ChangeState(PlayerState.Moving);
+                    }
+                }
                 break;
             case PlayerState.Landing:
                 //if (GameManager.GetHammerTime() % 1 > 0.9)
@@ -139,9 +163,9 @@ public class PlayerMovment : MonoBehaviour {
     void FixedUpdate() {
         if (InControle) {
 
-            if (Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && !PlayerIsInGround) {//macht dass man durch die richtige anzahl an ebenen durchfällt
+            if (Physics2D.IsTouchingLayers(GetComponent<PolygonCollider2D>(), FallLayers) && !PlayerIsInGround) {//macht dass man durch die richtige anzahl an ebenen durchfällt
                 PlayerIsInGround = true;
-            } else if (!Physics2D.IsTouchingLayers(GetComponent<CapsuleCollider2D>(), FallLayers) && PlayerIsInGround) {
+            } else if (!Physics2D.IsTouchingLayers(GetComponent<PolygonCollider2D>(), FallLayers) && PlayerIsInGround) {
                 PlayerIsInGround = false;
                 InputControler.ChangeDown(-1);
             }
@@ -150,7 +174,8 @@ public class PlayerMovment : MonoBehaviour {
             case PlayerState.Idle:
                 break;
             case PlayerState.Moving:
-                rb.velocity = new Vector2(InputControler.Horizontal * PlayerSpeed, rb.velocity.y);
+                if(InputControler.Horizontal != 0)
+                    rb.velocity = new Vector2(InputControler.Horizontal * PlayerSpeed, rb.velocity.y);
                 if ((InputControler.Horizontal < 0 && DirRight) || (InputControler.Horizontal > 0 && !DirRight)) {
                     ChangeDir(!DirRight);
                 }
@@ -160,7 +185,7 @@ public class PlayerMovment : MonoBehaviour {
                 this.transform.position = new Vector3(Ladder.x, this.transform.position.y, this.transform.position.z);
                 break;
             case PlayerState.Jumping:
-                break;
+                goto case PlayerState.Moving;
             case PlayerState.Falling:
                 goto case PlayerState.Moving;
             /*case PlayerState.Landing:
@@ -184,12 +209,14 @@ public class PlayerMovment : MonoBehaviour {
         case PlayerState.Climbing:
             rb.gravityScale = oldGravityScale;
             rb.velocity = new Vector2(rb.velocity.x, 0);
+            if (transform.position.y > Ladder.y + 2f)
+                transform.position = new Vector3(Ladder.x, Ladder.y + 3.5f, 0);
             InputControler.SetDown(0);
             break;
         case PlayerState.Jumping:
             break;
         case PlayerState.Falling:
-            GetComponent<CapsuleCollider2D>().isTrigger = false;
+            GetComponent<PolygonCollider2D>().isTrigger = false;
             break;
         /*case PlayerState.Landing:
             rb.gravityScale = oldGravityScale;
@@ -200,10 +227,15 @@ public class PlayerMovment : MonoBehaviour {
             break;
         }
 
-        anim.SetInteger("PrevState", (int)State);
-        State = newState;
-        anim.SetInteger("State", (int)State);
+        if (animState)
+            animState.ChangeState(newState);
+        else {
+            anim.SetInteger("PrevState", (int)State);
+            anim.SetInteger("State", (int)newState);
 
+        }
+        State = newState;
+        
 
         switch (State) { //finite state machine: bei betreten des states
         case PlayerState.Idle:
@@ -225,7 +257,7 @@ public class PlayerMovment : MonoBehaviour {
             break;
         case PlayerState.Falling:
             Hammer.SetHammer(false);
-            GetComponent<CapsuleCollider2D>().isTrigger = true;
+            GetComponent<PolygonCollider2D>().isTrigger = true;
             rb.velocity = new Vector2(rb.velocity.x, -FallThroughBoost);
             break;
         /*case PlayerState.Landing:

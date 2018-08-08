@@ -27,5 +27,5 @@ public class StringCollection {
     public const string MAINMENU = "MainMenu";
     public const string GAMEOVER = "GameOver";
     public const string CREADITS = "Creadits";
-    public const string SCENE01 = "Scene01";
+    public const string SCENE01 = "Level02";
 }

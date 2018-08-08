@@ -55,7 +55,7 @@ public class SpanerScript : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        anim.SetBool("Alive", GameManager.GM.GeneratorAlive);
+        //anim.SetBool("Alive", GameManager.GM.GeneratorAlive);
     }
 
     void SpawnBehavior0() {//spawnt gegner wenn es zeit dafür ist

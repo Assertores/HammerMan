@@ -13,6 +13,7 @@ public static class LogSystem {
     }
 
     public static void LogOnFile(string message) {
+        Directory.CreateDirectory("LOG");
         File.AppendAllText(fileName, System.DateTime.Now.ToString("HH:mm:ss") + " |LT: " + GameManager.GetTime().ToString("0000.00") + " |=|Message: " + message + System.Environment.NewLine);
     }
 }

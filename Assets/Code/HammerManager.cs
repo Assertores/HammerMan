@@ -12,10 +12,9 @@ public class HammerManager : MonoBehaviour {
     [Range(0.0f, 1.0f)]
     [Tooltip("Ende des Hammerschlags als prozentzahl der frequenzzeit")]
     float HammerOnEnd;
-    [SerializeField]
-    int HammerEveryXBeat = 2;
 
     bool DoHammer = true;
+    int LastBeat = 0;
 
     BoxCollider2D HammerCol;
     new AudioSource audio;
@@ -31,16 +30,28 @@ public class HammerManager : MonoBehaviour {
             throw new System.Exception("Audio Sorce not found. Hammer");
         }
 
-        GameManager.GM.BPMUpdate += BPMUpdate;
+        //GameManager.GM.BPMUpdate += BPMUpdate;
     }
     
     void OnDestroy() {
-        GameManager.GM.BPMUpdate -= BPMUpdate;
+        //GameManager.GM.BPMUpdate -= BPMUpdate;
         CancelInvoke();
+    }
+
+    private void Update() {
+        if(LastBeat < GameManager.GetBeatCount()) {
+            LastBeat = GameManager.GetBeatCount();
+            if (audio)
+                audio.Play();
+            Invoke("DoHammerOn", HammerOnBeginning * GameManager.GetBeatSeconds());
+            Invoke("DoHammerOff", HammerOnEnd * GameManager.GetBeatSeconds());
+            //print("Hammer: " + (GameManager.GetTime() - GameManager.GetTimeOfLastBeat()));
+        }
     }
 
     void BPMUpdate(int count) {
         if(count >= 0) {
+            //print("Hammer: " + (GameManager.GetTime() - GameManager.GetTimeOfLastBeat()));
             if(audio)
                 audio.Play();
             Invoke("DoHammerOn", HammerOnBeginning * GameManager.GetBeatSeconds());

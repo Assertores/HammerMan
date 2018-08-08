@@ -56,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1025917008769302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4390797824022858}
@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1720267005446818}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -51.011665, y: 1.131085, z: 0}
+  m_LocalPosition: {x: -51.36496, y: 8.159456, z: 0}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_Children:
   - {fileID: 4077442444480478}
@@ -263,23 +263,29 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 97eedd7c3a4a0764cbdc39b618c7d90f, type: 3}
   - {fileID: 8300000, guid: 96597f7107dd7104cb4a81da741ead66, type: 3}
   - {fileID: 8300000, guid: 95ab47b836481a44b8fc4449d12f0217, type: 3}
-  - {fileID: 8300000, guid: bc61cc7ad6925134fb36628789ee3349, type: 3}
+  - {fileID: 8300000, guid: 88c2309da3ef4e8478bfb992a352582c, type: 3}
   - {fileID: 8300000, guid: 967f1acab6776ed408aa7b5c307a85da, type: 3}
   InvoceOnEnemyDeath:
   - {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
   - {fileID: 1720267005446818, guid: 8c4ea2e5abc9e5741b80ae1b349ce2ec, type: 2}
   Name: Spawn
   AbleToHitFrom: 0
-  EnemySpeed: 2
-  EnemyDamageOnExit: 1
+  EnemySpeed: 2.5
+  EnemyDamageOnExit: 2
   TurningDistance: 0.6
-  Invulnerable: 1
+  FleeDistance: 2
+  Invulnerable: 0.1
   DistancePerLoop: 1
   ChangeDirectionAt:
     serializedVersion: 2
     m_Bits: 3072
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  EnemyLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   State: 0
-  DirRight: 1
 --- !u!212 &212100763763248674
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -357,15 +363,15 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: ec936847879d69342a4d09a1fa831f10, type: 3}
+  m_SortingLayerID: 909716399
+  m_SortingLayer: 11
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 4e2ace74516282946b6d084ae7391b64, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

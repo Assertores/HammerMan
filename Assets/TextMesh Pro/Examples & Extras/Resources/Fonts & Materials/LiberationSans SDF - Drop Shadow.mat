@@ -63,12 +63,12 @@ Material:
     - _OutlineSoftness: 0
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0.188
+    - _OutlineWidth: 0.252
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
     - _ScaleRatioA: 0.9
     - _ScaleRatioB: 0.73125
-    - _ScaleRatioC: 0.34907457
+    - _ScaleRatioC: 0.44500348
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -81,9 +81,9 @@ Material:
     - _TextureHeight: 1024
     - _TextureWidth: 1024
     - _UnderlayDilate: 1
-    - _UnderlayOffsetX: 0
-    - _UnderlayOffsetY: -0
-    - _UnderlaySoftness: 0.837
+    - _UnderlayOffsetX: -0.11
+    - _UnderlayOffsetY: -0.059
+    - _UnderlaySoftness: 0.331
     - _VertexOffsetX: 0
     - _VertexOffsetY: 0
     - _WeightBold: 0.75
@@ -98,4 +98,4 @@ Material:
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-    - _UnderlayColor: {r: 0.015039816, g: 0.6603774, b: 0, a: 1}
+    - _UnderlayColor: {r: 1, g: 0.050980393, b: 0.050980393, a: 1}

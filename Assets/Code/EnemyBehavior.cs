@@ -35,16 +35,20 @@ public class EnemyBehavior : MonoBehaviour {
     [SerializeField]
     float TurningDistance = 10;
     [SerializeField]
+    float FleeDistance = 0;
+    [SerializeField]
     float Invulnerable = 1; //time
     [SerializeField]
     [Tooltip("the travel distance per animation loop in unity units")]
     float DistancePerLoop = 1;
     public LayerMask ChangeDirectionAt;
+    public LayerMask PlayerLayer;
+    public LayerMask EnemyLayer;
 
     Rigidbody2D rb;
 
     public EnemyState State = EnemyState.Moving;
-    public bool DirRight = true;
+    public bool DirRight { get; private set; }
 
     void Start() {
         LogSystem.LogOnFile(Name + " Enemy got spawned");// ----- ----- LOG ----- -----
@@ -60,11 +64,12 @@ public class EnemyBehavior : MonoBehaviour {
         else
             HealingFlag = false;
 
+        DirRight = true;
         //randam direction
-        DirRight = (Random.value > 0.5f);
+        /*DirRight = (Random.value > 0.5f);
         if (!DirRight) {
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-        }
+        }*/
 
         Animator anim = GetComponentInChildren<Animator>();
         if (!anim) {
@@ -94,16 +99,31 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        //umdrehen?
         RaycastHit2D hit = Physics2D.Raycast(new Vector3(this.transform.position.x + (DirRight ? 0.6f : -0.6f), this.transform.position.y, this.transform.position.z),
                                                 this.transform.right * rb.velocity.x, TurningDistance - 0.6f, ChangeDirectionAt);
+        if (Physics2D.Raycast(new Vector3(this.transform.position.x + (DirRight ? 0.6f : -0.6f), this.transform.position.y, this.transform.position.z),
+                                               this.transform.right * rb.velocity.x, FleeDistance - 0.6f, PlayerLayer).collider != null)
+            ChangeDir(!DirRight);
+        Collider2D[] hitDown = Physics2D.OverlapBoxAll(new Vector2(transform.position.x, transform.position.y - 1),new Vector2(1f, 0.5f),0,EnemyLayer);
+
         
+        
+        int hitDownFlag = -1;
+        for(int i = 0; hitDownFlag == -1 && i < hitDown.Length; i++) {
+            if(hitDown[i] != GetComponent<Collider2D>()) {
+                hitDownFlag = i;
+            }
+        }
+
         switch (State) { //finite state machine: während diesem state
         case EnemyState.Moving:
-            rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
-            if (hit.collider != null) {
+
+            if(hitDownFlag != -1) {
+                ChangeDir(!hitDown[hitDownFlag].GetComponent<EnemyBehavior>().DirRight);
+            }else if (hit.collider != null) {
                 ChangeDir(!DirRight);
             }
+            rb.velocity = new Vector2(DirRight ? EnemySpeed : -EnemySpeed, rb.velocity.y);
             break;
         case EnemyState.Falling:
             break;
@@ -149,7 +169,7 @@ public class EnemyBehavior : MonoBehaviour {
             if (DeathSound.Length != 0) {//fügt audioclip hinzu
                 AudioSource audio = GetComponent<AudioSource>();
                 audio.clip = DeathSound[temp];
-                GameManager.GM.BPMUpdate += Play;
+                Invoke("Play", GameManager.GetBeatSeconds() - (GameManager.GetTime() - GameManager.GetTimeOfLastBeat()));
             }
             GameObject.Destroy(this.transform.gameObject, 1.0f);
             break;
@@ -159,9 +179,9 @@ public class EnemyBehavior : MonoBehaviour {
         }
     }
 
-    void Play(int i) {
+    void Play() {
+        //print("Enemy: " + gameObject.name + " " + (GameManager.GetTime() - GameManager.GetTimeOfLastBeat()));
         GetComponent<AudioSource>().Play();
-        GameManager.GM.BPMUpdate -= Play;
     }
 
     //----- ----- für vererbung ----- -----

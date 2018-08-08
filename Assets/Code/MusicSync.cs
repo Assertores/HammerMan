@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class MusicSync : MonoBehaviour {
 
     [SerializeField]
@@ -10,20 +11,22 @@ public class MusicSync : MonoBehaviour {
     float delayToFirstHammerHitInGame = 0.0f;
     [SerializeField]
     float BPM = 0;
+    AudioSource audio = null;
 
     public void Start() {
-        Play(delayToFirstHammerHitInGame - delayToFirstBeatInFile - GameManager.GetTime());
+        audio = GetComponent<AudioSource>();
         GameManager.StartBeats(60/ BPM, delayToFirstHammerHitInGame);
+        Play(delayToFirstHammerHitInGame - delayToFirstBeatInFile - GameManager.GetTime());
     }
 
     private void Play(float skip = 0.0f) {
-        AudioSource audio = GetComponent<AudioSource>();
+
         if (audio) {
-            if (skip >= 0) {
-                audio.PlayDelayed(skip);
+            if (delayToFirstHammerHitInGame - delayToFirstBeatInFile - GameManager.GetTime() >= 0) {
+                audio.PlayDelayed(delayToFirstHammerHitInGame - delayToFirstBeatInFile - GameManager.GetTime());
             } else {
                 audio.Play();
-                audio.time = -skip;
+                audio.time = -(delayToFirstHammerHitInGame - delayToFirstBeatInFile - GameManager.GetTime());
             }
         }
     }

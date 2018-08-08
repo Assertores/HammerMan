@@ -25,9 +25,10 @@ public class GameManager : MonoBehaviour {
     public int CurrentLife = 0;
     public int EnemyCount = 0;
     double beatTime = 0;
+    bool restart = false;
 
     int GeneratorCount = 0;
-    public bool GeneratorAlive { get; private set; }
+    public bool GeneratorAlive = true;
 
     public int Scene = 0;
 
@@ -65,7 +66,7 @@ public class GameManager : MonoBehaviour {
             if (GM.Scene == 0) {
                 StopExe();
             } else if (GM.Scene >= 2) {
-                EndGame(false);
+                StartMainMenu();
             } else if (Time.timeScale != 0) {
                 GM.FreezeGame();
             } else {
@@ -75,7 +76,6 @@ public class GameManager : MonoBehaviour {
         //beatTime += Time.deltaTime;
         //if (beatTime >= BeatSeconds)
         if(GM.BPMUpdate != null && BeatSeconds != 0 && GameManager.GetTime() >= BeatTimeAtStart + BeatCount * BeatSeconds) {
-            print("test");
             beatTime -= BeatSeconds;
             GM.BPMUpdate(GM.BeatCount);
             GM.BeatCount++;
@@ -83,21 +83,31 @@ public class GameManager : MonoBehaviour {
     }
 
     public void StartMainMenu() {
+        GM.BeatSeconds = 0;
         SceneManager.LoadScene(StringCollection.MAINMENU, LoadSceneMode.Single);
         GM.Scene = 0;
     }
 
     public void StartLevel(int level) {
+        restart = true;
+
         //GM.LevelTimeAtStart = Time.time;
         GM.GeneratorAlive = true;
+        GM.LevelTime.Stop();
         GM.LevelTime.Reset();
         GM.LevelTime.Start();
-        LogSystem.LogOnFile("===== LevelStart =====");// ----- ----- LOG ----- -----
+        GM.BeatTimeAtStart = 0;
+        GM.BeatSeconds = 0;
+        GM.BeatCount = 0;
+        GM.CurrentLife = 0;
         GM.EnemyCount = 0;
+        LogSystem.LogOnFile("===== LevelStart =====");// ----- ----- LOG ----- -----
         if (!GM.StartingInLevel) {
             switch (level) {//wählt level aus
             case 1:
                 SceneManager.LoadScene(StringCollection.SCENE01);
+                GM.GeneratorAlive = true;
+                GM.EnemyCount = 0;
                 break;
             default:
                 LogSystem.LogOnConsole("Level not found");// ----- ----- LOG ----- -----
@@ -106,12 +116,9 @@ public class GameManager : MonoBehaviour {
         } else {
             level = 1;
         }
+        GM.GeneratorAlive = true;
+        GM.EnemyCount = 0;
         GM.Scene = level + 2;
-    }
-
-    public void StartGameOver() {
-        SceneManager.LoadScene(StringCollection.GAMEOVER, LoadSceneMode.Single);
-        GM.Scene = 1;
     }
 
     public void StartCreadits() {
@@ -162,6 +169,11 @@ public class GameManager : MonoBehaviour {
 
     //===== ===== Comunicator ===== =====
     public static bool ChangeEnemyCount(int count = 1, int life = 0) {
+        if(count > 0) {
+            GM.restart = false;
+        }
+        if (GM.restart)
+            return false;
         if(GM == null) {
             LogSystem.LogOnConsole("Game Manager not available");// ----- ----- LOG ----- -----
             return false;
@@ -177,10 +189,10 @@ public class GameManager : MonoBehaviour {
         //LogSystem.LogOnConsole("Current Life is: " + GM.CurrentLife);// ----- ----- LOG ----- -----
 
         if (GM.CurrentLife <= 0) {
-            GM.StartGameOver();
+            EndGame(false);
             return true;
         }
-        if (GM.EnemyCount <= 0) {
+        if (GM.EnemyCount <= 0 && GM.GeneratorAlive == false) {
             EndGame(true);
             return true;
         }
@@ -188,6 +200,12 @@ public class GameManager : MonoBehaviour {
     }
 
     public static void ChangeGeneratorCount(int count = 1) {
+        if (count > 0) {
+            GM.restart = false;
+        }
+        if (GM.restart)
+            return;
+
         GM.GeneratorCount += count;
         if (GM.GeneratorCount <= 0)
             GM.GeneratorAlive = false;
@@ -251,8 +269,8 @@ public class GameManager : MonoBehaviour {
     public static void StartBeats(float beats, float nullTime) { //beats = abstand zweiter beats in secunden, nullTime = zeitpunkt des nullten beats abLeveltime
         GM.BeatSeconds = beats;
         GM.BeatCount = -(int)(nullTime/beats);
-        GM.BeatTimeAtStart = GameManager.GetTime() + nullTime;
-        print("lets go:" + (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds));
+        GM.BeatTimeAtStart = nullTime;
+        print("lets go:" + (GM.BeatTimeAtStart));
         GM.beatTime = GM.BeatSeconds - (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds);
         //GM.StartCoroutine(GM.TriggerBPMUpdate());
         //GM.Invoke("TriggerBPMUpdate", (GM.BeatTimeAtStart + GM.BeatCount * GM.BeatSeconds) - Time.time);
@@ -261,21 +279,17 @@ public class GameManager : MonoBehaviour {
     //===== ===== Library ===== =====
 
     public static void EndGame(bool won = false) {
-        GM.LevelTime.Stop();
-        GM.BeatTimeAtStart = 0;
-        GM.BeatSeconds = 0;
-        GM.BeatCount = 0;
         if (won) {
             LogSystem.LogOnFile("===== Game Won =====");// ----- ----- LOG ----- -----
-            GM.NextLevel = GM.Scene - 1;
-            GM.StartMainMenu();
+            //GM.StartMainMenu();
         } else {
             LogSystem.LogOnFile("===== Game failed =====");// ----- ----- LOG ----- -----
-            GM.NextLevel = GM.Scene - 2;
-            GM.StartGameOver();
+            GM.PM.SetPlayerControl(false);
+            //GM.StartGameOver();
         }
-        GM.CurrentLife = 0;
-        GM.EnemyCount = 0;
+        if(GM.UIM)
+            GM.UIM.GameEnds(won);
+        
         //GM.CancelInvoke("TriggerBPMUpdate");
     }
     public static float GetTime() {
@@ -288,12 +302,20 @@ public class GameManager : MonoBehaviour {
         return (float)GM.BeatSeconds;
     }
 
+    public static float GetTimeOfLastBeat() {
+        return (float)(GM.BeatTimeAtStart + (GM.BeatCount - 1) * GM.BeatSeconds);
+    }
+
     public static bool GetDebugMode() {
         return GM.DebugMode;
     }
 
     public static int GetNextLevel() {
         return GM.NextLevel;
+    }
+
+    public static int GetBeatCount() {
+        return GM.BeatCount;
     }
 
     public void FreezeGame() {
