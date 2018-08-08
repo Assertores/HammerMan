@@ -396,7 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014918a4d7bd62d48bc1fa3d876746c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HammerOnBeginning: 0.93
+  HammerOnBeginning: 0.92
   HammerOnEnd: 1
 --- !u!212 &212207553440241022
 SpriteRenderer:
